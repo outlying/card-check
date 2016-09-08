@@ -1,0 +1,29 @@
+#eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+target/
+
+# Gradle
+.gradle/
+build/
+local.properties
+
+# Binaries
+bin/
+gen/
+
+# Crashlytics
+crashlytics.properties
+crashlytics-build.properties
+app/src/main/res/values/com_crashlytics_export_strings.xml
