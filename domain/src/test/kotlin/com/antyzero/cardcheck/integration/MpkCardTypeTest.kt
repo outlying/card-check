@@ -1,5 +1,6 @@
 package com.antyzero.cardcheck.integration
 
+import com.antyzero.cardcheck.card.mpk.Type
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.junit.Test
@@ -7,25 +8,27 @@ import java.util.regex.Pattern
 
 class MpkCardTypeTest {
 
+    /**
+     * Check if current enum set match the one on MPK site
+     */
     @Test
     fun testCollectionMatch() {
         val request = Request.Builder().url("http://www.mpk.krakow.pl/pl/").build()
         val response = OkHttpClient().newCall(request).execute().body().string()
 
-        response.println()
+        "cityCardType.+?>(.+)</select>".toPattern(Pattern.DOTALL).matcher(response).run {
+            if (!find()) throw IllegalStateException("Missing data")
 
-        "cityCardType.+?>(.+)</select>".toPattern().matcher(response).apply {
-            while (find()){
-                System.out.println(group(0))
+            "value=\"(\\d+)\">(.+?)<".toPattern().matcher(group(0)).run {
+                while (find()) {
+                    val cardData = group(1).toInt() to group(2)
+                    try {
+                        Type.findByTypeId(cardData.first)
+                    } catch (e: Exception) {
+                        throw IllegalStateException("Missing enum for $cardData", e)
+                    }
+                }
             }
         }
-
-        val matcher = Pattern.compile("cityCardType.+?>(.+)</select>").matcher(response)
-        matcher.find()
-        System.out.println(">> ${matcher.group(0)}")
     }
 }
-
-fun String.removeLineBreaks():String = this.replace("\n", "")
-
-fun Any.println() = System.out.println(this as String)
