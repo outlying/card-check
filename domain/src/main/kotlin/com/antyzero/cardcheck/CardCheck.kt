@@ -1,10 +1,18 @@
 package com.antyzero.cardcheck
 
+import com.antyzero.cardcheck.CardCheckResult.Expired
 import com.antyzero.cardcheck.card.Card
+import com.antyzero.cardcheck.card.dumb.DumbCard
+import com.antyzero.cardcheck.card.dumb.DumbChecker
+import com.antyzero.cardcheck.card.mpk.MpkCard
+import com.antyzero.cardcheck.card.mpk.MpkChecker
 import org.threeten.bp.LocalDateTime
 
 
-class CardCheck {
+class CardCheck : Checker<Card> {
+
+    init {
+    }
 
     // TODO load save card data
 
@@ -16,7 +24,9 @@ class CardCheck {
      * We pass _card_ for check, alternatively we may specify if card is valid for given point
      * in time, but by default we check it against current moment
      */
-    fun check(card: Card, localDateTime: LocalDateTime = LocalDateTime.now()):CardCheckResult {
+
+
+    override fun check(card: Card, localDateTime: LocalDateTime): CardCheckResult {
 
         /*
 
@@ -37,21 +47,18 @@ class CardCheck {
 
          */
 
-        return CardCheckResult.NotExpired()
+        return when(card){
+            is MpkCard -> MpkChecker().check(card, localDateTime)
+            is DumbCard -> DumbChecker(Expired).check(card, localDateTime)
+            else -> throw IllegalArgumentException("Unsupported card type: $card")
+        }
     }
 }
 
 /**
  * We need result representation of our check
  */
-sealed class CardCheckResult {
+enum class CardCheckResult {
 
-    // So card is valid
-    class NotExpired : CardCheckResult()
-
-    // Card is expired, we should renew it / charge / update ...
-    class Expired : CardCheckResult()
-
-    // We were unable to determine card state, due to some issues (not specified)
-    class UnableToGetInformation : CardCheckResult()
+     NotExpired, Expired, UnableToGetInformation
 }
