@@ -6,6 +6,7 @@ import com.antyzero.cardcheck.card.dumb.DumbCard
 import com.antyzero.cardcheck.card.dumb.DumbChecker
 import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.card.mpk.MpkChecker
+import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 
 
@@ -26,7 +27,7 @@ class CardCheck : Checker<Card> {
      */
 
 
-    override fun check(card: Card, localDateTime: LocalDateTime): CardCheckResult {
+    override fun check(card: Card, localDate: LocalDate): CardCheckResult {
 
         /*
 
@@ -48,8 +49,8 @@ class CardCheck : Checker<Card> {
          */
 
         return when(card){
-            is MpkCard -> MpkChecker().check(card, localDateTime)
-            is DumbCard -> DumbChecker(Expired).check(card, localDateTime)
+            is MpkCard -> MpkChecker().check(card, localDate)
+            is DumbCard -> DumbChecker(Expired).check(card, localDate)
             else -> throw IllegalArgumentException("Unsupported card type: $card")
         }
     }
