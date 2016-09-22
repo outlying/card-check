@@ -1,4 +1,4 @@
-package com.antyzero.cardcheck.integration
+package com.antyzero.cardcheck.integration.mpk
 
 import com.antyzero.cardcheck.card.mpk.Type
 import okhttp3.OkHttpClient
