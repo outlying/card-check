@@ -3,14 +3,14 @@ package com.antyzero.cardcheck.storage
 import com.antyzero.cardcheck.card.Card
 import java.io.File
 
-class FileStorage(private val fileName: String = "storage.dat") : Storage {
+class FileStorage(private val fileName: String = "storage") : Storage {
 
     private val cardsSet: MutableSet<Card> = mutableSetOf()
 
     init {
         // TODO restore state from file if possible
 
-        File(fileName).apply {
+        file().apply {
             if (!exists()) {
                 createNewFile()
             }
@@ -32,7 +32,7 @@ class FileStorage(private val fileName: String = "storage.dat") : Storage {
     }
 
     fun delete() {
-        File(fileName).apply {
+        file().apply {
             if (exists()) {
                 delete()
             }
@@ -41,7 +41,7 @@ class FileStorage(private val fileName: String = "storage.dat") : Storage {
 
     private fun saveSetState() {
 
-        File(fileName).apply {
+        file().apply {
             if (exists()) {
                 delete()
             }
@@ -53,6 +53,6 @@ class FileStorage(private val fileName: String = "storage.dat") : Storage {
             }
         }
     }
-}
 
-private fun Any.println() = System.out.println(this)
+    private fun file(): File = File.createTempFile(fileName, "dat")
+}

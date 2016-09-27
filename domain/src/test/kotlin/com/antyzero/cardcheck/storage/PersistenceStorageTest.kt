@@ -5,7 +5,7 @@ import org.amshove.kluent.`should be`
 import org.junit.Test
 
 
-class PersistenceStorageTest(storageFactory: StorageFactory<out Storage>) : StorageTest(storageFactory) {
+abstract class PersistenceStorageTest(storageFactory: StorageFactory<out Storage>) : StorageTest(storageFactory) {
 
     @Test
     fun testPersistence() {
