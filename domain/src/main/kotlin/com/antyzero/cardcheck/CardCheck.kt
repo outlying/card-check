@@ -6,26 +6,12 @@ import com.antyzero.cardcheck.card.dumb.DumbCard
 import com.antyzero.cardcheck.card.dumb.DumbChecker
 import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.card.mpk.MpkChecker
+import com.antyzero.cardcheck.storage.FileStorage
+import com.antyzero.cardcheck.storage.Storage
 import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
 
 
-class CardCheck : Checker<Card> {
-
-    init {
-    }
-
-    // TODO load save card data
-
-    // TODO check card valid
-
-    /**
-     * Check if card is not expired.
-     *
-     * We pass _card_ for check, alternatively we may specify if card is valid for given point
-     * in time, but by default we check it against current moment
-     */
-
+class CardCheck(storage: Storage = FileStorage()) : Checker<Card>, Storage by storage {
 
     override fun check(card: Card, localDate: LocalDate): CardCheckResult {
 
@@ -48,10 +34,10 @@ class CardCheck : Checker<Card> {
 
          */
 
-        return when(card){
+        return when (card) {
             is MpkCard -> MpkChecker().check(card, localDate)
-            is DumbCard -> DumbChecker(Expired).check(card, localDate)
-            else -> throw IllegalArgumentException("Unsupported card type: $card")
+            is DumbCard -> DumbChecker(Expired).check(card, localDate) // TODO remove in future
+            else -> throw IllegalArgumentException("Unsupported card type: ${card.javaClass}")
         }
     }
 }
@@ -61,5 +47,5 @@ class CardCheck : Checker<Card> {
  */
 enum class CardCheckResult {
 
-     NotExpired, Expired, UnableToGetInformation
+    NotExpired, Expired, UnableToGetInformation
 }
