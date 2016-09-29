@@ -27,6 +27,11 @@ task clean(type: Delete) {
 
 ext {
     libVersion = [
+            android: [
+                    support: [
+                            appCompat: '24.2.1'
+                    ]
+            ],
             junit: '4.12',
             squareup : [
                     okhttp3: '3.4.1']
