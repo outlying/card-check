@@ -12,3 +12,5 @@ fun Context.toast() = this.toast(this.toString())
 fun Context.toast(message: String?) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
 fun Context.toast(@StringRes id: Int) = Toast.makeText(this, id, Toast.LENGTH_SHORT).show()
+
+fun Context.cardCheck() = application().cardCheck
