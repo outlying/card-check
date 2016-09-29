@@ -9,11 +9,12 @@ import com.antyzero.cardcheck.card.mpk.MpkChecker
 import com.antyzero.cardcheck.storage.FileStorage
 import com.antyzero.cardcheck.storage.Storage
 import org.threeten.bp.LocalDate
+import rx.Observable
 
 
 class CardCheck(storage: Storage = FileStorage()) : Checker<Card>, Storage by storage {
 
-    override fun check(card: Card, localDate: LocalDate): CardCheckResult {
+    override fun check(card: Card, localDate: LocalDate): Observable<CardCheckResult> {
 
         /*
 
@@ -46,6 +47,5 @@ class CardCheck(storage: Storage = FileStorage()) : Checker<Card>, Storage by st
  * We need result representation of our check
  */
 enum class CardCheckResult {
-
     NotExpired, Expired, UnableToGetInformation
 }

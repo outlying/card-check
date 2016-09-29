@@ -6,14 +6,18 @@ import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
+import rx.Observable
 import java.util.*
 import java.util.regex.Pattern
 
 class MpkChecker : Checker<MpkCard> {
 
-    override fun check(card: MpkCard, localDate: LocalDate): CardCheckResult {
+    override fun check(card: MpkCard, localDate: LocalDate): Observable<CardCheckResult> {
+        return Observable.defer { Observable.just(syncCheck(card, localDate)) }
+    }
+
+    private fun syncCheck(card: MpkCard, localDate: LocalDate): CardCheckResult {
 
         var result = CardCheckResult.Expired
 
