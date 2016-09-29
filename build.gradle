@@ -24,3 +24,12 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    libVersion = [
+            junit: '4.12',
+            squareup : [
+                    okhttp3: '3.4.1']
+
+    ]
+}
