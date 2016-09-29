@@ -10,4 +10,6 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     fun inject(baseActivity: BaseActivity)
+
+    fun inject(cardCheckApplication: CardCheckApplication)
 }
