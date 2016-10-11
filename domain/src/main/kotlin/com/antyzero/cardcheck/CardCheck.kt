@@ -1,22 +1,20 @@
 package com.antyzero.cardcheck
 
+import com.antyzero.cardcheck.CardCheckResult.Expired
 import com.antyzero.cardcheck.card.Card
-import org.threeten.bp.LocalDateTime
+import com.antyzero.cardcheck.card.dumb.DumbCard
+import com.antyzero.cardcheck.card.dumb.DumbChecker
+import com.antyzero.cardcheck.card.mpk.MpkCard
+import com.antyzero.cardcheck.card.mpk.MpkChecker
+import com.antyzero.cardcheck.storage.FileStorage
+import com.antyzero.cardcheck.storage.Storage
+import org.threeten.bp.LocalDate
+import rx.Observable
 
 
-class CardCheck {
+class CardCheck(storage: Storage = FileStorage()) : Checker<Card>, Storage by storage {
 
-    // TODO load save card data
-
-    // TODO check card valid
-
-    /**
-     * Check if card is not expired.
-     *
-     * We pass _card_ for check, alternatively we may specify if card is valid for given point
-     * in time, but by default we check it against current moment
-     */
-    fun check(card: Card, localDateTime: LocalDateTime = LocalDateTime.now()):CardCheckResult {
+    override fun check(card: Card, localDate: LocalDate): Observable<CardCheckResult> {
 
         /*
 
@@ -37,21 +35,17 @@ class CardCheck {
 
          */
 
-        return CardCheckResult.NotExpired()
+        return when (card) {
+            is MpkCard -> MpkChecker().check(card, localDate)
+            is DumbCard -> DumbChecker(Expired).check(card, localDate) // TODO remove in future
+            else -> throw IllegalArgumentException("Unsupported card type: ${card.javaClass}")
+        }
     }
 }
 
 /**
  * We need result representation of our check
  */
-sealed class CardCheckResult {
-
-    // So card is valid
-    class NotExpired : CardCheckResult()
-
-    // Card is expired, we should renew it / charge / update ...
-    class Expired : CardCheckResult()
-
-    // We were unable to determine card state, due to some issues (not specified)
-    class UnableToGetInformation : CardCheckResult()
+enum class CardCheckResult {
+    NotExpired, Expired, UnableToGetInformation
 }
