@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.temporal.ChronoUnit
 import rx.Observable
 import java.util.*
 import java.util.regex.Pattern
@@ -19,7 +20,7 @@ class MpkChecker : Checker<MpkCard> {
 
     private fun syncCheck(card: MpkCard, localDate: LocalDate): CardCheckResult {
 
-        var result = CardCheckResult.Expired
+        var result: CardCheckResult = CardCheckResult.Expired()
 
         val okHttpClient = OkHttpClient()
         val httpUrlBuilder = HttpUrl.parse("http://www.mpk.krakow.pl/pl/sprawdz-waznosc-biletu/index,1.html").newBuilder()
@@ -59,14 +60,14 @@ class MpkChecker : Checker<MpkCard> {
                         val startDate = LocalDate.parse(d1, formatter)
                         val endDate = LocalDate.parse(d2, formatter)
 
-                        if (localDate.isBefore(endDate) && localDate.isAfter(startDate)) {
-                            result = CardCheckResult.NotExpired
+                        if ((localDate.isBefore(endDate) || localDate.isEqual(endDate)) && (localDate.isAfter(startDate) || localDate.isEqual(startDate))) {
+                            result = CardCheckResult.NotExpired(localDate.until(endDate, ChronoUnit.DAYS).toInt())
                         }
                     }
                 }
             }
         } catch (e: Exception) {
-            result = CardCheckResult.UnableToGetInformation
+            result = CardCheckResult.UnableToGetInformation()
         }
 
         return result
