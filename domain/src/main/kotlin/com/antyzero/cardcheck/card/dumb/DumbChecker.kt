@@ -1,7 +1,7 @@
 package com.antyzero.cardcheck.card.dumb
 
-import com.antyzero.cardcheck.CardCheckResult
-import com.antyzero.cardcheck.Checker
+import com.antyzero.cardcheck.card.CardCheckResult
+import com.antyzero.cardcheck.card.Checker
 import org.threeten.bp.LocalDate
 import rx.Observable
 

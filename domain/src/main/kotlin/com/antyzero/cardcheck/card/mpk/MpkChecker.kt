@@ -1,7 +1,7 @@
 package com.antyzero.cardcheck.card.mpk
 
-import com.antyzero.cardcheck.CardCheckResult
-import com.antyzero.cardcheck.Checker
+import com.antyzero.cardcheck.card.CardCheckResult
+import com.antyzero.cardcheck.card.Checker
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request

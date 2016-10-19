@@ -1,4 +1,4 @@
-package com.antyzero.cardcheck
+package com.antyzero.cardcheck.card
 
 import com.antyzero.cardcheck.card.Card
 import org.threeten.bp.LocalDate
