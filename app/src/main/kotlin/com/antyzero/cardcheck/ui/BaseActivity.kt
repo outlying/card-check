@@ -23,7 +23,7 @@ abstract class BaseActivity : AppCompatActivity() {
         applicationComponent().inject(this)
 
         val card = MpkCard.Kkm(2170708, 20603546690)
-        val localDate = LocalDate.of(2016, 7, 28)
+        val localDate = LocalDate.now()
 
         cardCheck.check(card, localDate)
                 .subscribeOn(Schedulers.io())
