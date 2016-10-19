@@ -1,7 +1,9 @@
 package com.antyzero.cardcheck
 
-import com.antyzero.cardcheck.CardCheckResult.Expired
+import com.antyzero.cardcheck.card.CardCheckResult.Expired
 import com.antyzero.cardcheck.card.Card
+import com.antyzero.cardcheck.card.CardCheckResult
+import com.antyzero.cardcheck.card.Checker
 import com.antyzero.cardcheck.card.dumb.DumbCard
 import com.antyzero.cardcheck.card.dumb.DumbChecker
 import com.antyzero.cardcheck.card.mpk.MpkCard
@@ -16,25 +18,6 @@ class CardCheck(storage: Storage = FileStorage()) : Checker<Card>, Storage by st
 
     override fun check(card: Card, localDate: LocalDate): Observable<CardCheckResult> {
 
-        /*
-
-        Flow ?
-
-        1. Can we check this card in the first place ? Is it supported ?
-        2. What components are associated with this card ?
-        3. How can we check if card is valid ?
-
-        Let's assume we have our expire check mechanism in place, we should expect to get same
-        result type as in this function. So, our mechanism should tell if card is:
-
-        * expired
-        * not expired
-        * we don't know
-
-        We may say that our checking mechanism should fallow the same contract as this class
-
-         */
-
         return when (card) {
             is MpkCard -> MpkChecker().check(card, localDate)
             is DumbCard -> DumbChecker(Expired).check(card, localDate) // TODO remove in future
@@ -43,9 +26,3 @@ class CardCheck(storage: Storage = FileStorage()) : Checker<Card>, Storage by st
     }
 }
 
-/**
- * We need result representation of our check
- */
-enum class CardCheckResult {
-    NotExpired, Expired, UnableToGetInformation
-}
