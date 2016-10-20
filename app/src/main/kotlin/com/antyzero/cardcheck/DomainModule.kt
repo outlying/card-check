@@ -1,5 +1,8 @@
 package com.antyzero.cardcheck
 
+import android.content.Context
+import com.antyzero.cardcheck.storage.FileStorage
+import com.antyzero.cardcheck.storage.PersistentStorage
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -9,7 +12,13 @@ class DomainModule {
 
     @Singleton
     @Provides
-    fun provideCardCheck(): CardCheck {
-        return CardCheck()
+    fun provideCardCheck(persistentStorage: PersistentStorage): CardCheck {
+        return CardCheck(persistentStorage)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFileStorage(context: Context): PersistentStorage {
+        return FileStorage("", context.getFileStreamPath("storage").absoluteFile)
     }
 }

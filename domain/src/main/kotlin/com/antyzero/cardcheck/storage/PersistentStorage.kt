@@ -5,11 +5,13 @@ import com.antyzero.cardcheck.card.Card
 /**
  * Representing contract for storing card data
  */
-interface Storage {
+interface PersistentStorage {
 
     fun addCard(card: Card)
 
     fun removeCard(card: Card)
 
-    fun showCards(): List<Card>
+    fun getCards(): List<Card>
+
+    fun delete()
 }

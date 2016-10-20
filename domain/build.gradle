@@ -6,6 +6,7 @@ dependencies {
     compile 'org.threeten:threetenbp:1.3.2'
     compile "com.squareup.okhttp3:okhttp:${libVersion.squareup.okhttp3}"
     compile "io.reactivex:rxkotlin:0.60.0"
+    compile 'com.google.code.gson:gson:2.7'
 
     testCompile "junit:junit:${libVersion.junit}"
     testCompile 'org.assertj:assertj-core:2.5.0'

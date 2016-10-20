@@ -1,28 +1,54 @@
 package com.antyzero.cardcheck.storage
 
-import com.antyzero.cardcheck.card.Card
+import com.antyzero.cardcheck.card.dumb.DumbCard
+import com.antyzero.cardcheck.card.mpk.MpkCard
+import com.antyzero.cardcheck.card.mpk.Type
 import org.amshove.kluent.`should be`
+import org.amshove.kluent.`should equal`
 import org.junit.Test
+import java.io.File
 
 
-abstract class PersistenceStorageTest(storageFactory: StorageFactory<out Storage>) : StorageTest(storageFactory) {
+class PersistenceStorageTest {
 
     @Test
-    fun testPersistence() {
+    fun CollectionAddRestore() {
 
         // Given
-        val fileName = "persistent.dat"
-        storage = storageFactory.create(fileName)
-        val card = object : Card() {
-            val id = 1
-        }
-        storage.addCard(card)
+        val fileStorage = FileStorage()
 
         // When
-        storage = storageFactory.create(fileName)
+        fileStorage.addCard(DumbCard())
+        fileStorage.addCard(MpkCard.Kkm(2170708, 20603546690))
 
         // Then
-        storage.showCards().size `should be` 1
-        storage.showCards()[0] `should be` card
+        fileStorage.getCards().size `should be` 2
+
+        val firstCard = fileStorage.getCards()[0]
+        (firstCard is DumbCard) `should be` true
+        val secondCard = fileStorage.getCards()[1]
+        (secondCard is MpkCard.Kkm) `should be` true
+        (secondCard as MpkCard.Kkm).cardType `should be` Type.KKM
+        secondCard.clientId `should equal` 2170708
+        secondCard.cityCardId `should equal` 20603546690
+    }
+
+    @Test
+    fun Persistency() {
+
+        // Given
+        val file = File.createTempFile("someFile", "txt")
+        val fileStorage = FileStorage("none", file)
+        fileStorage.delete()
+
+        // When
+        fileStorage.addCard(DumbCard())
+        fileStorage.addCard(MpkCard.Kkm(2170708, 20603546690))
+
+        // Then
+        val fileStorageSecond = FileStorage("none", file)
+        fileStorageSecond.getCards().size `should be` 2
+        (fileStorageSecond.getCards()[0] is DumbCard) `should be` true
+        fileStorageSecond.delete()
     }
 }
