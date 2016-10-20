@@ -9,12 +9,12 @@ import com.antyzero.cardcheck.card.dumb.DumbChecker
 import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.card.mpk.MpkChecker
 import com.antyzero.cardcheck.storage.FileStorage
-import com.antyzero.cardcheck.storage.Storage
+import com.antyzero.cardcheck.storage.PersistentStorage
 import org.threeten.bp.LocalDate
 import rx.Observable
 
 
-class CardCheck(storage: Storage = FileStorage()) : Checker<Card>, Storage by storage {
+class CardCheck(storage: PersistentStorage = FileStorage()) : Checker<Card>, PersistentStorage by storage {
 
     override fun check(card: Card, localDate: LocalDate): Observable<CardCheckResult> {
 

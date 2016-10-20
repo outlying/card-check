@@ -1,20 +1,37 @@
 package com.antyzero.cardcheck.storage
 
 import com.antyzero.cardcheck.card.Card
+import com.antyzero.cardcheck.card.dumb.DumbCard
+import com.antyzero.cardcheck.card.mpk.MpkCard
+import com.google.gson.*
 import java.io.File
+import java.io.OutputStreamWriter
+import java.lang.reflect.Type
+import java.util.*
 
-class FileStorage(private val fileName: String = "storage") : Storage {
+class FileStorage(
+        private val fileName: String = "storage",
+        private val filePath: File = File.createTempFile(fileName, "txt")) : PersistentStorage {
 
     private val cardsSet: MutableSet<Card> = mutableSetOf()
+    private val gson: Gson
 
     init {
-        // TODO restore state from file if possible
+        gson = GsonBuilder()
+                .registerTypeHierarchyAdapter(CardList::class.java, Deser())
+                .create()
 
-        file().apply {
+        filePath.apply {
             if (!exists()) {
                 createNewFile()
+            } else {
+                val result = filePath.readLines().joinToString("\n")
+                if (!result.isNullOrEmpty()) {
+                    cardsSet.addAll(gson.fromJson(result, CardList::class.java))
+                    saveSetState()
+                }
             }
-        }.apply { }
+        }
     }
 
     override fun addCard(card: Card) {
@@ -27,32 +44,77 @@ class FileStorage(private val fileName: String = "storage") : Storage {
         saveSetState()
     }
 
-    override fun showCards(): List<Card> {
+    override fun getCards(): List<Card> {
         return cardsSet.toList()
     }
 
-    fun delete() {
-        file().apply {
+    override fun delete() {
+        filePath.apply {
             if (exists()) {
                 delete()
+                createNewFile()
             }
         }
+        cardsSet.clear()
     }
 
     private fun saveSetState() {
 
-        file().apply {
+        val cardSaveList: MutableSet<CardMeta> = mutableSetOf()
+        cardsSet.forEach { cardSaveList.add(wrapWithMeta(it)) }
+        val json = gson.toJson(cardSaveList)
+
+        filePath.apply {
             if (exists()) {
                 delete()
             }
-            createNewFile()
-        }.printWriter().use { out ->
-            cardsSet.forEach {
-                val s = "${it.javaClass}|$it"
-                out.println(s)
-            }
+        }.let {
+            OutputStreamWriter(it.outputStream()).use { it.write(json) }
         }
     }
 
-    private fun file(): File = File.createTempFile(fileName, "dat")
+    private fun wrapWithMeta(card: Card): CardMeta {
+        return CardMeta(card.javaClass.canonicalName, card)
+    }
+}
+
+class CardList() : ArrayList<Card>() {
+
+}
+
+data class CardMeta(
+        val cardType: String,
+        val card: Card) {
+
+}
+
+private class Deser() : JsonDeserializer<CardList> {
+
+    override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): CardList {
+        val cardList = CardList()
+
+        val gson = Gson()
+
+        print(json)
+        if (json is JsonArray) {
+            json.forEach {
+                if (it is JsonObject) {
+                    val classCannonical = it.get("cardType").asString
+                    val cardElement = it.getAsJsonObject("card")
+
+                    val card = gson.fromJson(cardElement, when (classCannonical) {
+                        "com.antyzero.cardcheck.card.dumb.DumbCard" -> DumbCard::class.java
+                        "com.antyzero.cardcheck.card.mpk.MpkCard.Kkm" -> MpkCard.Kkm::class.java
+                        "com.antyzero.cardcheck.card.mpk.MpkCard.Student" -> MpkCard.Student::class.java
+                        else -> throw IllegalArgumentException("Unsupported type")
+                    })
+
+                    cardList.add(card)
+                }
+            }
+        }
+
+        return cardList
+    }
+
 }
