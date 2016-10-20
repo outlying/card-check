@@ -1,5 +1,6 @@
 package com.antyzero.cardcheck
 
+import com.antyzero.cardcheck.ui.MainActivity
 import dagger.Component
 import javax.inject.Singleton
 
