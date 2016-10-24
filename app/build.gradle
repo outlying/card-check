@@ -32,6 +32,8 @@ dependencies {
 
     compile project(':domain')
     compile "com.android.support:appcompat-v7:${libVersion.android.support.appCompat}"
+    //compile "com.android.support:design:${libVersion.android.support.appCompat}"
+
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     //Rx dependencies
