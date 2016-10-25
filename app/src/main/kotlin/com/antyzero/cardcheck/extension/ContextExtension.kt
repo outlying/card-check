@@ -3,6 +3,7 @@ package com.antyzero.cardcheck.extension
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.support.annotation.StringRes
 import android.view.LayoutInflater
 import android.widget.Toast
@@ -20,5 +21,7 @@ fun Context.toast(@StringRes id: Int) = Toast.makeText(this, id, Toast.LENGTH_SH
 fun Context.cardCheck() = application().cardCheck
 
 fun Context.startActivity(activityClass: KClass<out Activity>) = this.startActivity(Intent(this, activityClass.java))
+
+fun Context.startUrl(url: String) = startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
 
 fun Context.layoutInflater() = LayoutInflater.from(this)
