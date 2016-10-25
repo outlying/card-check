@@ -1,5 +1,6 @@
 package com.antyzero.cardcheck
 
+import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardPresenter
 import com.antyzero.cardcheck.ui.screen.main.MainActivity
 import com.antyzero.cardcheck.ui.screen.main.MainPresenter
@@ -15,4 +16,5 @@ interface ApplicationComponent {
     fun inject(cardCheckApplication: MainActivity)
     fun inject(mainPresenter: MainPresenter)
     fun inject(addCardPresenter: AddCardPresenter)
+    fun inject(addCardActivity: AddCardActivity)
 }

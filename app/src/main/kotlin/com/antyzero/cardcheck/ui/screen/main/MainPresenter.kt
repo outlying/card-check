@@ -23,10 +23,9 @@ class MainPresenter(context: Context) : Presenter<MainView> {
 
     override fun attachView(view: MainView) {
         this.view = view
-        updateCardList()
     }
 
-    private fun updateCardList() {
+    fun updateCardList() {
         Observable.from(cardCheck.getCards())
                 .map {
                     Observable.zip(

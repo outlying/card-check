@@ -1,3 +1,28 @@
 <resources>
-    <string name="app_name">Card Check</string>
+    <string name="app_name" translatable="false">Card Check</string>
+
+    <string name="card_kkm">KKM card</string>
+    <string name="card_wszib">Student card, WSZiB</string>
+    <string name="card_agh">Student card, AGH</string>
+    <string name="card_uj">Student card, UJ</string>
+    <string name="card_pk">Student card, PK</string>
+    <string name="card_ue">Student card, UE</string>
+    <string name="card_ur">Student card, UR</string>
+    <string name="card_pwst">Student card, PWST</string>
+    <string name="card_am">Student card, AM</string>
+    <string name="card_wse">Student card, WSE</string>
+    <string name="card_aik">Student card, AIK (WSFP)</string>
+    <string name="card_up">Student card, UP</string>
+    <string name="card_wsh">Student card, WSH</string>
+    <string name="card_ka">Student card, KA</string>
+    <string name="card_wsei">Student card, WSEI</string>
+    <string name="card_ifj_pan">Student card, IFJ PAN</string>
+    <string name="card_if_pan">Student card, IF PAN</string>
+    <string name="card_ikifp_pan">Student card, IKiFP PAN</string>
+
+    <string name="hint_client_number">Client number</string>
+    <string name="hint_kkm_card_number">KKM card number</string>
+    <string name="hint_album_number">Album number</string>
+
+    <string name="card_add">Add card</string>
 </resources>
