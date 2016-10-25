@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.annotation.StringRes
+import android.view.LayoutInflater
 import android.widget.Toast
 import com.antyzero.cardcheck.CardCheckApplication
 import kotlin.reflect.KClass
@@ -19,3 +20,5 @@ fun Context.toast(@StringRes id: Int) = Toast.makeText(this, id, Toast.LENGTH_SH
 fun Context.cardCheck() = application().cardCheck
 
 fun Context.startActivity(activityClass: KClass<out Activity>) = this.startActivity(Intent(this, activityClass.java))
+
+fun Context.layoutInflater() = LayoutInflater.from(this)

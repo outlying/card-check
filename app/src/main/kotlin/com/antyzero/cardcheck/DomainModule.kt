@@ -1,6 +1,7 @@
 package com.antyzero.cardcheck
 
 import android.content.Context
+import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.storage.FileStorage
 import com.antyzero.cardcheck.storage.PersistentStorage
 import dagger.Module
@@ -13,7 +14,11 @@ class DomainModule {
     @Singleton
     @Provides
     fun provideCardCheck(persistentStorage: PersistentStorage): CardCheck {
-        return CardCheck(persistentStorage)
+        return CardCheck(persistentStorage).apply {
+            if(BuildConfig.DEBUG){
+                addCard(MpkCard.Kkm(2170708, 20603546690))
+            }
+        }
     }
 
     @Provides
