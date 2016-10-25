@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="card_kkm">Karta KKM</string>
+    <string name="card_agh">Legitymacja AGH</string>
+    <string name="card_aik">Legitymacja AIK (WSFP)</string>
+    <string name="card_am">Legitymacja AM</string>
+    <string name="card_if_pan">Legitymacja IF PAN</string>
+    <string name="card_ifj_pan">Legitymacja IFJ PAN</string>
+    <string name="card_ikifp_pan">Legitymacja IKiFP PAN</string>
+    <string name="card_ka">Legitymacja KA</string>
+    <string name="card_pk">Legitymacja PK</string>
+    <string name="card_pwst">Legitymacja PWST</string>
+    <string name="card_ue">Legitymacja UE</string>
+    <string name="card_uj">Legitymacja UJ</string>
+    <string name="card_up">Legitymacja UP</string>
+    <string name="card_ur">Legitymacja UR</string>
+    <string name="card_wse">Legitymacja WSE</string>
+    <string name="card_wsei">Legitymacja WSEI</string>
+    <string name="card_wsh">Legitymacja WSH</string>
+    <string name="card_wszib">Legitymacja WSZiB</string>
+
+    <string name="hint_client_number">Numer klienta</string>
+    <string name="hint_kkm_card_number">Numer karty KKM</string>
+    <string name="hint_album_number">Numer albumu</string>
+    <string name="card_add">Dodaj kartę</string>
+</resources>

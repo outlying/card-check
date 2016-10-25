@@ -12,13 +12,20 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainView {
 
+    lateinit private var presenter: MainPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val presenter = MainPresenter(this).apply {
+        presenter = MainPresenter(this).apply {
             this.attachView(this@MainActivity)
         }
         button.setOnClickListener { goToAddCardScreen() }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter.updateCardList()
     }
 
     override fun showCards(it: List<Pair<Card, CardCheckResult>>) {

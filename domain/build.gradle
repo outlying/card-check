@@ -3,14 +3,14 @@ apply plugin: 'kotlin'
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'org.threeten:threetenbp:1.3.2'
+    compile "org.threeten:threetenbp:${libVersion.threeten}"
     compile "com.squareup.okhttp3:okhttp:${libVersion.squareup.okhttp3}"
-    compile "io.reactivex:rxkotlin:0.60.0"
-    compile 'com.google.code.gson:gson:2.7'
+    compile "io.reactivex:rxkotlin:${libVersion.rx.kotlin}"
+    compile "com.google.code.gson:gson:${libVersion.google.gson}"
 
-    testCompile "junit:junit:${libVersion.junit}"
-    testCompile 'org.assertj:assertj-core:2.5.0'
-    testCompile 'org.amshove.kluent:kluent:1.6'
+    testCompile "junit:junit:${libVersion.test.junit}"
+    testCompile "org.assertj:assertj-core:${libVersion.test.assertj}"
+    testCompile "org.amshove.kluent:kluent:${libVersion.test.kluent}"
 }
 
 //noinspection GroovyAssignabilityCheck

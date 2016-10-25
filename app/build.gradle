@@ -40,8 +40,8 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
 
     //Dagger 2 dependencies
-    compile 'com.google.dagger:dagger:2.4'
-    kapt 'com.google.dagger:dagger-compiler:2.4'
+    compile "com.google.dagger:dagger:${libVersion.google.dagger}"
+    kapt "com.google.dagger:dagger-compiler:${libVersion.google.dagger}"
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
     testCompile 'junit:junit:4.12'

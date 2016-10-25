@@ -32,9 +32,21 @@ ext {
                             appCompat: '24.2.1'
                     ]
             ],
-            junit: '4.12',
+            google: [
+                    dagger: '2.7',
+                    gson: '2.7'
+            ],
+            rx: [
+                    kotlin: "0.60.0"
+            ],
             squareup : [
-                    okhttp3: '3.4.1']
+                    okhttp3: '3.4.1'],
+            test: [
+                    assertj: '2.5.0',
+                    junit: '4.12',
+                    kluent: '1.8'
+            ],
+            threeten: '1.3.2'
 
     ]
 }

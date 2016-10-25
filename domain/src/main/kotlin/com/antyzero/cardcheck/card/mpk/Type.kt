@@ -1,7 +1,7 @@
 package com.antyzero.cardcheck.card.mpk
 
 
-enum class Type(val typeId: Int) {
+enum class Type(val typeId: Long) {
 
     /* Default type */
     KKM(0),
@@ -11,7 +11,7 @@ enum class Type(val typeId: Int) {
     ;
 
     companion object {
-        fun findByTypeId(typeId: Int): Type {
+        fun findByTypeId(typeId: Number): Type {
             values().forEach {
                 if(it.typeId == typeId){
                     return it
