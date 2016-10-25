@@ -6,7 +6,7 @@ import com.antyzero.cardcheck.mvp.View
 
 interface MainView : View {
 
-    fun showCards(it: List<Pair<Card, CardCheckResult>>)
+    fun showCards(cardsWithResults: List<Pair<Card, CardCheckResult>>)
 
     fun goToAddCardScreen()
 }

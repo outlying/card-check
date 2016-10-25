@@ -12,7 +12,12 @@ import com.antyzero.cardcheck.card.mpk.Type
 import com.antyzero.cardcheck.extension.label
 import com.antyzero.cardcheck.extension.layoutInflater
 import com.antyzero.cardcheck.extension.setVisible
+import com.antyzero.cardcheck.extension.startUrl
 import com.antyzero.cardcheck.ui.BaseActivity
+import com.antyzero.cardcheck.ui.form.EmptyTextViewValidator
+import com.antyzero.cardcheck.ui.form.TextViewValidator
+import com.antyzero.cardcheck.ui.form.ValidatorCollection
+import com.antyzero.cardcheck.ui.form.with
 import kotlinx.android.synthetic.main.activity_card_add.*
 
 class AddCardActivity : BaseActivity(), AddCardView, AdapterView.OnItemSelectedListener {
@@ -26,9 +31,26 @@ class AddCardActivity : BaseActivity(), AddCardView, AdapterView.OnItemSelectedL
         spinnerCardProvider.adapter = CardProviderAdapter()
         spinnerCardProvider.onItemSelectedListener = this
 
+        textViewNumbers.setOnClickListener {
+            startUrl("http://www.kkm.krakow.pl/pl/komunikacja/jak-sprawdzic-waznosc/")
+        }
+
         button.setOnClickListener {
+
+            // TODO data valid
             val cardType = spinnerCardProvider.selectedItem as Type
             if (cardType.typeId == Type.KKM.typeId) {
+
+                val validator = ValidatorCollection().with(
+                        TextViewValidator(editTextCardId).with(
+                                EmptyTextViewValidator()),
+                        TextViewValidator(editTextClientId).with(
+                                EmptyTextViewValidator()))
+
+                if(validator.isValid().not()){
+                    return@setOnClickListener
+                }
+
                 presenter.addCard(MpkCard.Kkm(
                         editTextClientId.text.toString().toInt(),
                         editTextCardId.text.toString().toLong()))

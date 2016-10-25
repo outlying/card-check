@@ -28,10 +28,9 @@ class MainActivity : BaseActivity(), MainView {
         presenter.updateCardList()
     }
 
-    override fun showCards(it: List<Pair<Card, CardCheckResult>>) {
-        // TODO card logic
-        it.first().let {
-            toast("${it.second}")
+    override fun showCards(cardsWithResults: List<Pair<Card, CardCheckResult>>) {
+        cardsWithResults.first().let {
+            toast("${it.second} / ${cardsWithResults.size}")
         }
     }
 
