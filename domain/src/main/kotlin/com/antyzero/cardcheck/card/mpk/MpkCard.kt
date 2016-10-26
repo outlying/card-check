@@ -14,7 +14,8 @@ import com.antyzero.cardcheck.card.Card
  */
 sealed class MpkCard(val clientId: Int, val cityCardId: Long?, val cardType: Type = Type.KKM) : Card() {
 
-    class Kkm(clientId: Int, cardId: Long) : MpkCard(clientId, cardId, cardType = Type.KKM)
+    class Kkm(clientId: Int, cardId: Long) : MpkCard(clientId, cityCardId = cardId, cardType = Type.KKM)
+
     class Student(clientId: Int, cardType: Type) : MpkCard(clientId = clientId, cityCardId = null, cardType = cardType) {
         init {
             if (cardType == Type.KKM) {
@@ -23,4 +24,24 @@ sealed class MpkCard(val clientId: Int, val cityCardId: Long?, val cardType: Typ
         }
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || other.javaClass != this.javaClass) return false
+
+        val kkm: Kkm = other as Kkm
+
+        if (clientId != kkm.clientId) return false
+        if (cityCardId != kkm.cityCardId) return false
+        if (cardType != kkm.cardType) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = cardType.hashCode()
+        result = 31 * result + clientId.hashCode()
+        if (cityCardId != null) {
+            result = 31 * result + cityCardId.hashCode()
+        }
+        return result
+    }
 }
