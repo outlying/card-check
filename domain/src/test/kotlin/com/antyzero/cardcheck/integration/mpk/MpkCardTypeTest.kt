@@ -23,7 +23,7 @@ class MpkCardTypeTest {
                 while (find()) {
                     val cardData = group(1).toInt() to group(2)
                     try {
-                        Type.findByTypeId(cardData.first)
+                        Type.findByTypeId(cardData.first.toLong())
                     } catch (e: Exception) {
                         throw IllegalStateException("Missing enum for $cardData", e)
                     }
