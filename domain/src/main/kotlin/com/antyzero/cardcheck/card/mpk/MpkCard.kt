@@ -24,6 +24,9 @@ sealed class MpkCard(val clientId: Int, val cityCardId: Long?, val cardType: Typ
         }
     }
 
+    // TODO as soon as Kotlin 1.1 is released we can change above classes to data classes
+    // then solution below won't be needed anymore
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || other.javaClass != this.javaClass) return false
