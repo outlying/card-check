@@ -12,8 +12,9 @@ enum class Type(val typeId: Long) {
 
     companion object {
         fun findByTypeId(typeId: Number): Type {
+            val searchById = typeId.toLong()
             values().forEach {
-                if(it.typeId == typeId){
+                if(it.typeId == searchById){
                     return it
                 }
             }
