@@ -47,7 +47,7 @@ class AddCardActivity : BaseActivity(), AddCardView, AdapterView.OnItemSelectedL
                         TextViewValidator(editTextClientId).with(
                                 EmptyTextViewValidator()))
 
-                if(validator.isValid().not()){
+                if (validator.isValid().not()) {
                     return@setOnClickListener
                 }
 
