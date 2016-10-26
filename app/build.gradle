@@ -33,7 +33,7 @@ dependencies {
     compile project(':domain')
     compile "com.android.support:appcompat-v7:${libVersion.android.support.appCompat}"
     compile "com.android.support:design:${libVersion.android.support.appCompat}"
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta1'
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 

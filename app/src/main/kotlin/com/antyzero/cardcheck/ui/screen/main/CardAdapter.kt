@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.card.mpk.MpkCard
@@ -25,7 +26,7 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
-        return CardViewHolder(layoutInflater.inflate(android.R.layout.simple_list_item_1, parent, false))
+        return CardViewHolder(layoutInflater.inflate(R.layout.item_card, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -35,17 +36,33 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
 
 class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private var textView: TextView
+    private var textViewCardNameId: TextView
+    private var textViewCardStatus :TextView
+    private var cardIndicator: View
 
     init {
-        textView = itemView.findViewById(android.R.id.text1) as TextView
+        textViewCardNameId = itemView.findViewById(R.id.textViewCardNameId) as TextView
+        textViewCardStatus = itemView.findViewById(R.id.textViewCardStatus) as TextView
+        cardIndicator = itemView.findViewById(R.id.cardIndicator)
     }
 
     fun bind(cardData: Pair<Card, CardCheckResult>) {
         val (card, status) = cardData
 
-        if (card is MpkCard){
-            textView.text = "MPK, ${card.cardType.label(itemView.context)} ${card.clientId}, $status"
+        if (card is MpkCard) {
+            textViewCardNameId.text = "${card.cardType.label(itemView.context)} \n#${card.clientId}"
+        }
+
+        when(status){
+            is CardCheckResult.UnableToGetInformation -> {
+                textViewCardStatus.text = "Unknown"
+            }
+            is CardCheckResult.Expired -> {
+                textViewCardStatus.text = "Expired"
+            }
+            is CardCheckResult.NotExpired -> {
+                textViewCardStatus.text = "Valid (${status.daysLeft})"
+            }
         }
     }
 }
