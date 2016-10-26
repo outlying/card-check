@@ -34,6 +34,39 @@ class PersistenceStorageTest {
     }
 
     @Test
+    fun noDuplicates() {
+
+        // Given
+        val fileStorage = FileStorage().apply { delete() }
+
+        // When
+        fileStorage.addCard(MpkCard.Kkm(1234, 41234))
+        fileStorage.addCard(MpkCard.Kkm(1234, 41234))
+        fileStorage.addCard(MpkCard.Kkm(1234, 41234))
+
+        // Then
+        fileStorage.getCards().size `should be` 1
+    }
+
+    @Test
+    fun noDuplicatesInStorage() {
+
+        // Given
+        val file = File.createTempFile("dupliations", "txt")
+        val fileStorage = FileStorage("todoChange", file).apply { delete() }
+
+        // When
+        fileStorage.addCard(MpkCard.Kkm(1234, 41234))
+        fileStorage.addCard(MpkCard.Kkm(1234, 41234))
+        fileStorage.addCard(MpkCard.Kkm(1234, 41234))
+
+        // Then
+        val fileStorageSecond = FileStorage("todoStupid", file)
+        fileStorageSecond.getCards().size `should be` 1
+
+    }
+
+    @Test
     fun Persistency() {
 
         // Given
