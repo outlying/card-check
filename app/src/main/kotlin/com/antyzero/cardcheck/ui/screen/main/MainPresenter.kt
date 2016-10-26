@@ -40,8 +40,12 @@ class MainPresenter(context: Context) : Presenter<MainView> {
                 .toList()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    view.showCards(it)
-                })
+                .doOnSubscribe {
+                    view.showLoading()
+                }
+                .subscribe(
+                        { view.showCards(it) },
+                        { view.hideLoading() },
+                        { view.hideLoading() })
     }
 }

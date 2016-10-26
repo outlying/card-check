@@ -24,6 +24,15 @@ class MainActivity : BaseActivity(), MainView {
         button.setOnClickListener { goToAddCardScreen() }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = CardAdapter(this, cards)
+        swipeRefresh.setOnRefreshListener { presenter.updateCardList() }
+    }
+
+    override fun showLoading() {
+        swipeRefresh.isRefreshing = true
+    }
+
+    override fun hideLoading() {
+        swipeRefresh.isRefreshing = false
     }
 
     override fun onStart() {
