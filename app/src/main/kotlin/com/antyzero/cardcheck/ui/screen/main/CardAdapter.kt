@@ -16,6 +16,9 @@ import com.antyzero.cardcheck.extension.label
 class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>) : RecyclerView.Adapter<CardViewHolder>() {
 
     private val layoutInflater: LayoutInflater
+    private var pSelectableMode: Boolean = false
+
+    var selectableModeListener: ((Boolean) -> Unit)? = null
 
     init {
         layoutInflater = LayoutInflater.from(context)
@@ -26,19 +29,29 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
-        return CardViewHolder(layoutInflater.inflate(R.layout.item_card, parent, false))
+        return CardViewHolder(layoutInflater.inflate(R.layout.item_card, parent, false), this)
     }
 
     override fun getItemCount(): Int {
         return cards.size
     }
+
+    fun setSelectableMode(value: Boolean) {
+        selectableModeListener?.invoke(value)
+        pSelectableMode = value
+    }
+
+    fun getSelectableMode(): Boolean {
+        return pSelectableMode
+    }
+
 }
 
-class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class CardViewHolder(itemView: View, val cardAdapter: CardAdapter) : RecyclerView.ViewHolder(itemView), View.OnLongClickListener {
 
-    private var textViewCardNameId: TextView
-    private var textViewCardStatus :TextView
-    private var cardIndicator: View
+    private val textViewCardNameId: TextView
+    private val textViewCardStatus: TextView
+    private val cardIndicator: View
 
     init {
         textViewCardNameId = itemView.findViewById(R.id.textViewCardNameId) as TextView
@@ -46,14 +59,23 @@ class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         cardIndicator = itemView.findViewById(R.id.cardIndicator)
     }
 
-    fun bind(cardData: Pair<Card, CardCheckResult>) {
-        val (card, status) = cardData
+    override fun onLongClick(v: View?): Boolean {
+        if(cardAdapter.getSelectableMode() == false){
+            cardAdapter.setSelectableMode(true)
+            return true
+        }
+        return false
+    }
 
+    fun bind(cardData: Pair<Card, CardCheckResult>) {
+        itemView.setOnLongClickListener(this)
+
+        val (card, status) = cardData
         if (card is MpkCard) {
             textViewCardNameId.text = "${card.cardType.label(itemView.context)} \n#${card.clientId}"
         }
 
-        when(status){
+        when (status) {
             is CardCheckResult.UnableToGetInformation -> {
                 textViewCardStatus.text = "Unknown"
             }
