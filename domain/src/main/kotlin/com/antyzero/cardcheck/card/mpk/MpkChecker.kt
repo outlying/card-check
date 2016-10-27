@@ -51,6 +51,7 @@ class MpkChecker : Checker<MpkCard> {
                         .matcher(group(0)).run {
 
                     val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault())
+                    val ranges: MutableList<Pair<LocalDate, LocalDate>> = mutableListOf()
 
                     while (find()) {
 
@@ -59,6 +60,18 @@ class MpkChecker : Checker<MpkCard> {
 
                         val startDate = LocalDate.parse(d1, formatter)
                         val endDate = LocalDate.parse(d2, formatter)
+
+                        ranges.add(startDate to endDate)
+                    }
+
+                    ranges.sortBy { it.first }
+
+                    ranges.reduceIf(
+                            { earlier, later -> earlier.second.until(later.first, ChronoUnit.DAYS).toInt().abs() == 1 },
+                            { earlier, later -> earlier.first to later.second })
+
+                    ranges.forEach {
+                        val (startDate, endDate) = it
 
                         if ((localDate.isBefore(endDate) || localDate.isEqual(endDate)) && (localDate.isAfter(startDate) || localDate.isEqual(startDate))) {
                             result = CardCheckResult.NotExpired(localDate.until(endDate, ChronoUnit.DAYS).toInt())
@@ -72,4 +85,28 @@ class MpkChecker : Checker<MpkCard> {
 
         return result
     }
+}
+
+fun <E> MutableList<E>.reduceIf(condition: (E, E) -> Boolean, reduction: (E, E) -> E) {
+
+    do {
+        var changed = false
+        for ((i, e) in withIndex()) {
+            if (i + 1 < size) {
+                val next = get(i + 1)
+                if (condition(e, next)) {
+                    set(i, reduction(e, next))
+                    removeAt(i + 1)
+                    changed = true
+                    break
+                }
+            }
+        }
+    } while (changed)
+}
+
+fun Int.abs() = if (this < 0) {
+    this.times(-1)
+} else {
+    this
 }
