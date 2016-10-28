@@ -26,6 +26,8 @@ task clean(type: Delete) {
 }
 
 ext {
+    ignoreFailures = project.hasProperty('ignoreFailures') ? ignoreFailures : false
+
     libVersion = [
             android: [
                     support: [
