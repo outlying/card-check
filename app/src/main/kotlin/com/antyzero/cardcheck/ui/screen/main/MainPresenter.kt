@@ -25,7 +25,7 @@ class MainPresenter(context: Context) : Presenter<MainView> {
         this.view = view
     }
 
-    fun updateCardList() {
+    fun loadCardList() {
         Observable.from(cardCheck.getCards())
                 .map {
                     Observable.zip(
@@ -47,5 +47,9 @@ class MainPresenter(context: Context) : Presenter<MainView> {
                         { view.showCards(it) },
                         { view.hideLoading() },
                         { view.hideLoading() })
+    }
+
+    fun removeCard(card: Card) {
+        cardCheck.removeCard(card)
     }
 }

@@ -11,12 +11,26 @@ import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.extension.label
+import com.antyzero.cardcheck.extension.setBackgroundColorRes
+import com.antyzero.cardcheck.extension.toast
 
 
 class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>) : RecyclerView.Adapter<CardViewHolder>() {
 
     private val layoutInflater: LayoutInflater
-    private var pSelectableMode: Boolean = false
+    private var internalSelectableMode: Boolean = false
+
+    val selectedItems: MutableList<Pair<Card, CardCheckResult>> = mutableListOf()
+
+    var selectableMode: Boolean
+        get() = internalSelectableMode
+        set(value) {
+            selectableModeListener?.invoke(value)
+            internalSelectableMode = value
+            if (value == false) {
+                clearSelected()
+            }
+        }
 
     var selectableModeListener: ((Boolean) -> Unit)? = null
 
@@ -25,7 +39,7 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        holder.bind(cards[position])
+        holder.bind(cards[position], position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -36,39 +50,70 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
         return cards.size
     }
 
-    fun setSelectableMode(value: Boolean) {
-        selectableModeListener?.invoke(value)
-        pSelectableMode = value
+    override fun getItemId(position: Int): Long {
+        return cards[position].hashCode().toLong()
     }
 
-    fun getSelectableMode(): Boolean {
-        return pSelectableMode
+    fun clearSelected() {
+        selectedItems.clear()
+        notifyDataSetChanged()
     }
-
 }
 
-class CardViewHolder(itemView: View, val cardAdapter: CardAdapter) : RecyclerView.ViewHolder(itemView), View.OnLongClickListener {
+class CardViewHolder(itemView: View, val cardAdapter: CardAdapter) : RecyclerView.ViewHolder(itemView), View.OnLongClickListener, View.OnClickListener {
 
     private val textViewCardNameId: TextView
     private val textViewCardStatus: TextView
     private val cardIndicator: View
 
+    private var internalSelected: Boolean = false
+
+    var selected: Boolean
+        get() = internalSelected
+        set(value) {
+            internalSelected = value
+
+            if (value) {
+                cardAdapter.selectedItems.add(cardAdapter.cards[adapterPosition])
+                itemView.setBackgroundColorRes(R.color.colorAccent)
+            } else {
+                cardAdapter.selectedItems.remove(cardAdapter.cards[adapterPosition])
+                itemView.setBackgroundColorRes(android.R.color.transparent)
+
+                if(cardAdapter.selectedItems.isEmpty() && cardAdapter.selectableMode){
+                    cardAdapter.selectableMode = false
+                }
+            }
+        }
+
     init {
         textViewCardNameId = itemView.findViewById(R.id.textViewCardNameId) as TextView
         textViewCardStatus = itemView.findViewById(R.id.textViewCardStatus) as TextView
         cardIndicator = itemView.findViewById(R.id.cardIndicator)
+
+        itemView.setOnLongClickListener(this)
+        itemView.setOnClickListener(this)
     }
 
-    override fun onLongClick(v: View?): Boolean {
-        if(cardAdapter.getSelectableMode() == false){
-            cardAdapter.setSelectableMode(true)
+    override fun onClick(v: View?) {
+        if (cardAdapter.selectableMode) {
+            selected = selected.not()
+        }
+    }
+
+    override fun onLongClick(v: View): Boolean {
+        if (cardAdapter.selectableMode == false) {
+            cardAdapter.selectableMode = true
+            // TODO send info to adapter about selected state change
+            selected = true
             return true
         }
         return false
     }
 
-    fun bind(cardData: Pair<Card, CardCheckResult>) {
-        itemView.setOnLongClickListener(this)
+    fun bind(cardData: Pair<Card, CardCheckResult>, position: Int) {
+
+        selected = cardAdapter.selectedItems.contains(cardData)
 
         val (card, status) = cardData
         if (card is MpkCard) {

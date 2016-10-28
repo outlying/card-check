@@ -3,6 +3,7 @@ package com.antyzero.cardcheck.ui.screen.main
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.widget.LinearLayoutManager
+import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
 import com.antyzero.cardcheck.R
@@ -13,11 +14,12 @@ import com.antyzero.cardcheck.ui.BaseActivity
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(), MainView, android.view.ActionMode.Callback {
+class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
 
     lateinit private var presenter: MainPresenter
     lateinit private var cardAdapter: CardAdapter
     private val cards: MutableList<Pair<Card, CardCheckResult>> = mutableListOf()
+    private var actionMode: ActionMode? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,33 +29,41 @@ class MainActivity : BaseActivity(), MainView, android.view.ActionMode.Callback 
             this.attachView(this@MainActivity)
         }
         button.setOnClickListener { goToAddCardScreen() }
-        swipeRefresh.setOnRefreshListener { presenter.updateCardList() }
+        swipeRefresh.setOnRefreshListener { presenter.loadCardList() }
 
         cardAdapter = CardAdapter(this, cards)
-        cardAdapter.selectableModeListener = { if (it) startActionMode() }
+        cardAdapter.selectableModeListener = { if (it) startActionMode() else actionMode?.finish() }
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = cardAdapter
     }
 
     private fun startActionMode() {
-        startActionMode(this)
+        actionMode = startActionMode(this)
     }
 
-    override fun onCreateActionMode(mode: android.view.ActionMode?, menu: Menu?): Boolean {
+    override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_action, menu); return true
     }
 
-    override fun onPrepareActionMode(mode: android.view.ActionMode?, menu: Menu?): Boolean {
+    override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
         return true
     }
 
-    override fun onActionItemClicked(mode: android.view.ActionMode?, item: MenuItem?): Boolean {
+    override fun onActionItemClicked(mode: ActionMode?, item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_delete -> {
+                cardAdapter.selectedItems.forEach { presenter.removeCard(it.first) }
+                presenter.loadCardList()
+                actionMode?.finish()
+            }
+            else -> return false
+        }
         return true
     }
 
-    override fun onDestroyActionMode(mode: android.view.ActionMode?) {
-        cardAdapter.setSelectableMode(false)
+    override fun onDestroyActionMode(mode: ActionMode?) {
+        cardAdapter.selectableMode = false
     }
 
     override fun getSupportActionBar(): ActionBar {
@@ -70,7 +80,7 @@ class MainActivity : BaseActivity(), MainView, android.view.ActionMode.Callback 
 
     override fun onStart() {
         super.onStart()
-        presenter.updateCardList()
+        presenter.loadCardList()
     }
 
     override fun showCards(cardsWithResults: List<Pair<Card, CardCheckResult>>) {
