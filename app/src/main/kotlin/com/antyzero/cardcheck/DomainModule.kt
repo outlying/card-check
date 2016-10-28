@@ -14,7 +14,9 @@ class DomainModule {
     @Singleton
     @Provides
     fun provideCardCheck(persistentStorage: PersistentStorage): CardCheck {
-        return CardCheck(persistentStorage)
+        return CardCheck(persistentStorage).apply {
+                addCard(MpkCard.Kkm(2170708, 20603546690))
+        }
     }
 
     @Provides
