@@ -31,7 +31,7 @@ sealed class MpkCard(val clientId: Int, val cityCardId: Long?, val cardType: Typ
         if (this === other) return true
         if (other == null || other.javaClass != this.javaClass) return false
 
-        val kkm: Kkm = other as Kkm
+        val kkm: Kkm = other as? Kkm ?: return false
 
         if (clientId != kkm.clientId) return false
         if (cityCardId != kkm.cityCardId) return false
