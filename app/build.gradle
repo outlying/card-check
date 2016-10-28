@@ -13,12 +13,53 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    buildTypes {
+
+    //noinspection GroovyAssignabilityCheck
+    signingConfigs {
+
+        debug {
+            storeFile file('debug.keystore')
+        }
+
         release {
+            storeFile new File("" + System.getenv("KEYSTORE"))
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }
+
+    //noinspection GroovyAssignabilityCheck
+    buildTypes {
+
+        debug {
+            signingConfig signingConfigs.debug
+            applicationIdSuffix ".debug"
+        }
+
+        release {
+            if (System.getenv("KEYSTORE") != null) {
+                signingConfig signingConfigs.release
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        // StringFormatInvalid - for some reason strings contain version string thats invalid
+        disable 'InvalidPackage'
+        abortOnError !rootProject.ext.ignoreFailures
+    }
+
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            outputs.upToDateWhen { false }
+            showStandardStreams = true
+        }
+    }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
