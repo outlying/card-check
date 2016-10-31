@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.triplet.play'
 
 android {
     compileSdkVersion 24
@@ -67,6 +68,11 @@ android {
 
 kapt {
     generateStubs = true
+}
+
+play {
+    jsonFile = new File("" + System.getenv("PLAY_JSON"))
+    track = 'beta'
 }
 
 dependencies {
