@@ -13,6 +13,8 @@ import com.antyzero.cardcheck.extension.startActivity
 import com.antyzero.cardcheck.ui.BaseActivity
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
 
 class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
 
@@ -23,6 +25,7 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Fabric.with(this, Crashlytics()) // TODO move to module
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         presenter = MainPresenter(this).apply {
