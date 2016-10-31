@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.antyzero.cardcheck"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 24
         versionCode appVersionCode as Integer
         versionName appVersionName as String
