@@ -20,6 +20,12 @@
 
         <activity android:name=".ui.screen.addcard.AddCardActivity" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="73d09258d53c22be775335da98919e7ce89805ec" />
+
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

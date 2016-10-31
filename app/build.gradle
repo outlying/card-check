@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.triplet.play'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 24
@@ -81,8 +82,10 @@ dependencies {
     compile "com.android.support:appcompat-v7:${libVersion.android.support.appCompat}"
     compile "com.android.support:design:${libVersion.android.support.appCompat}"
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta1'
-
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+        transitive = true;
+    }
 
     //Rx dependencies
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -97,4 +100,5 @@ dependencies {
 
 repositories {
     mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
 }
