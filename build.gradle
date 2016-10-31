@@ -4,12 +4,14 @@ buildscript {
     ext.kotlin_version = '1.0.4'
     repositories {
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M2'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
+        classpath 'com.github.triplet.gradle:play-publisher:1.1.5'
     }
 }
 
