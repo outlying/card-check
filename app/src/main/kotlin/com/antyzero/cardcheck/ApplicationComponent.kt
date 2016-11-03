@@ -1,5 +1,6 @@
 package com.antyzero.cardcheck
 
+import com.antyzero.cardcheck.job.JobModule
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardPresenter
 import com.antyzero.cardcheck.ui.screen.main.MainActivity
@@ -9,7 +10,8 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = arrayOf(AndroidModule::class, DomainModule::class))
+@Component(modules = arrayOf(
+        AndroidModule::class, DomainModule::class, JobModule::class))
 interface ApplicationComponent {
 
     fun inject(cardCheckApplication: CardCheckApplication)
