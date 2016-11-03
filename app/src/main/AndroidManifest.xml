@@ -20,6 +20,14 @@
 
         <activity android:name=".ui.screen.addcard.AddCardActivity" />
 
+        <service
+            android:exported="false"
+            android:name=".job.CardCheckJobService">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>"
+            </intent-filter>
+        </service>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="73d09258d53c22be775335da98919e7ce89805ec" />
