@@ -5,8 +5,6 @@ import com.antyzero.cardcheck.job.Jobs.Tags.CARD_CHECK
 import com.firebase.jobdispatcher.FirebaseJobDispatcher
 import com.firebase.jobdispatcher.Job
 import com.firebase.jobdispatcher.Lifetime
-import com.firebase.jobdispatcher.Trigger
-import org.threeten.bp.LocalTime
 
 class Jobs(private val dispatcher: FirebaseJobDispatcher) {
 
@@ -14,13 +12,17 @@ class Jobs(private val dispatcher: FirebaseJobDispatcher) {
 
     fun scheduleCardCheck() {
 
+
         dispatcher.newJobBuilder().apply {
             setTag(CARD_CHECK)
             setService(serviceClass)
+
             isRecurring = true
             lifetime = Lifetime.FOREVER
 
+            // TODO This should be replaced in future, check TriggerConfigurator for details
             TriggerConfigurator.executionWindow(this, 123, 123)
+
 
         }.build().let {
             dispatcher.mustSchedule(it)
