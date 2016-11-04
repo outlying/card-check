@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.screen.main.MainActivity">
+        <activity
+            android:name=".ui.screen.main.MainActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -22,10 +24,10 @@
         <activity android:name=".ui.screen.addcard.AddCardActivity" />
 
         <service
-            android:exported="false"
-            android:name=".job.CardCheckJobService">
+            android:name=".job.CardCheckJobService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>"
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />"
             </intent-filter>
         </service>
 
