@@ -9,8 +9,10 @@ import android.view.MenuItem
 import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
+import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.extension.startActivity
 import com.antyzero.cardcheck.ui.BaseActivity
+import com.antyzero.cardcheck.ui.notification.CardNotification
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.answers.Answers

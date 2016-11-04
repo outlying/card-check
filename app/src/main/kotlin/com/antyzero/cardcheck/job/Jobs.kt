@@ -12,7 +12,6 @@ class Jobs(private val dispatcher: FirebaseJobDispatcher) {
 
     fun scheduleCardCheck() {
 
-
         dispatcher.newJobBuilder().apply {
             setTag(CARD_CHECK)
             setService(serviceClass)
@@ -21,10 +20,12 @@ class Jobs(private val dispatcher: FirebaseJobDispatcher) {
             lifetime = Lifetime.FOREVER
 
             // TODO This should be replaced in future, check TriggerConfigurator for details
-            TriggerConfigurator.executionWindow(this, 123, 123)
+            TriggerConfigurator.executionWindow(this, 15 * 60, 5 * 60)
 
 
         }.build().let {
+
+            // TODO should we check ?
             dispatcher.mustSchedule(it)
         }
     }
