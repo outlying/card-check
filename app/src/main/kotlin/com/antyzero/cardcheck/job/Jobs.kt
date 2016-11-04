@@ -1,5 +1,6 @@
 package com.antyzero.cardcheck.job
 
+import android.util.Log
 import com.antyzero.cardcheck.TriggerConfigurator
 import com.antyzero.cardcheck.job.Jobs.Tags.CARD_CHECK
 import com.firebase.jobdispatcher.FirebaseJobDispatcher
@@ -15,18 +16,22 @@ class Jobs(private val dispatcher: FirebaseJobDispatcher) {
         dispatcher.newJobBuilder().apply {
             setTag(CARD_CHECK)
             setService(serviceClass)
+            setReplaceCurrent(true)
 
             isRecurring = true
             lifetime = Lifetime.FOREVER
 
             // TODO This should be replaced in future, check TriggerConfigurator for details
-            TriggerConfigurator.executionWindow(this, 15 * 60, 5 * 60)
+            TriggerConfigurator.executionWindow(this, 15 * 60, 20 * 60)
 
 
         }.build().let {
 
             // TODO should we check ?
-            dispatcher.mustSchedule(it)
+            if (dispatcher.schedule(it) != FirebaseJobDispatcher.SCHEDULE_RESULT_SUCCESS) {
+                // TODO create proper logger
+                Log.w("Jobs", "Unable to schedule job $it")
+            }
         }
     }
 
@@ -38,6 +43,17 @@ class Jobs(private val dispatcher: FirebaseJobDispatcher) {
 
         override fun toString(): String {
             return name
+        }
+
+        companion object {
+            fun findByName(name: String): Tags {
+                values().forEach {
+                    if (it.name == name) {
+                        return it
+                    }
+                }
+                throw IllegalArgumentException("No enum value found for: $name")
+            }
         }
     }
 

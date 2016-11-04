@@ -16,4 +16,10 @@ class JobModule {
     fun provideJobDispatcher(context: Context): FirebaseJobDispatcher {
         return FirebaseJobDispatcher(GooglePlayDriver(context))
     }
+
+    @Provides
+    @Singleton
+    fun provideJobs(firebaseJobDispatcher: FirebaseJobDispatcher): Jobs {
+        return Jobs(firebaseJobDispatcher)
+    }
 }
