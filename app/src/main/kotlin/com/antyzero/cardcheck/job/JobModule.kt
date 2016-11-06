@@ -1,6 +1,7 @@
 package com.antyzero.cardcheck.job
 
 import android.content.Context
+import com.antyzero.cardcheck.logger.Logger
 import com.firebase.jobdispatcher.FirebaseJobDispatcher
 import com.firebase.jobdispatcher.GooglePlayDriver
 import dagger.Module
@@ -19,7 +20,7 @@ class JobModule {
 
     @Provides
     @Singleton
-    fun provideJobs(firebaseJobDispatcher: FirebaseJobDispatcher): Jobs {
-        return Jobs(firebaseJobDispatcher)
+    fun provideJobs(firebaseJobDispatcher: FirebaseJobDispatcher, logger:Logger): Jobs {
+        return Jobs(firebaseJobDispatcher, logger)
     }
 }

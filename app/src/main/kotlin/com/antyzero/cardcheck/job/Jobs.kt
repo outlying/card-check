@@ -1,17 +1,25 @@
 package com.antyzero.cardcheck.job
 
-import android.util.Log
 import com.antyzero.cardcheck.TriggerConfigurator
+import com.antyzero.cardcheck.extension.abs
+import com.antyzero.cardcheck.extension.betweenWithMidnight
+import com.antyzero.cardcheck.extension.tag
 import com.antyzero.cardcheck.job.Jobs.Tags.CARD_CHECK
+import com.antyzero.cardcheck.logger.Logger
 import com.firebase.jobdispatcher.FirebaseJobDispatcher
 import com.firebase.jobdispatcher.Job
 import com.firebase.jobdispatcher.Lifetime
+import org.threeten.bp.LocalTime
+import org.threeten.bp.temporal.ChronoUnit
 
-class Jobs(private val dispatcher: FirebaseJobDispatcher) {
+class Jobs(private val dispatcher: FirebaseJobDispatcher, private val logger: Logger) {
 
     private val serviceClass = CardCheckJobService::class.java
 
-    fun scheduleCardCheck() {
+    fun scheduleCardCheck(scheduleTime: LocalTime = LocalTime.of(4, 0), duration: Int = 3600) {
+
+        val windowStart = ChronoUnit.SECONDS.betweenWithMidnight(LocalTime.now(), scheduleTime).abs().toInt()
+        val windowEnd = windowStart.plus(duration).toInt()
 
         dispatcher.newJobBuilder().apply {
             setTag(CARD_CHECK)
@@ -21,16 +29,12 @@ class Jobs(private val dispatcher: FirebaseJobDispatcher) {
             isRecurring = true
             lifetime = Lifetime.FOREVER
 
-            // TODO This should be replaced in future, check TriggerConfigurator for details
-            TriggerConfigurator.executionWindow(this, 15 * 60, 20 * 60)
-
+            TriggerConfigurator.executionWindow(this, windowStart, windowEnd)
 
         }.build().let {
 
-            // TODO should we check ?
             if (dispatcher.schedule(it) != FirebaseJobDispatcher.SCHEDULE_RESULT_SUCCESS) {
-                // TODO create proper logger
-                Log.w("Jobs", "Unable to schedule job $it")
+                logger.w(tag(), "Unable to schedule card check")
             }
         }
     }

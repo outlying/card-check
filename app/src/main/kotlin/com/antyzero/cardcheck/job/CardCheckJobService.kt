@@ -17,6 +17,7 @@ class CardCheckJobService() : JobService() {
 
     @Inject lateinit var cardCheck: CardCheck
     @Inject lateinit var cardNotification: CardNotification
+    @Inject lateinit var jobs: Jobs
 
     override fun onCreate() {
         super.onCreate()
@@ -38,6 +39,8 @@ class CardCheckJobService() : JobService() {
                                     Log.w(CardCheckJobService::class.java.simpleName, "Cannot display notification: ${it}")
                                 })
 
+                // Reschedule job
+                jobs.scheduleCardCheck()
             }
         }
 
