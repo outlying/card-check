@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+        android:key="@string/pref_time"
+        android:title="Title 123"
+        android:summary="Summary asd"
+        android:defaultValue="true" />
+
+    <ListPreference
+        android:key="list_preference"
+        android:title="Godzina aktualizacji"
+        android:summary="Podsumowanie"
+        android:entries="@array/entries_list_preference"
+        android:entryValues="@array/entryvalues_list_preference"
+        android:dialogTitle="Godzina aktulizacji" />
+
+</PreferenceScreen>
