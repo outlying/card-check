@@ -7,12 +7,4 @@
         android:summary="Summary asd"
         android:defaultValue="true" />
 
-    <ListPreference
-        android:key="list_preference"
-        android:title="Godzina aktualizacji"
-        android:summary="Podsumowanie"
-        android:entries="@array/entries_list_preference"
-        android:entryValues="@array/entryvalues_list_preference"
-        android:dialogTitle="Godzina aktulizacji" />
-
 </PreferenceScreen>
