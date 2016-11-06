@@ -2,6 +2,7 @@
     package="com.antyzero.cardcheck">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".CardCheckApplication"
@@ -11,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.screen.main.MainActivity">
+        <activity
+            android:name=".ui.screen.main.MainActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -19,6 +22,16 @@
         </activity>
 
         <activity android:name=".ui.screen.addcard.AddCardActivity" />
+
+        <activity android:name=".ui.screen.settings.SettingsActivity" />
+
+        <service
+            android:name=".job.CardCheckJobService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />"
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="io.fabric.ApiKey"

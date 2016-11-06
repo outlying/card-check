@@ -1,7 +1,7 @@
 package com.antyzero.cardcheck
 
 import android.app.Application
-import android.util.SparseArray
+import com.antyzero.cardcheck.job.Jobs
 import javax.inject.Inject
 
 
@@ -9,7 +9,8 @@ class CardCheckApplication : Application() {
 
     lateinit var applicationComponent: ApplicationComponent
 
-    @Inject lateinit var cardCheck : CardCheck
+    @Inject lateinit var cardCheck: CardCheck
+    @Inject lateinit var jobs: Jobs
 
     override fun onCreate() {
         super.onCreate()
@@ -17,5 +18,7 @@ class CardCheckApplication : Application() {
                 .androidModule(AndroidModule(this))
                 .build()
         applicationComponent.inject(this)
+
+        jobs.scheduleCardCheck()
     }
 }

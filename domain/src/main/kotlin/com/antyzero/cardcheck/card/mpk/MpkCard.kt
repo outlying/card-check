@@ -17,6 +17,7 @@ sealed class MpkCard(val clientId: Int, val cityCardId: Long?, val cardType: Typ
     class Kkm(clientId: Int, cardId: Long) : MpkCard(clientId, cityCardId = cardId, cardType = Type.KKM)
 
     class Student(clientId: Int, cardType: Type) : MpkCard(clientId = clientId, cityCardId = null, cardType = cardType) {
+
         init {
             if (cardType == Type.KKM) {
                 throw IllegalArgumentException("For KKM cards use MpkCard.Kkm class")

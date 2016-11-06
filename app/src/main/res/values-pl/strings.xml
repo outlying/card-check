@@ -23,4 +23,5 @@
     <string name="hint_kkm_card_number">Numer karty KKM</string>
     <string name="hint_album_number">Numer albumu</string>
     <string name="card_add">Dodaj kartę</string>
+    <string name="settings">Ustawienia</string>
 </resources>
