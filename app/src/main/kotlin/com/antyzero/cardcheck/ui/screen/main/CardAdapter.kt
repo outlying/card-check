@@ -104,7 +104,6 @@ class CardViewHolder(itemView: View, val cardAdapter: CardAdapter) : RecyclerVie
     override fun onLongClick(v: View): Boolean {
         if (cardAdapter.selectableMode == false) {
             cardAdapter.selectableMode = true
-            // TODO send info to adapter about selected state change
             selected = true
             return true
         }

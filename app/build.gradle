@@ -64,6 +64,7 @@ android {
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
     }
 }
 
@@ -83,6 +84,7 @@ dependencies {
     compile "com.android.support:design:${libVersion.android.support.appCompat}"
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.firebase:firebase-jobdispatcher-with-gcm-dep:0.5.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }
@@ -96,6 +98,7 @@ dependencies {
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
     testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:2.5.0'
 }
 
 repositories {

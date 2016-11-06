@@ -12,6 +12,7 @@ import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.extension.startActivity
 import com.antyzero.cardcheck.ui.BaseActivity
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
+import com.antyzero.cardcheck.ui.screen.settings.SettingsActivity
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.answers.Answers
 import io.fabric.sdk.android.Fabric
@@ -41,6 +42,19 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = cardAdapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // TODO for future work
+        // menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.action_settings -> startActivity(SettingsActivity::class)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun startActionMode() {

@@ -25,4 +25,5 @@
     <string name="hint_album_number">Album number</string>
 
     <string name="card_add">Add card</string>
+    <string name="settings">Settings</string>
 </resources>
