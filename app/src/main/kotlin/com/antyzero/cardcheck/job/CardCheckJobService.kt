@@ -39,6 +39,7 @@ class CardCheckJobService() : JobService() {
                                     Log.w(CardCheckJobService::class.java.simpleName, "Cannot display notification: ${it}")
                                 })
 
+                // TODO get hour
                 // Reschedule job
                 jobs.scheduleCardCheck()
             }

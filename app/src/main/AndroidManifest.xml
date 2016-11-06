@@ -23,6 +23,8 @@
 
         <activity android:name=".ui.screen.addcard.AddCardActivity" />
 
+        <activity android:name=".ui.screen.settings.SettingsActivity" />
+
         <service
             android:name=".job.CardCheckJobService"
             android:exported="false">

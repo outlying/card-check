@@ -5,7 +5,9 @@ import com.antyzero.cardcheck.CardCheck
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.data.CardTransformer
 import com.antyzero.cardcheck.extension.applicationComponent
+import com.antyzero.cardcheck.job.Jobs
 import com.antyzero.cardcheck.mvp.Presenter
+import org.threeten.bp.LocalTime
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -15,6 +17,7 @@ import javax.inject.Inject
 class MainPresenter(context: Context) : Presenter<MainView> {
 
     @Inject lateinit var cardCheck: CardCheck
+    @Inject lateinit var jobs: Jobs
     lateinit var view: MainView
 
     init {
@@ -38,6 +41,8 @@ class MainPresenter(context: Context) : Presenter<MainView> {
                         { view.showCards(it) },
                         { view.hideLoading() },
                         { view.hideLoading() })
+
+        jobs.scheduleCardCheck()
     }
 
     fun removeCard(card: Card) {
