@@ -9,10 +9,10 @@ import android.widget.TextView
 import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.card.mpk.Type
-import com.antyzero.cardcheck.extension.label
-import com.antyzero.cardcheck.extension.layoutInflater
-import com.antyzero.cardcheck.extension.setVisible
-import com.antyzero.cardcheck.extension.startUrl
+import com.antyzero.cardcheck.dsl.extension.label
+import com.antyzero.cardcheck.dsl.extension.layoutInflater
+import com.antyzero.cardcheck.dsl.extension.setVisible
+import com.antyzero.cardcheck.dsl.extension.startUrl
 import com.antyzero.cardcheck.ui.BaseActivity
 import com.antyzero.cardcheck.ui.form.EmptyTextViewValidator
 import com.antyzero.cardcheck.ui.form.TextViewValidator

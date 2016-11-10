@@ -1,5 +1,7 @@
 package com.antyzero.cardcheck.ui.screen.main
 
+import android.annotation.TargetApi
+import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.widget.LinearLayoutManager
@@ -7,8 +9,9 @@ import android.view.*
 import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
-import com.antyzero.cardcheck.extension.dip2pixels
-import com.antyzero.cardcheck.extension.startActivity
+import com.antyzero.cardcheck.dsl.api
+import com.antyzero.cardcheck.dsl.extension.dip2pixels
+import com.antyzero.cardcheck.dsl.extension.startActivity
 import com.antyzero.cardcheck.ui.BaseActivity
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
 import com.antyzero.cardcheck.ui.screen.settings.SettingsActivity
@@ -23,7 +26,8 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
     lateinit private var cardAdapter: CardAdapter
     private val cards: MutableList<Pair<Card, CardCheckResult>> = mutableListOf()
     private var actionMode: ActionMode? = null
-
+    
+    @TargetApi(LOLLIPOP) // TODO not cool but lint insist
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Fabric.with(this, Crashlytics(), Answers()) // TODO move to module
@@ -33,12 +37,15 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
         presenter = MainPresenter(this).apply {
             this.attachView(this@MainActivity)
         }
+
         button.setOnClickListener { goToAddCardScreen() }
-        button.setOnTouchListener { view: View, event: MotionEvent ->
-            event.let {
-                when (it.action and MotionEvent.ACTION_MASK) {
-                    MotionEvent.ACTION_DOWN -> button.elevation = dip2pixels(16)
-                    MotionEvent.ACTION_UP -> button.elevation = dip2pixels(4)
+        button.api(LOLLIPOP) {
+            setOnTouchListener { view: View, event: MotionEvent ->
+                event.let {
+                    when (it.action and MotionEvent.ACTION_MASK) {
+                        MotionEvent.ACTION_DOWN -> button.elevation = dip2pixels(16)
+                        MotionEvent.ACTION_UP -> button.elevation = dip2pixels(4)
+                    }
                 }
                 false
             }

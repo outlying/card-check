@@ -4,7 +4,7 @@ import android.content.Context
 import com.antyzero.cardcheck.CardCheck
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.data.CardTransformer
-import com.antyzero.cardcheck.extension.applicationComponent
+import com.antyzero.cardcheck.dsl.extension.applicationComponent
 import com.antyzero.cardcheck.job.Jobs
 import com.antyzero.cardcheck.mvp.Presenter
 import org.threeten.bp.LocalTime

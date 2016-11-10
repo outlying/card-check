@@ -3,7 +3,7 @@ package com.antyzero.cardcheck.ui.screen.addcard
 import android.content.Context
 import com.antyzero.cardcheck.CardCheck
 import com.antyzero.cardcheck.card.Card
-import com.antyzero.cardcheck.extension.applicationComponent
+import com.antyzero.cardcheck.dsl.extension.applicationComponent
 import com.antyzero.cardcheck.mvp.Presenter
 import javax.inject.Inject
 

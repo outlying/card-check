@@ -3,7 +3,7 @@ package com.antyzero.cardcheck.job
 import android.util.Log
 import com.antyzero.cardcheck.CardCheck
 import com.antyzero.cardcheck.data.CardTransformer
-import com.antyzero.cardcheck.extension.applicationComponent
+import com.antyzero.cardcheck.dsl.extension.applicationComponent
 import com.antyzero.cardcheck.job.Jobs.Tags.CARD_CHECK
 import com.antyzero.cardcheck.ui.notification.CardNotification
 import com.firebase.jobdispatcher.JobParameters
