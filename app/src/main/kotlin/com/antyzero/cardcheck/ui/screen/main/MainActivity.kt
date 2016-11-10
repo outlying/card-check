@@ -26,7 +26,7 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
     lateinit private var cardAdapter: CardAdapter
     private val cards: MutableList<Pair<Card, CardCheckResult>> = mutableListOf()
     private var actionMode: ActionMode? = null
-    
+
     @TargetApi(LOLLIPOP) // TODO not cool but lint insist
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
