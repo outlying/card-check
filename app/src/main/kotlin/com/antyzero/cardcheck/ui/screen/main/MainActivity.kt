@@ -3,12 +3,11 @@ package com.antyzero.cardcheck.ui.screen.main
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.widget.LinearLayoutManager
-import android.view.ActionMode
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
 import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
+import com.antyzero.cardcheck.extension.dip2pixels
 import com.antyzero.cardcheck.extension.startActivity
 import com.antyzero.cardcheck.ui.BaseActivity
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
@@ -35,6 +34,16 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
             this.attachView(this@MainActivity)
         }
         button.setOnClickListener { goToAddCardScreen() }
+        button.setOnTouchListener { view: View, event: MotionEvent ->
+            event.let {
+                when (it.action and MotionEvent.ACTION_MASK) {
+                    MotionEvent.ACTION_DOWN -> button.elevation = dip2pixels(16)
+                    MotionEvent.ACTION_UP -> button.elevation = dip2pixels(4)
+                }
+                false
+            }
+        }
+
         swipeRefresh.setOnRefreshListener { presenter.loadCardList() }
 
         cardAdapter = CardAdapter(this, cards)
