@@ -1,9 +1,9 @@
 package com.antyzero.cardcheck.job
 
 import com.antyzero.cardcheck.TriggerConfigurator
-import com.antyzero.cardcheck.extension.abs
-import com.antyzero.cardcheck.extension.betweenWithMidnight
-import com.antyzero.cardcheck.extension.tag
+import com.antyzero.cardcheck.dsl.extension.abs
+import com.antyzero.cardcheck.dsl.extension.betweenWithMidnight
+import com.antyzero.cardcheck.dsl.extension.tag
 import com.antyzero.cardcheck.job.Jobs.Tags.CARD_CHECK
 import com.antyzero.cardcheck.logger.Logger
 import com.firebase.jobdispatcher.FirebaseJobDispatcher

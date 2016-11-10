@@ -10,16 +10,17 @@ import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.card.mpk.MpkChecker
 import com.antyzero.cardcheck.storage.FileStorage
 import com.antyzero.cardcheck.storage.PersistentStorage
+import okhttp3.OkHttpClient
 import org.threeten.bp.LocalDate
 import rx.Observable
 
 
-class CardCheck(storage: PersistentStorage = FileStorage()) : Checker<Card>, PersistentStorage by storage {
+class CardCheck(val okHttpClient: OkHttpClient = OkHttpClient(), storage: PersistentStorage = FileStorage()) : Checker<Card>, PersistentStorage by storage {
 
     override fun check(card: Card, localDate: LocalDate): Observable<CardCheckResult> {
 
         return when (card) {
-            is MpkCard -> MpkChecker().check(card, localDate)
+            is MpkCard -> MpkChecker(okHttpClient).check(card, localDate)
             is DumbCard -> DumbChecker(Expired()).check(card, localDate) // TODO remove in future
             else -> throw IllegalArgumentException("Unsupported card type: ${card.javaClass}")
         }

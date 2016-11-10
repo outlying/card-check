@@ -12,7 +12,7 @@ import rx.Observable
 import java.util.*
 import java.util.regex.Pattern
 
-class MpkChecker : Checker<MpkCard> {
+class MpkChecker(private val okHttpClient: OkHttpClient = OkHttpClient()) : Checker<MpkCard> {
 
     override fun check(card: MpkCard, localDate: LocalDate): Observable<CardCheckResult> {
         return Observable.defer { Observable.just(syncCheck(card, localDate)) }
@@ -22,7 +22,6 @@ class MpkChecker : Checker<MpkCard> {
 
         var result: CardCheckResult = CardCheckResult.Expired()
 
-        val okHttpClient = OkHttpClient()
         val httpUrlBuilder = HttpUrl.parse("http://www.mpk.krakow.pl/pl/sprawdz-waznosc-biletu/index,1.html").newBuilder()
 
         httpUrlBuilder.setEncodedQueryParameter("identityNumber", card.clientId.toString())

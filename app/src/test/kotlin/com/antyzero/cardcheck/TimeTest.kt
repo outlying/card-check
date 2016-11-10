@@ -1,7 +1,7 @@
 package com.antyzero.cardcheck
 
-import com.antyzero.cardcheck.extension.abs
-import com.antyzero.cardcheck.extension.betweenWithMidnight
+import com.antyzero.cardcheck.dsl.extension.abs
+import com.antyzero.cardcheck.dsl.extension.betweenWithMidnight
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.threeten.bp.LocalTime
