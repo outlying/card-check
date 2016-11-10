@@ -10,9 +10,9 @@ import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.card.mpk.MpkCard
-import com.antyzero.cardcheck.extension.label
-import com.antyzero.cardcheck.extension.setBackgroundColorRes
-import com.antyzero.cardcheck.extension.toast
+import com.antyzero.cardcheck.dsl.extension.label
+import com.antyzero.cardcheck.dsl.extension.setBackgroundColorRes
+import com.antyzero.cardcheck.dsl.extension.toast
 
 
 class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>) : RecyclerView.Adapter<CardViewHolder>() {
