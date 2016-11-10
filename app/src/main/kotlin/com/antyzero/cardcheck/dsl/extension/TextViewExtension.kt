@@ -1,4 +1,4 @@
-package com.antyzero.cardcheck.extension
+package com.antyzero.cardcheck.dsl.extension
 
 import android.support.annotation.StringRes
 import android.text.TextUtils

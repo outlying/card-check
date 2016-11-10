@@ -6,8 +6,8 @@ import android.support.v4.app.NotificationManagerCompat
 import android.support.v7.app.NotificationCompat
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
-import com.antyzero.cardcheck.extension.notificationManager
-import com.antyzero.cardcheck.extension.pendingActivityIntent
+import com.antyzero.cardcheck.dsl.extension.notificationManager
+import com.antyzero.cardcheck.dsl.extension.pendingActivityIntent
 import com.antyzero.cardcheck.ui.screen.main.MainActivity
 
 class CardNotification(private val context: Context) {

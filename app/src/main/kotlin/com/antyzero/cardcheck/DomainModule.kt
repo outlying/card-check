@@ -6,6 +6,7 @@ import com.antyzero.cardcheck.storage.FileStorage
 import com.antyzero.cardcheck.storage.PersistentStorage
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
 @Module
@@ -13,8 +14,8 @@ class DomainModule {
 
     @Singleton
     @Provides
-    fun provideCardCheck(persistentStorage: PersistentStorage): CardCheck {
-        return CardCheck(persistentStorage)
+    fun provideCardCheck(persistentStorage: PersistentStorage, okHttpClient: OkHttpClient): CardCheck {
+        return CardCheck(okHttpClient, persistentStorage)
     }
 
     @Provides

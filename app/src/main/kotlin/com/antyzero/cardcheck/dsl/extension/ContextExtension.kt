@@ -1,4 +1,4 @@
-package com.antyzero.cardcheck.extension
+package com.antyzero.cardcheck.dsl.extension
 
 import android.app.Activity
 import android.app.PendingIntent
@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import android.support.annotation.StringRes
 import android.support.v4.app.NotificationManagerCompat
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.Toast
 import com.antyzero.cardcheck.CardCheckApplication
@@ -33,3 +34,5 @@ fun Context.notificationManager() = NotificationManagerCompat.from(this)
 fun Context.pendingActivityIntent(requestCode: Int, activityClass: Class<out Activity>, flags: Int): PendingIntent {
     return PendingIntent.getActivity(this, requestCode, Intent(this, activityClass), flags)
 }
+
+fun Context.dip2pixels(dip: Number) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip.toFloat(), resources.displayMetrics)
