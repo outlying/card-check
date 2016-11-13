@@ -4,11 +4,7 @@ import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.threeten.bp.LocalDate
-import org.threeten.bp.chrono.IsoChronology
 import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeFormatterBuilder
-import org.threeten.bp.format.ResolverStyle
-import org.threeten.bp.temporal.TemporalField
 import rx.Observable
 import java.util.*
 
@@ -33,16 +29,16 @@ class CheckLatestVersion(val okHttpClient: OkHttpClient = OkHttpClient()) {
 
             val localDate = "itemprop=\"datePublished\">(.+?)</div>".toPattern().matcher(it).run {
                 if (find()) {
-                    return@run LocalDate.parse(group(1), DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH))
+                    return@run LocalDate.parse(group(1).trim(), DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH))
                 }
                 throw IllegalStateException("Unable to find update date for $applicationId")
             }
 
-            val version = "itemprop=\"softwareVersion\">(.+?)</div>".toPattern().matcher(it).run {
-                if(find()){
+            val version : String? = "itemprop=\"softwareVersion\">(.+?)</div>".toPattern().matcher(it).run {
+                if (find()) {
                     return@run group(1).trim()
                 }
-                throw IllegalStateException()
+                return@run null
             }
 
             localDate to version
