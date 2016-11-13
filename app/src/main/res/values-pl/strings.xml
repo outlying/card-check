@@ -24,4 +24,6 @@
     <string name="hint_album_number">Numer albumu</string>
     <string name="card_add">Dodaj kartę</string>
     <string name="settings">Ustawienia</string>
+    <string name="card_expiring">Twoja karta traci ważność</string>
+    <string name="card_expired">Karta straciła ważność</string>
 </resources>
