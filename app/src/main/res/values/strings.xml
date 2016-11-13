@@ -25,5 +25,7 @@
     <string name="hint_album_number">Album number</string>
 
     <string name="card_add">Add card</string>
+    <string name="card_expiring">Your card is expiring</string>
+    <string name="card_expired">Card expired</string>
     <string name="settings">Settings</string>
 </resources>
