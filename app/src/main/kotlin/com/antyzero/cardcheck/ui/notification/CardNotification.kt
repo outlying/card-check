@@ -1,16 +1,20 @@
 package com.antyzero.cardcheck.ui.notification
 
+import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
+import android.support.annotation.StringRes
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v7.app.NotificationCompat
+import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.dsl.extension.notificationManager
 import com.antyzero.cardcheck.dsl.extension.pendingActivityIntent
+import com.antyzero.cardcheck.localization.Localization
 import com.antyzero.cardcheck.ui.screen.main.MainActivity
 
-class CardNotification(private val context: Context) {
+class CardNotification(private val context: Context, private val localization: Localization) {
 
     private val notificationManager: NotificationManagerCompat = context.notificationManager()
 
@@ -28,7 +32,7 @@ class CardNotification(private val context: Context) {
     fun cardExpired(card: Card) {
 
         context.notificationBuilder()
-                .setContentTitle("Card expired")
+                .setContentTitle(getString(R.string.card_expired))
                 .setContentText("Your card $card is expired")
                 .setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
@@ -36,21 +40,21 @@ class CardNotification(private val context: Context) {
                 .setContentIntent(pendingIntentMainActivity())
                 .build()
                 .let {
-                    notificationManager.notify(100 + card.hashCode(), it)
+                    notificationManager.notify(card, it)
                 }
     }
 
     fun cardExpiring(card: Card, status: CardCheckResult.NotExpired) {
 
         context.notificationBuilder()
-                .setContentTitle("Your card is expiring")
-                .setContentText("Your card will last ${status.daysLeft} more days")
+                .setContentTitle(getString(R.string.card_expiring))
+                .setContentText(localization.cardLastDays(status.daysLeft))
                 .setAutoCancel(true)
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
                 .setContentIntent(pendingIntentMainActivity())
                 .build()
                 .let {
-                    notificationManager.notify(100 + card.hashCode(), it)
+                    notificationManager.notify(card, it)
                 }
     }
 
@@ -59,4 +63,10 @@ class CardNotification(private val context: Context) {
     }
 
     private fun Context.notificationBuilder() = NotificationCompat.Builder(this)
+
+    private fun getString(@StringRes stringId: Int) = this.context.getString(stringId)
+
+    private fun NotificationManagerCompat.notify(card: Card, notification: Notification) {
+        this.notify(1000 + card.hashCode(), notification)
+    }
 }
