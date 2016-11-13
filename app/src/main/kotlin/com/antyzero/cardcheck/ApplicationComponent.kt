@@ -2,6 +2,7 @@ package com.antyzero.cardcheck
 
 import com.antyzero.cardcheck.job.CardCheckJobService
 import com.antyzero.cardcheck.job.JobModule
+import com.antyzero.cardcheck.localization.LocalizationModule
 import com.antyzero.cardcheck.logger.LoggerModule
 import com.antyzero.cardcheck.network.NetworkModule
 import com.antyzero.cardcheck.ui.notification.NotificationModule
@@ -20,7 +21,8 @@ import javax.inject.Singleton
         DomainModule::class,
         JobModule::class,
         NotificationModule::class,
-        LoggerModule::class))
+        LoggerModule::class,
+        LocalizationModule::class))
 
 interface ApplicationComponent {
 
