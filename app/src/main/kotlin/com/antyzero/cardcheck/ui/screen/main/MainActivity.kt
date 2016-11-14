@@ -1,6 +1,9 @@
 package com.antyzero.cardcheck.ui.screen.main
 
 import android.annotation.TargetApi
+import android.content.Intent
+import android.content.Intent.EXTRA_EMAIL
+import android.net.Uri
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Bundle
 import android.support.v7.app.ActionBar
@@ -12,9 +15,9 @@ import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.dsl.api
 import com.antyzero.cardcheck.dsl.extension.dip2pixels
 import com.antyzero.cardcheck.dsl.extension.startActivity
+import com.antyzero.cardcheck.dsl.extension.browseWithChooser
 import com.antyzero.cardcheck.ui.BaseActivity
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
-import com.antyzero.cardcheck.ui.screen.settings.SettingsActivity
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.answers.Answers
 import io.fabric.sdk.android.Fabric
@@ -61,14 +64,24 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // TODO for future work
-        // menuInflater.inflate(R.menu.main, menu)
+        menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.action_settings -> startActivity(SettingsActivity::class)
+            R.id.action_contact -> {
+                val emailIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "plain/text"
+                    putExtra(EXTRA_EMAIL, arrayOf("cardcheck-android@googlegroups.com"))
+                }
+
+                if (emailIntent.resolveActivity(packageManager) != null) {
+                    startActivity(Intent.createChooser(emailIntent, getString(R.string.email_send)))
+                } else {
+                    browseWithChooser("http://cardcheck.antyzero.com")
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -12,7 +12,7 @@ import com.antyzero.cardcheck.card.mpk.Type
 import com.antyzero.cardcheck.dsl.extension.label
 import com.antyzero.cardcheck.dsl.extension.layoutInflater
 import com.antyzero.cardcheck.dsl.extension.setVisible
-import com.antyzero.cardcheck.dsl.extension.startUrl
+import com.antyzero.cardcheck.dsl.extension.browse
 import com.antyzero.cardcheck.ui.BaseActivity
 import com.antyzero.cardcheck.ui.form.EmptyTextViewValidator
 import com.antyzero.cardcheck.ui.form.TextViewValidator
@@ -32,7 +32,7 @@ class AddCardActivity : BaseActivity(), AddCardView, AdapterView.OnItemSelectedL
         spinnerCardProvider.onItemSelectedListener = this
 
         textViewNumbers.setOnClickListener {
-            startUrl("http://www.kkm.krakow.pl/pl/komunikacja/jak-sprawdzic-waznosc/")
+            browse("http://www.kkm.krakow.pl/pl/komunikacja/jak-sprawdzic-waznosc/")
         }
 
         button.setOnClickListener {
