@@ -22,7 +22,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.screen.addcard.AddCardActivity" />
+        <activity
+            android:name=".ui.screen.addcard.AddCardActivity"
+            android:label="@string/card_add" />
 
         <activity android:name=".ui.screen.settings.SettingsActivity" />
 
