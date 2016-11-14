@@ -26,4 +26,6 @@
     <string name="settings">Ustawienia</string>
     <string name="card_expiring">Twoja karta traci ważność</string>
     <string name="card_expired">Karta straciła ważność</string>
+    <string name="contact">Kontakt</string>
+    <string name="email_send">Wyślij email</string>
 </resources>

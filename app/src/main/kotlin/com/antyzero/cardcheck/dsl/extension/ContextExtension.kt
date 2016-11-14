@@ -25,7 +25,9 @@ fun Context.cardCheck() = application().cardCheck
 
 fun Context.startActivity(activityClass: KClass<out Activity>) = this.startActivity(Intent(this, activityClass.java))
 
-fun Context.startUrl(url: String) = startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+fun Context.browse(url: String) = startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+
+fun Context.browseWithChooser(url: String) = startActivity(Intent.createChooser(Intent(Intent.ACTION_VIEW, Uri.parse(url)), "Open website"))
 
 fun Context.layoutInflater() = LayoutInflater.from(this)
 
