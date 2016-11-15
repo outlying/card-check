@@ -1,13 +1,16 @@
 package com.antyzero.cardcheck.ui.screen.main
 
 import android.content.Context
+import com.antyzero.cardcheck.BuildConfig
 import com.antyzero.cardcheck.CardCheck
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.data.CardTransformer
 import com.antyzero.cardcheck.dsl.extension.applicationComponent
+import com.antyzero.cardcheck.dsl.extension.tag
 import com.antyzero.cardcheck.job.Jobs
+import com.antyzero.cardcheck.logger.Logger
 import com.antyzero.cardcheck.mvp.Presenter
-import org.threeten.bp.LocalTime
+import com.antyzero.cardcheck.ui.notification.CardNotification
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -18,6 +21,8 @@ class MainPresenter(context: Context) : Presenter<MainView> {
 
     @Inject lateinit var cardCheck: CardCheck
     @Inject lateinit var jobs: Jobs
+    @Inject lateinit var logger: Logger
+    @Inject lateinit var cardNotification: CardNotification
     lateinit var view: MainView
 
     init {

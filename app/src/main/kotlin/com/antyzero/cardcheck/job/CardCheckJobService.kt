@@ -1,10 +1,11 @@
 package com.antyzero.cardcheck.job
 
-import android.util.Log
 import com.antyzero.cardcheck.CardCheck
 import com.antyzero.cardcheck.data.CardTransformer
 import com.antyzero.cardcheck.dsl.extension.applicationComponent
+import com.antyzero.cardcheck.dsl.extension.tag
 import com.antyzero.cardcheck.job.Jobs.Tags.CARD_CHECK
+import com.antyzero.cardcheck.logger.Logger
 import com.antyzero.cardcheck.ui.notification.CardNotification
 import com.firebase.jobdispatcher.JobParameters
 import com.firebase.jobdispatcher.JobService
@@ -18,6 +19,7 @@ class CardCheckJobService() : JobService() {
     @Inject lateinit var cardCheck: CardCheck
     @Inject lateinit var cardNotification: CardNotification
     @Inject lateinit var jobs: Jobs
+    @Inject lateinit var logger: Logger
 
     override fun onCreate() {
         super.onCreate()
@@ -35,10 +37,9 @@ class CardCheckJobService() : JobService() {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 { cardNotification.cardStatus(it.first, it.second) },
-                                {
-                                    Log.w(CardCheckJobService::class.java.simpleName, "Cannot display notification: ${it}")
-                                })
+                                { logger.w(tag(), "Cannot display notification", it) })
 
+                // Re-schedule
                 jobs.scheduleCardCheck()
             }
         }

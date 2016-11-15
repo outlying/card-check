@@ -3,7 +3,6 @@ package com.antyzero.cardcheck.ui.screen.main
 import android.annotation.TargetApi
 import android.content.Intent
 import android.content.Intent.EXTRA_EMAIL
-import android.net.Uri
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Bundle
 import android.support.v7.app.ActionBar
@@ -13,9 +12,9 @@ import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.dsl.api
+import com.antyzero.cardcheck.dsl.extension.browseWithChooser
 import com.antyzero.cardcheck.dsl.extension.dip2pixels
 import com.antyzero.cardcheck.dsl.extension.startActivity
-import com.antyzero.cardcheck.dsl.extension.browseWithChooser
 import com.antyzero.cardcheck.ui.BaseActivity
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
 import com.crashlytics.android.Crashlytics
