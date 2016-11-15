@@ -16,7 +16,7 @@ class LocalizationModule {
     @Singleton
     fun provideLocalization(context: Context): Localization {
         return when (getLocale(context)) {
-            Locale("pl") -> LocalizationPl()
+            Locale("pl", "PL") -> LocalizationPl()
             else -> LocalizationEn()
         }
     }
