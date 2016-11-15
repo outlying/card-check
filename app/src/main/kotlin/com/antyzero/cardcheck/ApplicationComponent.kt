@@ -8,6 +8,7 @@ import com.antyzero.cardcheck.network.NetworkModule
 import com.antyzero.cardcheck.ui.notification.NotificationModule
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardPresenter
+import com.antyzero.cardcheck.ui.screen.main.CardAdapter
 import com.antyzero.cardcheck.ui.screen.main.MainActivity
 import com.antyzero.cardcheck.ui.screen.main.MainPresenter
 import dagger.Component
@@ -32,4 +33,5 @@ interface ApplicationComponent {
     fun inject(addCardPresenter: AddCardPresenter)
     fun inject(addCardActivity: AddCardActivity)
     fun inject(cardCheckJobService: CardCheckJobService)
+    fun inject(cardAdapter: CardAdapter)
 }
