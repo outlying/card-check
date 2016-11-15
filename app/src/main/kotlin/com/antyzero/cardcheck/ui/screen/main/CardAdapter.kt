@@ -1,6 +1,7 @@
 package com.antyzero.cardcheck.ui.screen.main
 
 import android.content.Context
+import android.support.annotation.StringRes
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +11,23 @@ import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.card.mpk.MpkCard
+import com.antyzero.cardcheck.dsl.extension.applicationComponent
 import com.antyzero.cardcheck.dsl.extension.label
 import com.antyzero.cardcheck.dsl.extension.setBackgroundColorRes
-import com.antyzero.cardcheck.dsl.extension.toast
+import com.antyzero.cardcheck.localization.Localization
+import javax.inject.Inject
 
 
 class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>) : RecyclerView.Adapter<CardViewHolder>() {
 
+    @Inject lateinit var localization: Localization
+
     private val layoutInflater: LayoutInflater
     private var internalSelectableMode: Boolean = false
+
+    init {
+        context.applicationComponent().inject(this)
+    }
 
     val selectedItems: MutableList<Pair<Card, CardCheckResult>> = mutableListOf()
 
@@ -39,11 +48,11 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        holder.bind(cards[position], position)
+        holder.bind(cards[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
-        return CardViewHolder(layoutInflater.inflate(R.layout.item_card, parent, false), this)
+        return CardViewHolder(layoutInflater.inflate(R.layout.item_card, parent, false), this, localization)
     }
 
     override fun getItemCount(): Int {
@@ -60,11 +69,12 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
     }
 }
 
-class CardViewHolder(itemView: View, val cardAdapter: CardAdapter) : RecyclerView.ViewHolder(itemView), View.OnLongClickListener, View.OnClickListener {
+class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val localization: Localization) : RecyclerView.ViewHolder(itemView), View.OnLongClickListener, View.OnClickListener {
 
     private val textViewCardNameId: TextView
     private val textViewCardStatus: TextView
     private val cardIndicator: View
+    private val context: Context = itemView.context
 
     private var internalSelected: Boolean = false
 
@@ -80,7 +90,7 @@ class CardViewHolder(itemView: View, val cardAdapter: CardAdapter) : RecyclerVie
                 cardAdapter.selectedItems.remove(cardAdapter.cards[adapterPosition])
                 itemView.setBackgroundColorRes(android.R.color.transparent)
 
-                if(cardAdapter.selectedItems.isEmpty() && cardAdapter.selectableMode){
+                if (cardAdapter.selectedItems.isEmpty() && cardAdapter.selectableMode) {
                     cardAdapter.selectableMode = false
                 }
             }
@@ -110,25 +120,29 @@ class CardViewHolder(itemView: View, val cardAdapter: CardAdapter) : RecyclerVie
         return false
     }
 
-    fun bind(cardData: Pair<Card, CardCheckResult>, position: Int) {
+    fun bind(cardData: Pair<Card, CardCheckResult>) {
 
         selected = cardAdapter.selectedItems.contains(cardData)
 
         val (card, status) = cardData
         if (card is MpkCard) {
-            textViewCardNameId.text = "${card.cardType.label(itemView.context)} \n#${card.clientId}"
+            textViewCardNameId.text = "${card.cardType.label(context)} \n#${card.clientId}"
         }
 
         when (status) {
             is CardCheckResult.UnableToGetInformation -> {
-                textViewCardStatus.text = "Unknown"
+                textViewCardStatus.text = getString(R.string.card_status_unknown)
             }
             is CardCheckResult.Expired -> {
-                textViewCardStatus.text = "Expired"
+                textViewCardStatus.text = getString(R.string.card_status_expired)
             }
             is CardCheckResult.NotExpired -> {
-                textViewCardStatus.text = "Valid (${status.daysLeft})"
+                textViewCardStatus.text = "${getString(R.string.card_status_valid)}\n${localization.validFor(status.daysLeft)}"
             }
         }
+    }
+
+    private fun getString(@StringRes stringId: Int): String {
+        return context.getString(stringId)
     }
 }
