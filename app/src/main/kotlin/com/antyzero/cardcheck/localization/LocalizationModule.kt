@@ -25,7 +25,10 @@ class LocalizationModule {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             context.resources.configuration.locales.get(0)
         } else {
+<<<<<<< HEAD
             @Suppress("DEPRECATION")
+=======
+>>>>>>> d926d652853d8fb07acde6ff70b50ebf384d68b6
             context.resources.configuration.locale
         }
     }
