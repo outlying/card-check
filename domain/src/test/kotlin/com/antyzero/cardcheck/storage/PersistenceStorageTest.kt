@@ -7,6 +7,7 @@ import org.amshove.kluent.`should be`
 import org.amshove.kluent.`should equal`
 import org.junit.Test
 import java.io.File
+import org.assertj.core.api.Assertions.*
 
 
 class PersistenceStorageTest {
@@ -37,7 +38,7 @@ class PersistenceStorageTest {
     fun noDuplicates() {
 
         // Given
-        val fileStorage = FileStorage().apply { delete() }
+        val fileStorage = FileStorage().apply { clean() }
 
         // When
         fileStorage.addCard(MpkCard.Kkm(1234, 41234))
@@ -53,7 +54,7 @@ class PersistenceStorageTest {
 
         // Given
         val file = File.createTempFile("dupliations", "txt")
-        val fileStorage = FileStorage("todoChange", file).apply { delete() }
+        val fileStorage = FileStorage("todoChange", file).apply { clean() }
 
         // When
         fileStorage.addCard(MpkCard.Kkm(1234, 41234))
@@ -67,12 +68,27 @@ class PersistenceStorageTest {
     }
 
     @Test
+    fun clean() {
+
+        // Given
+        val file = File.createTempFile("someFile", "txt")
+        val fileStorage = FileStorage("none", file)
+
+        // When
+        fileStorage.clean()
+
+        // Then
+        assertThat(fileStorage.getCards()).isEmpty()
+        assertThat(file).hasBinaryContent(byteArrayOf())
+    }
+
+    @Test
     fun Persistency() {
 
         // Given
         val file = File.createTempFile("someFile", "txt")
         val fileStorage = FileStorage("none", file)
-        fileStorage.delete()
+        fileStorage.clean()
 
         // When
         fileStorage.addCard(DumbCard())
@@ -82,6 +98,6 @@ class PersistenceStorageTest {
         val fileStorageSecond = FileStorage("none", file)
         fileStorageSecond.getCards().size `should be` 2
         (fileStorageSecond.getCards()[0] is DumbCard) `should be` true
-        fileStorageSecond.delete()
+        fileStorageSecond.clean()
     }
 }

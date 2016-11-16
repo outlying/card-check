@@ -13,5 +13,5 @@ interface PersistentStorage {
 
     fun getCards(): List<Card>
 
-    fun delete()
+    fun clean()
 }

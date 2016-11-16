@@ -48,7 +48,7 @@ class FileStorage(
         return cardsSet.toList()
     }
 
-    override fun delete() {
+    override fun clean() {
         filePath.apply {
             if (exists()) {
                 delete()
@@ -95,7 +95,6 @@ private class Deser() : JsonDeserializer<CardList> {
 
         val gson = Gson()
 
-        print(json)
         if (json is JsonArray) {
             json.forEach {
                 if (it is JsonObject) {

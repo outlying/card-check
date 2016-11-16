@@ -4,7 +4,6 @@ import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.card.mpk.MpkChecker
 import org.amshove.kluent.`should be`
-import org.amshove.kluent.`should equal`
 import org.junit.Test
 import org.threeten.bp.LocalDate
 import rx.observers.TestSubscriber
