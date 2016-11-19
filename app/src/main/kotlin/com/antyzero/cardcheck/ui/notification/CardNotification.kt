@@ -51,6 +51,7 @@ class CardNotification(private val context: Context, private val localization: L
                 .setContentText(localization.cardLastDays(status.daysLeft))
                 .setAutoCancel(true)
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
+                .setGroup("CARD_EXPIRING")
                 .setContentIntent(pendingIntentMainActivity())
                 .build()
                 .let {
