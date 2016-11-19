@@ -12,6 +12,7 @@ fun View.setBackgroundColorRes(@ColorRes colorRes: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         this.setBackgroundColor(resources.getColor(colorRes, null))
     }else{
+        @Suppress("DEPRECATION")
         this.setBackgroundColor(resources.getColor(colorRes))
     }
 }
