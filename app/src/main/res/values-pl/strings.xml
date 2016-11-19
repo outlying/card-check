@@ -28,7 +28,7 @@
     <string name="card_expired">Karta straciła ważność</string>
     <string name="contact">Kontakt</string>
     <string name="email_send">Wyślij email</string>
-    <string name="card_status_expired">Nie ważna</string>
+    <string name="card_status_expired">Nieważna</string>
     <string name="card_status_unknown">Stan nieznany</string>
     <string name="card_status_valid">Ważna</string>
 </resources>
