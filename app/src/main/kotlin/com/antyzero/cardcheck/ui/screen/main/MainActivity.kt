@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
@@ -81,6 +83,7 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
                     browseWithChooser("http://cardcheck.antyzero.com")
                 }
             }
+            R.id.action_edit -> cardAdapter.selectableMode = true
         }
         return super.onOptionsItemSelected(item)
     }
@@ -90,7 +93,9 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
     }
 
     override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_action, menu); return true
+        button.visibility = GONE
+        menuInflater.inflate(R.menu.main_action, menu);
+        return true
     }
 
     override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
@@ -110,6 +115,7 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
     }
 
     override fun onDestroyActionMode(mode: ActionMode?) {
+        button.visibility = VISIBLE
         cardAdapter.selectableMode = false
     }
 

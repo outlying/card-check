@@ -31,4 +31,5 @@
     <string name="card_status_expired">Nieważna</string>
     <string name="card_status_unknown">Stan nieznany</string>
     <string name="card_status_valid">Ważna</string>
+    <string name="edit_tickets">Edytuj listę</string>
 </resources>
