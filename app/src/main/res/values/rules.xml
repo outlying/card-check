@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="rules_description"><![CDATA[<h1>Informacje</h1>
+<p>Aplikacja służy do szybkiego sprawdzania ważności biletów komunikacji miejskiej, w wybranych miastach, za pośrednictwem metod udostępnionych przez przewoźników.</p>
+<p>Aplikacja nie jest związana oficjalnie z żadnym z przewoźników.</p>
+<p>Aktualnie wspierane miasta wraz z przewoźnikami</p>
+<ul><li>Kraków, MPK</li></ul>
+<p>Jeżeli interesuje Cię wsparcie dla biletów miesięcznych w twoim mieście zaglądnij na nasze <a href="https://groups.google.com/forum/#!forum/cardcheck-android">forum</> i napisz do nas.</p>
+<h1>Zasady</h1>
+<ol>
+<li>Aplikacja nie gwarantuje 100% sprawności działania. W wypadku kiedy przewoźnik zmieni sposób sprawdzania ważności biletu na swoich stronach, aplikacja może przestać działać dla konkretnego przewoźnika.</li>
+</ol>]]></string>
+</resources>

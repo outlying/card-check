@@ -18,6 +18,8 @@ import com.antyzero.cardcheck.dsl.extension.browseWithChooser
 import com.antyzero.cardcheck.dsl.extension.dip2pixels
 import com.antyzero.cardcheck.dsl.extension.startActivity
 import com.antyzero.cardcheck.ui.BaseActivity
+import com.antyzero.cardcheck.ui.dialog.InfoDialog
+import com.antyzero.cardcheck.ui.dialog.RulesDialog
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.answers.Answers
@@ -62,6 +64,9 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = cardAdapter
+
+        // TODO
+        RulesDialog.show(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
