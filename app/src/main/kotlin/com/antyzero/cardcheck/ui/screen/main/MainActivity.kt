@@ -8,14 +8,18 @@ import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.dsl.api
+import com.antyzero.cardcheck.dsl.extension.browse
 import com.antyzero.cardcheck.dsl.extension.browseWithChooser
 import com.antyzero.cardcheck.dsl.extension.dip2pixels
 import com.antyzero.cardcheck.dsl.extension.startActivity
 import com.antyzero.cardcheck.ui.BaseActivity
+import com.antyzero.cardcheck.ui.dialog.RulesDialog
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.answers.Answers
@@ -60,6 +64,8 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = cardAdapter
+
+        RulesDialog.showIfRequired(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -81,6 +87,8 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
                     browseWithChooser("http://cardcheck.antyzero.com")
                 }
             }
+            R.id.action_edit -> cardAdapter.selectableMode = true
+            R.id.action_forum -> browse("http://cardcheck.antyzero.com")
         }
         return super.onOptionsItemSelected(item)
     }
@@ -90,7 +98,9 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
     }
 
     override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_action, menu); return true
+        button.visibility = GONE
+        menuInflater.inflate(R.menu.main_action, menu);
+        return true
     }
 
     override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
@@ -110,6 +120,7 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
     }
 
     override fun onDestroyActionMode(mode: ActionMode?) {
+        button.visibility = VISIBLE
         cardAdapter.selectableMode = false
     }
 

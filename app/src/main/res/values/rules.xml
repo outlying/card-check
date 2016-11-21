@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="rules_description" tools:ignore="StringFormatInvalid"><![CDATA[<h1>Information</h1>
+<p>The application allows a quick check of public transportation monthly ticket/card validity in selected cities. To check ticket validity application uses methods exposed by public transportation companies.</p>
+<p>The application is not officially cooperating with any public transportation company.</p>
+<p>Supported public transportation companies</p>
+<ul><li>Kraków, MPK</li></ul>
+<p>If you would like us to support validity check of monthly tickets in your city, check our <a href="https://groups.google.com/forum/#!forum/cardcheck-android">forum</> and write to us.</p>
+<h1>Important</h1>
+<ol>
+<li>The application does not guarantee 100% efficiency and/or correctness of the data. If public transportation company will change the way to check the validity of the ticket on their website, the application may stop working for a particular carrier.</li>
+<li>In case of doubt, you should always verify the information displayed in the application with a ticket purchase confirmation.</li>
+</ol>]]></string>
+</resources>

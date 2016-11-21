@@ -10,6 +10,7 @@ import android.support.v4.app.NotificationManagerCompat
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.Toast
+import com.antyzero.cardcheck.BuildConfig
 import com.antyzero.cardcheck.CardCheckApplication
 import kotlin.reflect.KClass
 
@@ -38,3 +39,9 @@ fun Context.pendingActivityIntent(requestCode: Int, activityClass: Class<out Act
 }
 
 fun Context.dip2pixels(dip: Number) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip.toFloat(), resources.displayMetrics)
+
+fun Context.uninstall() {
+    val packageUri = Uri.parse("package:${BuildConfig.APPLICATION_ID}")
+    val uninstallIntent = Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageUri)
+    startActivity(uninstallIntent)
+}

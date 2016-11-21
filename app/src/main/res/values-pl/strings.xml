@@ -31,4 +31,8 @@
     <string name="card_status_expired">Nieważna</string>
     <string name="card_status_unknown">Stan nieznany</string>
     <string name="card_status_valid">Ważna</string>
+    <string name="edit_tickets">Edytuj listę</string>
+    <string name="decline">Nie akceptuję</string>
+    <string name="understand_and_accept">Rozumiem i akceptuję</string>
+    <string name="rules_dialog_title">Zasady użytkowania</string>
 </resources>
