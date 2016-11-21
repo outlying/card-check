@@ -3,10 +3,13 @@ package com.antyzero.cardcheck.ui.dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
+import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Html.fromHtml
 import android.text.method.LinkMovementMethod
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.dsl.extension.layoutInflater
@@ -15,6 +18,11 @@ import com.antyzero.cardcheck.dsl.extension.tag
 
 
 class RulesDialog : InfoDialog() {
+
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        isCancelable = false
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun dataToolbarTitle(): String {
         return getString(R.string.rules_dialog_title)
