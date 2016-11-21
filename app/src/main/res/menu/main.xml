@@ -13,9 +13,18 @@
         android:title="@string/edit_tickets"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_contact"
-        android:title="@string/contact"
-        app:showAsAction="never" />
+    <group>
+
+        <item
+            android:id="@+id/action_forum"
+            android:title="@string/forum"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_contact"
+            android:title="@string/contact"
+            app:showAsAction="never" />
+
+    </group>
 
 </menu>

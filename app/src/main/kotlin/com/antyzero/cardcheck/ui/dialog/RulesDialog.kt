@@ -48,7 +48,7 @@ class RulesDialog : InfoDialog() {
 
         private val key = "KEY_ACCEPTED"
 
-        fun show(appCompatActivity: AppCompatActivity) {
+        fun showIfRequired(appCompatActivity: AppCompatActivity) {
             if (appCompatActivity.sharedPreferences().areRulesAccepted().not()) {
                 val dialog = RulesDialog()
                 appCompatActivity.showDialog(dialog, dialog.tag())

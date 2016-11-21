@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="rules_description"><![CDATA[<h1>Informacje</h1>
-<p>Aplikacja służy do szybkiego sprawdzania ważności biletów komunikacji miejskiej, w wybranych miastach, za pośrednictwem metod udostępnionych przez przewoźników.</p>
-<p>Aplikacja nie jest związana oficjalnie z żadnym z przewoźników.</p>
-<p>Aktualnie wspierane miasta wraz z przewoźnikami</p>
+    <string name="rules_description"><![CDATA[<h1>Information</h1>
+<p>The application allows a quick check of public transportation monthly ticket/card validity in selected cities. To check ticket validity application uses methods exposed by public transportation companies.</p>
+<p>The application is not officially cooperating with any public transportation company.</p>
+<p>Supported public transportation companies</p>
 <ul><li>Kraków, MPK</li></ul>
-<p>Jeżeli interesuje Cię wsparcie dla biletów miesięcznych w twoim mieście zaglądnij na nasze <a href="https://groups.google.com/forum/#!forum/cardcheck-android">forum</> i napisz do nas.</p>
-<h1>Zasady</h1>
+<p>If you would like us to support validity check of monthly tickets in your city, check our <a href="https://groups.google.com/forum/#!forum/cardcheck-android">forum</> and write to us.</p>
+<h1>Important</h1>
 <ol>
-<li>Aplikacja nie gwarantuje 100% sprawności działania. W wypadku kiedy przewoźnik zmieni sposób sprawdzania ważności biletu na swoich stronach, aplikacja może przestać działać dla konkretnego przewoźnika.</li>
+<li>The application does not guarantee 100% efficiency and/or correctness of the data. If public transportation company will change the way to check the validity of the ticket on their website, the application may stop working for a particular carrier.</li>
+<li>In case of doubt, you should always verify the information displayed in the application with a ticket purchase confirmation.</li>
 </ol>]]></string>
 </resources>

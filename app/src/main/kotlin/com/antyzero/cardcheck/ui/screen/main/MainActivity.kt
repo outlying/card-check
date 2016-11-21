@@ -14,11 +14,11 @@ import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.dsl.api
+import com.antyzero.cardcheck.dsl.extension.browse
 import com.antyzero.cardcheck.dsl.extension.browseWithChooser
 import com.antyzero.cardcheck.dsl.extension.dip2pixels
 import com.antyzero.cardcheck.dsl.extension.startActivity
 import com.antyzero.cardcheck.ui.BaseActivity
-import com.antyzero.cardcheck.ui.dialog.InfoDialog
 import com.antyzero.cardcheck.ui.dialog.RulesDialog
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
 import com.crashlytics.android.Crashlytics
@@ -65,8 +65,7 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = cardAdapter
 
-        // TODO
-        RulesDialog.show(this)
+        RulesDialog.showIfRequired(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -89,6 +88,7 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
                 }
             }
             R.id.action_edit -> cardAdapter.selectableMode = true
+            R.id.action_forum -> browse("http://cardcheck.antyzero.com")
         }
         return super.onOptionsItemSelected(item)
     }

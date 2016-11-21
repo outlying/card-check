@@ -19,7 +19,7 @@ class CardNotification(private val context: Context, private val localization: L
     private val notificationManager: NotificationManagerCompat = context.notificationManager()
 
     /**
-     * This is "smart" notification, it will show notification according to card status
+     * This is "smart" notification, it will showIfRequired notification according to card status
      */
     fun cardStatus(card: Card, cardCheckResult: CardCheckResult) {
 
