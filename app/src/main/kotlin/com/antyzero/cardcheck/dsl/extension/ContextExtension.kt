@@ -45,3 +45,5 @@ fun Context.uninstall() {
     val uninstallIntent = Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageUri)
     startActivity(uninstallIntent)
 }
+
+fun Context.update() = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")).startActivity(this)

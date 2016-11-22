@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import com.antyzero.cardcheck.R
@@ -28,3 +29,5 @@ fun AlertDialog.Builder.setNegativeButton(pair: Pair<String, DialogInterface.OnC
 }
 
 fun Fragment.layoutInflater() = activity.layoutInflater
+
+fun DialogFragment.show(appCompatActivity: AppCompatActivity, tag: String) = this.show(appCompatActivity.supportFragmentManager, tag)

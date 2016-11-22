@@ -73,7 +73,7 @@ class MpkChecker(private val okHttpClient: OkHttpClient = OkHttpClient()) : Chec
                         val (startDate, endDate) = it
 
                         if ((localDate.isBefore(endDate) || localDate.isEqual(endDate)) && (localDate.isAfter(startDate) || localDate.isEqual(startDate))) {
-                            result = CardCheckResult.NotExpired(localDate.until(endDate, ChronoUnit.DAYS).toInt())
+                            result = CardCheckResult.Valid(localDate.until(endDate, ChronoUnit.DAYS).toInt())
                         }
                     }
                 }

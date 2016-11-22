@@ -1,6 +1,7 @@
 package com.antyzero.cardcheck.job
 
 import com.antyzero.cardcheck.CardCheck
+import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.data.CardTransformer
 import com.antyzero.cardcheck.dsl.extension.applicationComponent
 import com.antyzero.cardcheck.dsl.extension.tag
@@ -31,15 +32,30 @@ class CardCheckJobService() : JobService() {
         when (Jobs.Tags.findByName(job.tag)) {
 
             CARD_CHECK -> {
+
                 Observable.from(cardCheck.getCards())
                         .compose(CardTransformer.status(cardCheck))
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { cardNotification.cardStatus(it.first, it.second) },
+                                {
+                                    val result = it.second
+                                    when(result){
+                                        is CardCheckResult.Valid -> {
+                                            if(result.daysLeft <= 5){ // TODO move 5 to preferences
+                                                cardNotification.cardStatus(it.first, result)
+                                            }
+                                        }
+                                        is CardCheckResult.Expired -> {
+                                            cardNotification.cardStatus(it.first, result)
+                                        }
+                                        else -> logger.w(tag(), "Unsupported result $result")
+                                    }
+
+                                },
                                 { logger.w(tag(), "Cannot display notification", it) })
 
-                // Re-schedule
+                // Re-schedule for next day
                 jobs.scheduleCardCheck()
             }
         }
@@ -50,4 +66,6 @@ class CardCheckJobService() : JobService() {
     override fun onStopJob(job: JobParameters): Boolean {
         return false
     }
+
+
 }
