@@ -25,7 +25,7 @@ class CardNotification(private val context: Context, private val localization: L
 
         when (cardCheckResult) {
             is CardCheckResult.Expired -> cardExpired(card)
-            is CardCheckResult.NotExpired -> cardExpiring(card, cardCheckResult)
+            is CardCheckResult.Valid -> cardExpiring(card, cardCheckResult)
         }
     }
 
@@ -44,7 +44,7 @@ class CardNotification(private val context: Context, private val localization: L
                 }
     }
 
-    fun cardExpiring(card: Card, status: CardCheckResult.NotExpired) {
+    fun cardExpiring(card: Card, status: CardCheckResult.Valid) {
 
         context.notificationBuilder()
                 .setContentTitle(getString(R.string.card_expiring))

@@ -136,7 +136,7 @@ class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val l
             is CardCheckResult.Expired -> {
                 textViewCardStatus.text = getString(R.string.card_status_expired)
             }
-            is CardCheckResult.NotExpired -> {
+            is CardCheckResult.Valid -> {
                 textViewCardStatus.text = "${getString(R.string.card_status_valid)}\n${localization.validFor(status.daysLeft)}"
             }
         }

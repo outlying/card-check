@@ -1,9 +1,15 @@
 package com.antyzero.cardcheck.version
 
+import android.content.Context
+import com.antyzero.cardcheck.BuildConfig
+import com.antyzero.cardcheck.dsl.extension.println
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.threeten.bp.Instant
 import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
 import rx.Observable
 import java.util.*
@@ -12,6 +18,10 @@ class CheckLatestVersion(val okHttpClient: OkHttpClient = OkHttpClient()) {
 
     fun latestVersion(applicationId: String): Observable<Pair<LocalDate, String?>> {
         return Observable.defer { Observable.just(syncLatestVersion(applicationId)) }
+    }
+
+    fun apkBuildDate(): LocalDateTime {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(BuildConfig.BUILD_DATE), ZoneOffset.systemDefault())
     }
 
     private fun syncLatestVersion(applicationId: String): Pair<LocalDate, String?> {
@@ -34,7 +44,7 @@ class CheckLatestVersion(val okHttpClient: OkHttpClient = OkHttpClient()) {
                 throw IllegalStateException("Unable to find update date for $applicationId")
             }
 
-            val version : String? = "itemprop=\"softwareVersion\">(.+?)</div>".toPattern().matcher(it).run {
+            val version: String? = "itemprop=\"softwareVersion\">(.+?)</div>".toPattern().matcher(it).run {
                 if (find()) {
                     return@run group(1).trim()
                 }

@@ -15,6 +15,9 @@ android {
         versionCode appVersionCode as Integer
         versionName appVersionName as String
         vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "long", "BUILD_DATE", "${System.currentTimeMillis()}L"
     }
 
     //noinspection GroovyAssignabilityCheck
@@ -66,6 +69,7 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
     }
 }
 
@@ -76,6 +80,13 @@ kapt {
 play {
     jsonFile = new File("" + System.getenv("PLAY_JSON"))
     track = 'beta'
+}
+
+//noinspection GroovyAssignabilityCheck
+configurations.all {
+    resolutionStrategy {
+        force "com.android.support:support-annotations:${libVersion.android.support.appCompat}"
+    }
 }
 
 dependencies {
@@ -100,6 +111,11 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:2.5.0'
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 }
 
 repositories {

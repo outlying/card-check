@@ -27,8 +27,8 @@ class CardVerificationTest {
         testSubscriber.assertNoErrors()
         testSubscriber.assertCompleted()
         val cardCheckResult = testSubscriber.result()
-        assert(cardCheckResult is CardCheckResult.NotExpired)
-        (cardCheckResult as CardCheckResult.NotExpired).daysLeft `should be` CardCheckResult.NotExpired(30).daysLeft
+        assert(cardCheckResult is CardCheckResult.Valid)
+        (cardCheckResult as CardCheckResult.Valid).daysLeft `should be` CardCheckResult.Valid(30).daysLeft
     }
 
     @Test
@@ -61,8 +61,8 @@ class CardVerificationTest {
         testSubscriber.assertNoErrors()
         testSubscriber.assertCompleted()
         val cardCheckResult = testSubscriber.result()
-        assert(cardCheckResult is CardCheckResult.NotExpired)
-        (cardCheckResult as CardCheckResult.NotExpired).daysLeft `should be` CardCheckResult.NotExpired(31).daysLeft
+        assert(cardCheckResult is CardCheckResult.Valid)
+        (cardCheckResult as CardCheckResult.Valid).daysLeft `should be` CardCheckResult.Valid(31).daysLeft
     }
 
     fun TestSubscriber<CardCheckResult>.result() = this.onNextEvents[0]
