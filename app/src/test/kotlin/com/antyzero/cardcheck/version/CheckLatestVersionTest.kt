@@ -46,25 +46,4 @@ class CheckLatestVersionTest {
         val minutes = ChronoUnit.MINUTES.between(dateTime, LocalDateTime.now()).abs()
         assertThat(minutes <= 10)
     }
-
-    @Test
-    fun betaApplication() {
-
-        // Given
-        val applicationId = "com.antyzero.cardcheck"
-        val checkLatestVersion = CheckLatestVersion()
-        val testSubscriber = TestSubscriber<Pair<LocalDate, String?>>()
-
-        // When
-        checkLatestVersion.latestVersion(applicationId).subscribe(testSubscriber)
-
-        // Then
-        testSubscriber.assertNoErrors()
-        testSubscriber.assertCompleted()
-        testSubscriber.assertValueCount(1)
-
-        testSubscriber.onNextEvents[0].let {
-            assertThat(it.second).isEqualTo(null)
-        }
-    }
 }
