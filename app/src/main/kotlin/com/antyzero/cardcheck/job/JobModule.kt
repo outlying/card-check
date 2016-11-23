@@ -20,7 +20,7 @@ class JobModule {
 
     @Provides
     @Singleton
-    fun provideJobs(firebaseJobDispatcher: FirebaseJobDispatcher, logger:Logger): Jobs {
+    fun provideJobs(firebaseJobDispatcher: FirebaseJobDispatcher, logger: Logger): Jobs {
         return Jobs(firebaseJobDispatcher, logger)
     }
 }
