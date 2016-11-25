@@ -1,6 +1,8 @@
 package com.antyzero.cardcheck.logger
 
+import android.content.Context
 import com.antyzero.cardcheck.BuildConfig
+import com.antyzero.cardcheck.tracker.Tracker
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -13,5 +15,11 @@ class LoggerModule {
     @Singleton
     fun provideLogger(): Logger {
         return if (BuildConfig.DEBUG) AndroidLogger() else CrashlyticsLogger()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTracker(context: Context): Tracker {
+        return Tracker(context)
     }
 }
