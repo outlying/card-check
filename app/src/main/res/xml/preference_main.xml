@@ -2,9 +2,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <CheckBoxPreference
-        android:key="@string/pref_time"
-        android:title="Title 123"
-        android:summary="Summary asd"
-        android:defaultValue="true" />
+            android:key="@string/pref_time"
+            android:title="Title 123"
+            android:summary="Summary asd"
+            android:defaultValue="true"/>
 
 </PreferenceScreen>

@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
         <Spinner
-            android:id="@+id/spinnerCardProvider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                android:id="@+id/spinnerCardProvider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/editTextClientId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal" />
+                    android:id="@+id/editTextClientId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"/>
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/editTextCardId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal" />
+                    android:id="@+id/editTextCardId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"/>
 
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/card_add" />
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/card_add"/>
 
         <TextView
-            android:id="@+id/textViewNumbers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gdzie szukać numerów ?"/>
+                android:id="@+id/textViewNumbers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gdzie szukać numerów ?"/>
 
     </LinearLayout>
 

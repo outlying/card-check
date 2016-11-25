@@ -40,9 +40,9 @@ class CardCheckJobService() : JobService() {
                         .subscribe(
                                 {
                                     val result = it.second
-                                    when(result){
+                                    when (result) {
                                         is CardCheckResult.Valid -> {
-                                            if(result.daysLeft <= 5){ // TODO move 5 to preferences
+                                            if (result.daysLeft <= 5) { // TODO move 5 to preferences
                                                 cardNotification.cardStatus(it.first, result)
                                             }
                                         }

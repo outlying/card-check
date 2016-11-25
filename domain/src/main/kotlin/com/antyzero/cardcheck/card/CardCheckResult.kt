@@ -5,7 +5,7 @@ package com.antyzero.cardcheck.card
  */
 sealed class CardCheckResult {
 
-    class Valid(val daysLeft: Int) : CardCheckResult(){
+    class Valid(val daysLeft: Int) : CardCheckResult() {
         override fun toString(): String {
             return "${Valid::class.java}, days left: $daysLeft"
         }
