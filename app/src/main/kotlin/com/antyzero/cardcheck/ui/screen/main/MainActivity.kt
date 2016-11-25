@@ -36,7 +36,6 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
     @TargetApi(LOLLIPOP) // TODO not cool but lint insist
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Fabric.with(this, Crashlytics(), Answers()) // TODO move to module
 
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)

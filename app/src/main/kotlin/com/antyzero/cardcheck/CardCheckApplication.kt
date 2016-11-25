@@ -6,6 +6,9 @@ import com.antyzero.cardcheck.dsl.extension.tag
 import com.antyzero.cardcheck.job.Jobs
 import com.antyzero.cardcheck.logger.Logger
 import com.antyzero.cardcheck.tracker.Tracker
+import com.crashlytics.android.Crashlytics
+import com.crashlytics.android.answers.Answers
+import io.fabric.sdk.android.Fabric
 import javax.inject.Inject
 
 
@@ -20,6 +23,7 @@ class CardCheckApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Fabric.with(this, Crashlytics(), Answers())
         applicationComponent = DaggerApplicationComponent.builder()
                 .androidModule(AndroidModule(this))
                 .build()
