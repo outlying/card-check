@@ -62,7 +62,7 @@ class CardVerificationTest {
         testSubscriber.assertCompleted()
         val cardCheckResult = testSubscriber.result()
         assert(cardCheckResult is CardCheckResult.Valid)
-        (cardCheckResult as CardCheckResult.Valid).daysLeft `should be` CardCheckResult.Valid(31).daysLeft
+        (cardCheckResult as CardCheckResult.Valid).daysLeft `should be` CardCheckResult.Valid(61).daysLeft
     }
 
     fun TestSubscriber<CardCheckResult>.result() = this.onNextEvents[0]
