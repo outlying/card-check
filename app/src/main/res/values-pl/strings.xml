@@ -35,4 +35,5 @@
     <string name="decline">Nie akceptuję</string>
     <string name="understand_and_accept">Rozumiem i akceptuję</string>
     <string name="rules_dialog_title">Zasady użytkowania</string>
+    <string name="card_expired_message">Twoja karta %s utraciła ważność</string>
 </resources>

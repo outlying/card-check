@@ -33,7 +33,7 @@ class CardNotification(private val context: Context, private val localization: L
 
         context.notificationBuilder()
                 .setContentTitle(getString(R.string.card_expired))
-                .setContentText("Your card $card is expired")
+                .setContentText(context.getString(R.string.card_expired_message, card))
                 .setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setSmallIcon(android.R.drawable.ic_dialog_info)

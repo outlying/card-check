@@ -11,8 +11,8 @@ import com.antyzero.cardcheck.R
 
 fun AlertDialog.Builder.setToolbar(toolbarText: String): Toolbar {
     val toolbar = LayoutInflater.from(context).inflate(R.layout.dialog_toolbar, null) as Toolbar
-    toolbar.setTitleTextColor(context.resources.getColor(android.R.color.primary_text_dark))
-    toolbar.setBackgroundColor(context.resources.getColor(R.color.colorPrimary))
+    toolbar.setTitleTextColor(context.resources.getColor(android.R.color.primary_text_dark,null))
+    toolbar.setBackgroundColor(context.resources.getColor(R.color.colorPrimary,null))
     toolbar.title = toolbarText
     this.setCustomTitle(toolbar)
     return toolbar

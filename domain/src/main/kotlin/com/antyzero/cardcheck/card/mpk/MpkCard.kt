@@ -14,7 +14,12 @@ import com.antyzero.cardcheck.card.Card
  */
 sealed class MpkCard(val clientId: Int, val cityCardId: Long?, val cardType: Type = Type.KKM) : Card() {
 
-    class Kkm(clientId: Int, cardId: Long) : MpkCard(clientId, cityCardId = cardId, cardType = Type.KKM)
+    class Kkm(clientId: Int, cardId: Long) : MpkCard(clientId, cityCardId = cardId, cardType = Type.KKM) {
+
+        override fun toString(): String {
+            return "KKM #$cityCardId"
+        }
+    }
 
     class Student(clientId: Int, cardType: Type) : MpkCard(clientId = clientId, cityCardId = null, cardType = cardType) {
 
@@ -22,6 +27,10 @@ sealed class MpkCard(val clientId: Int, val cityCardId: Long?, val cardType: Typ
             if (cardType == Type.KKM) {
                 throw IllegalArgumentException("For KKM cards use MpkCard.Kkm class")
             }
+        }
+
+        override fun toString(): String {
+            return "$cardType #$clientId"
         }
     }
 

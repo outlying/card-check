@@ -11,7 +11,12 @@ enum class Type(val typeId: Long) {
     AGH(21), UJ(22), PK(23), UE(24), UR(25), PWST(26), AM(27), WSE(28), AIK(29), UP(30), WSH(31), KA(32), WSEI(33), IFJ_PAN(34), IF_PAN(35), IKIFP_PAN(36)
     ;
 
+    override fun toString(): String {
+        return name.replace("_", " ")
+    }
+
     companion object {
+
         fun findByTypeId(typeId: Number): Type {
             val searchById = typeId.toLong()
             values().forEach {
