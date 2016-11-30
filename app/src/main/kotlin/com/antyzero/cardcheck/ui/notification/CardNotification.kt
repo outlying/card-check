@@ -36,7 +36,7 @@ class CardNotification(private val context: Context, private val localization: L
                 .setContentText(context.getString(R.string.card_expired_message, card))
                 .setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
+                .setSmallIcon(R.drawable.ic_directions_bus_white_24px)
                 .setContentIntent(pendingIntentMainActivity())
                 .build()
                 .let {
@@ -50,7 +50,7 @@ class CardNotification(private val context: Context, private val localization: L
                 .setContentTitle(getString(R.string.card_expiring))
                 .setContentText(localization.cardLastDays(status.daysLeft))
                 .setAutoCancel(true)
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
+                .setSmallIcon(R.drawable.ic_directions_bus_white_24px)
                 .setGroup("CARD_EXPIRING")
                 .setContentIntent(pendingIntentMainActivity())
                 .build()
