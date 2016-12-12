@@ -8,7 +8,7 @@ import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 
-class TrackManager(context: Context) {
+class TrackManager(context: Context, tracker: Tracker) : Tracker by tracker {
 
     private var sharedPreferences: SharedPreferences
 
