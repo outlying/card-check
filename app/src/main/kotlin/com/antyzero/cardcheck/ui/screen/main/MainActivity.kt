@@ -21,9 +21,7 @@ import com.antyzero.cardcheck.dsl.extension.startActivity
 import com.antyzero.cardcheck.ui.BaseActivity
 import com.antyzero.cardcheck.ui.dialog.RulesDialog
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
-import com.crashlytics.android.Crashlytics
-import com.crashlytics.android.answers.Answers
-import io.fabric.sdk.android.Fabric
+import com.antyzero.cardcheck.ui.screen.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
@@ -74,6 +72,9 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
+            R.id.action_settings -> startActivity(SettingsActivity::class)
+            R.id.action_edit -> cardAdapter.selectableMode = true
+            R.id.action_forum -> browse("http://cardcheck.antyzero.com")
             R.id.action_contact -> {
                 val emailIntent = Intent(Intent.ACTION_SEND).apply {
                     type = "plain/text"
@@ -86,8 +87,6 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
                     browseWithChooser("http://cardcheck.antyzero.com")
                 }
             }
-            R.id.action_edit -> cardAdapter.selectableMode = true
-            R.id.action_forum -> browse("http://cardcheck.antyzero.com")
         }
         return super.onOptionsItemSelected(item)
     }
