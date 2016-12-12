@@ -58,6 +58,8 @@ class CardCheckJobService() : JobService() {
                 // Re-schedule for next day
                 jobs.scheduleCardCheck()
             }
+
+            else -> logger.w(tag(), "No job for tag [${job.tag}]")
         }
 
         return false

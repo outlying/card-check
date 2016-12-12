@@ -2,7 +2,7 @@ package com.antyzero.cardcheck.logger
 
 import android.content.Context
 import com.antyzero.cardcheck.BuildConfig
-import com.antyzero.cardcheck.tracker.Tracker
+import com.antyzero.cardcheck.tracker.TrackManager
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -19,7 +19,7 @@ class LoggerModule {
 
     @Provides
     @Singleton
-    fun provideTracker(context: Context): Tracker {
-        return Tracker(context)
+    fun provideTracker(context: Context): TrackManager {
+        return TrackManager(context)
     }
 }

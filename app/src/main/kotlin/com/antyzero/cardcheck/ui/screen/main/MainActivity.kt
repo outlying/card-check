@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.Intent.EXTRA_EMAIL
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Bundle
-import android.support.v7.app.ActionBar
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import android.view.View.GONE
@@ -103,9 +102,7 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
         return true
     }
 
-    override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-        return true
-    }
+    override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?) = true
 
     override fun onActionItemClicked(mode: ActionMode?, item: MenuItem): Boolean {
         when (item.itemId) {
@@ -124,9 +121,7 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
         cardAdapter.selectableMode = false
     }
 
-    override fun getSupportActionBar(): ActionBar {
-        return super.getSupportActionBar()!! // we do have
-    }
+    override fun getSupportActionBar() = super.getSupportActionBar()!! // we do have
 
     override fun showLoading() {
         swipeRefresh.isRefreshing = true
