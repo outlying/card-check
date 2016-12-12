@@ -34,11 +34,13 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
     @TargetApi(LOLLIPOP) // TODO not cool but lint insist
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        presenter = MainPresenter(this).apply {
-            this.attachView(this@MainActivity)
+
+        component().let {
+            presenter = it.mainPresenter().apply {
+                attachView(this@MainActivity)
+            }
         }
 
         button.setOnClickListener { goToAddCardScreen() }

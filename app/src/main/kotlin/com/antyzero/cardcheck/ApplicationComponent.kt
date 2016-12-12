@@ -9,9 +9,7 @@ import com.antyzero.cardcheck.network.NetworkModule
 import com.antyzero.cardcheck.ui.notification.NotificationModule
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardPresenter
-import com.antyzero.cardcheck.ui.screen.main.CardAdapter
-import com.antyzero.cardcheck.ui.screen.main.MainActivity
-import com.antyzero.cardcheck.ui.screen.main.MainPresenter
+import com.antyzero.cardcheck.ui.screen.main.*
 import com.antyzero.cardcheck.version.CheckLatestVersion
 import dagger.Component
 import javax.inject.Singleton
@@ -36,6 +34,12 @@ interface ApplicationComponent {
     fun inject(addCardActivity: AddCardActivity)
     fun inject(cardCheckJobService: CardCheckJobService)
     fun inject(cardAdapter: CardAdapter)
+
+    // Graph
+
+    fun extend(mainModule: MainModule): MainComponent
+
+    // Exposed
 
     fun checkLatestVersion(): CheckLatestVersion
     fun logger(): Logger

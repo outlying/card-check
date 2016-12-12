@@ -27,6 +27,7 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
 
     init {
         context.applicationComponent().inject(this)
+        layoutInflater = LayoutInflater.from(context)
     }
 
     val selectedItems: MutableList<Pair<Card, CardCheckResult>> = mutableListOf()
@@ -43,25 +44,13 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
 
     var selectableModeListener: ((Boolean) -> Unit)? = null
 
-    init {
-        layoutInflater = LayoutInflater.from(context)
-    }
+    override fun onBindViewHolder(holder: CardViewHolder, position: Int) = holder.bind(cards[position])
 
-    override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        holder.bind(cards[position])
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CardViewHolder(layoutInflater.inflate(R.layout.item_card, parent, false), this, localization)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
-        return CardViewHolder(layoutInflater.inflate(R.layout.item_card, parent, false), this, localization)
-    }
+    override fun getItemCount() = cards.size
 
-    override fun getItemCount(): Int {
-        return cards.size
-    }
-
-    override fun getItemId(position: Int): Long {
-        return cards[position].hashCode().toLong()
-    }
+    override fun getItemId(position: Int) = cards[position].hashCode().toLong()
 
     fun clearSelected() {
         selectedItems.clear()
@@ -69,7 +58,7 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
     }
 }
 
-class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val localization: Localization) : RecyclerView.ViewHolder(itemView), View.OnLongClickListener, View.OnClickListener {
+class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val localization: Localization) : RecyclerView.ViewHolder(itemView) {
 
     private val textViewCardNameId: TextView
     private val textViewCardStatus: TextView
@@ -101,23 +90,21 @@ class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val l
         textViewCardStatus = itemView.findViewById(R.id.textViewCardStatus) as TextView
         cardIndicator = itemView.findViewById(R.id.cardIndicator)
 
-        itemView.setOnLongClickListener(this)
-        itemView.setOnClickListener(this)
-    }
-
-    override fun onClick(v: View?) {
-        if (cardAdapter.selectableMode) {
-            selected = selected.not()
+        itemView.setOnLongClickListener {
+            if (cardAdapter.selectableMode == false) {
+                cardAdapter.selectableMode = true
+                selected = true
+                true
+            } else {
+                false
+            }
         }
-    }
 
-    override fun onLongClick(v: View): Boolean {
-        if (cardAdapter.selectableMode == false) {
-            cardAdapter.selectableMode = true
-            selected = true
-            return true
+        itemView.setOnClickListener {
+            if (cardAdapter.selectableMode) {
+                selected = selected.not()
+            }
         }
-        return false
     }
 
     fun bind(cardData: Pair<Card, CardCheckResult>) {
@@ -142,7 +129,5 @@ class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val l
         }
     }
 
-    private fun getString(@StringRes stringId: Int): String {
-        return context.getString(stringId)
-    }
+    private fun getString(@StringRes stringId: Int) = context.getString(stringId)
 }
