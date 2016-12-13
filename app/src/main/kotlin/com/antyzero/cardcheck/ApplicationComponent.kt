@@ -1,5 +1,6 @@
 package com.antyzero.cardcheck
 
+import com.antyzero.cardcheck.fabric.FabricModule
 import com.antyzero.cardcheck.job.CardCheckJobService
 import com.antyzero.cardcheck.job.JobModule
 import com.antyzero.cardcheck.localization.LocalizationModule
@@ -18,6 +19,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(
         AndroidModule::class,
+        FabricModule::class,
         NetworkModule::class,
         DomainModule::class,
         JobModule::class,
