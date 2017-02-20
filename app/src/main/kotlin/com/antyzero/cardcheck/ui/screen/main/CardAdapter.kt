@@ -22,12 +22,11 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
 
     @Inject lateinit var localization: Localization
 
-    private val layoutInflater: LayoutInflater
+    private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private var internalSelectableMode: Boolean = false
 
     init {
         context.applicationComponent().inject(this)
-        layoutInflater = LayoutInflater.from(context)
     }
 
     val selectedItems: MutableList<Pair<Card, CardCheckResult>> = mutableListOf()
@@ -37,7 +36,7 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
         set(value) {
             selectableModeListener?.invoke(value)
             internalSelectableMode = value
-            if (value == false) {
+            if (!value) {
                 clearSelected()
             }
         }
@@ -60,9 +59,9 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
 
 class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val localization: Localization) : RecyclerView.ViewHolder(itemView) {
 
-    private val textViewCardNameId: TextView
-    private val textViewCardStatus: TextView
-    private val cardIndicator: View
+    private val textViewCardNameId: TextView = itemView.findViewById(R.id.textViewCardNameId) as TextView
+    private val textViewCardStatus: TextView = itemView.findViewById(R.id.textViewCardStatus) as TextView
+    private val cardIndicator: View = itemView.findViewById(R.id.cardIndicator)
     private val context: Context = itemView.context
 
     private var internalSelected: Boolean = false
@@ -86,12 +85,9 @@ class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val l
         }
 
     init {
-        textViewCardNameId = itemView.findViewById(R.id.textViewCardNameId) as TextView
-        textViewCardStatus = itemView.findViewById(R.id.textViewCardStatus) as TextView
-        cardIndicator = itemView.findViewById(R.id.cardIndicator)
 
         itemView.setOnLongClickListener {
-            if (cardAdapter.selectableMode == false) {
+            if (!cardAdapter.selectableMode) {
                 cardAdapter.selectableMode = true
                 selected = true
                 true
@@ -112,8 +108,9 @@ class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val l
         selected = cardAdapter.selectedItems.contains(cardData)
 
         val (card, status) = cardData
-        if (card is MpkCard) {
-            textViewCardNameId.text = "${card.cardType.label(context)} \n#${card.clientId}"
+
+        when (card) {
+            is MpkCard -> textViewCardNameId.text = "%s \n#%s (%s)".format(card.cardType.label(context), card.cityCardId, card.clientId)
         }
 
         when (status) {
