@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import com.antyzero.cardcheck.R
 
+@Suppress("DEPRECATION")
 fun AlertDialog.Builder.setToolbar(toolbarText: String): Toolbar {
     val toolbar = LayoutInflater.from(context).inflate(R.layout.dialog_toolbar, null) as Toolbar
     toolbar.setTitleTextColor(context.resources.getColor(android.R.color.primary_text_dark))

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.Intent.EXTRA_EMAIL
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Bundle
-import android.support.v7.app.ActionBar
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import android.view.View.GONE
@@ -21,9 +20,7 @@ import com.antyzero.cardcheck.dsl.extension.startActivity
 import com.antyzero.cardcheck.ui.BaseActivity
 import com.antyzero.cardcheck.ui.dialog.RulesDialog
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
-import com.crashlytics.android.Crashlytics
-import com.crashlytics.android.answers.Answers
-import io.fabric.sdk.android.Fabric
+import com.antyzero.cardcheck.ui.screen.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
@@ -36,11 +33,13 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
     @TargetApi(LOLLIPOP) // TODO not cool but lint insist
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        presenter = MainPresenter(this).apply {
-            this.attachView(this@MainActivity)
+
+        component().let {
+            presenter = it.mainPresenter().apply {
+                attachView(this@MainActivity)
+            }
         }
 
         button.setOnClickListener { goToAddCardScreen() }
@@ -74,6 +73,9 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
+            R.id.action_settings -> startActivity(SettingsActivity::class)
+            R.id.action_edit -> cardAdapter.selectableMode = true
+            R.id.action_forum -> browse("http://cardcheck.antyzero.com")
             R.id.action_contact -> {
                 val emailIntent = Intent(Intent.ACTION_SEND).apply {
                     type = "plain/text"
@@ -86,8 +88,6 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
                     browseWithChooser("http://cardcheck.antyzero.com")
                 }
             }
-            R.id.action_edit -> cardAdapter.selectableMode = true
-            R.id.action_forum -> browse("http://cardcheck.antyzero.com")
         }
         return super.onOptionsItemSelected(item)
     }
@@ -102,9 +102,7 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
         return true
     }
 
-    override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-        return true
-    }
+    override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?) = true
 
     override fun onActionItemClicked(mode: ActionMode?, item: MenuItem): Boolean {
         when (item.itemId) {
@@ -123,9 +121,7 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
         cardAdapter.selectableMode = false
     }
 
-    override fun getSupportActionBar(): ActionBar {
-        return super.getSupportActionBar()!! // we do have
-    }
+    override fun getSupportActionBar() = super.getSupportActionBar()!! // we do have
 
     override fun showLoading() {
         swipeRefresh.isRefreshing = true

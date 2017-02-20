@@ -36,4 +36,6 @@
     <string name="understand_and_accept">Rozumiem i akceptuję</string>
     <string name="rules_dialog_title">Zasady użytkowania</string>
     <string name="card_expired_message">Twoja karta %s utraciła ważność</string>
+    <string name="email">E-mail</string>
+    <string name="information">Informacje</string>
 </resources>

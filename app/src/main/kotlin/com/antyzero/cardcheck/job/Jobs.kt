@@ -45,16 +45,12 @@ class Jobs(private val dispatcher: FirebaseJobDispatcher, private val logger: Lo
     enum class Tags {
         CARD_CHECK;
 
-        override fun toString(): String {
-            return name
-        }
+        override fun toString() = name
 
         companion object {
             fun findByName(name: String): Tags {
                 values().forEach {
-                    if (it.name == name) {
-                        return it
-                    }
+                    if (it.name == name) return it
                 }
                 throw IllegalArgumentException("No enum value found for: $name")
             }

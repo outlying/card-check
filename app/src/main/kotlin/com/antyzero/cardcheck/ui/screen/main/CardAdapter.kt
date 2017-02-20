@@ -22,7 +22,7 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
 
     @Inject lateinit var localization: Localization
 
-    private val layoutInflater: LayoutInflater
+    private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private var internalSelectableMode: Boolean = false
 
     init {
@@ -36,32 +36,20 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
         set(value) {
             selectableModeListener?.invoke(value)
             internalSelectableMode = value
-            if (value == false) {
+            if (!value) {
                 clearSelected()
             }
         }
 
     var selectableModeListener: ((Boolean) -> Unit)? = null
 
-    init {
-        layoutInflater = LayoutInflater.from(context)
-    }
+    override fun onBindViewHolder(holder: CardViewHolder, position: Int) = holder.bind(cards[position])
 
-    override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        holder.bind(cards[position])
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CardViewHolder(layoutInflater.inflate(R.layout.item_card, parent, false), this, localization)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
-        return CardViewHolder(layoutInflater.inflate(R.layout.item_card, parent, false), this, localization)
-    }
+    override fun getItemCount() = cards.size
 
-    override fun getItemCount(): Int {
-        return cards.size
-    }
-
-    override fun getItemId(position: Int): Long {
-        return cards[position].hashCode().toLong()
-    }
+    override fun getItemId(position: Int) = cards[position].hashCode().toLong()
 
     fun clearSelected() {
         selectedItems.clear()
@@ -69,11 +57,11 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
     }
 }
 
-class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val localization: Localization) : RecyclerView.ViewHolder(itemView), View.OnLongClickListener, View.OnClickListener {
+class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val localization: Localization) : RecyclerView.ViewHolder(itemView) {
 
-    private val textViewCardNameId: TextView
-    private val textViewCardStatus: TextView
-    private val cardIndicator: View
+    private val textViewCardNameId: TextView = itemView.findViewById(R.id.textViewCardNameId) as TextView
+    private val textViewCardStatus: TextView = itemView.findViewById(R.id.textViewCardStatus) as TextView
+    private val cardIndicator: View = itemView.findViewById(R.id.cardIndicator)
     private val context: Context = itemView.context
 
     private var internalSelected: Boolean = false
@@ -97,27 +85,22 @@ class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val l
         }
 
     init {
-        textViewCardNameId = itemView.findViewById(R.id.textViewCardNameId) as TextView
-        textViewCardStatus = itemView.findViewById(R.id.textViewCardStatus) as TextView
-        cardIndicator = itemView.findViewById(R.id.cardIndicator)
 
-        itemView.setOnLongClickListener(this)
-        itemView.setOnClickListener(this)
-    }
-
-    override fun onClick(v: View?) {
-        if (cardAdapter.selectableMode) {
-            selected = selected.not()
+        itemView.setOnLongClickListener {
+            if (!cardAdapter.selectableMode) {
+                cardAdapter.selectableMode = true
+                selected = true
+                true
+            } else {
+                false
+            }
         }
-    }
 
-    override fun onLongClick(v: View): Boolean {
-        if (cardAdapter.selectableMode == false) {
-            cardAdapter.selectableMode = true
-            selected = true
-            return true
+        itemView.setOnClickListener {
+            if (cardAdapter.selectableMode) {
+                selected = selected.not()
+            }
         }
-        return false
     }
 
     fun bind(cardData: Pair<Card, CardCheckResult>) {
@@ -125,8 +108,9 @@ class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val l
         selected = cardAdapter.selectedItems.contains(cardData)
 
         val (card, status) = cardData
-        if (card is MpkCard) {
-            textViewCardNameId.text = "${card.cardType.label(context)} \n#${card.clientId}"
+
+        when (card) {
+            is MpkCard -> textViewCardNameId.text = "%s \n#%s (%s)".format(card.cardType.label(context), card.cityCardId, card.clientId)
         }
 
         when (status) {
@@ -142,7 +126,5 @@ class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val l
         }
     }
 
-    private fun getString(@StringRes stringId: Int): String {
-        return context.getString(stringId)
-    }
+    private fun getString(@StringRes stringId: Int) = context.getString(stringId)
 }
