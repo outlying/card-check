@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.0.4'
+    ext.kotlin_version = '1.0.6'
     repositories {
         jcenter()
         mavenCentral()
@@ -39,20 +39,20 @@ ext {
                     ]
             ],
             google: [
-                    dagger: '2.7',
+                    dagger: '2.8',
                     gson: '2.8.0'
             ],
             rx: [
                     kotlin: "0.60.0"
             ],
             squareup : [
-                    okhttp3: '3.4.2'],
+                    okhttp3: '3.5.0'],
             test: [
                     assertj: '2.5.0',
                     junit: '4.12',
                     kluent: '1.9'
             ],
-            threeten: '1.3.2'
+            threeten: '1.3.3'
 
     ]
 }
