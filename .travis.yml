@@ -1,0 +1,44 @@
+language: android
+sudo: false
+
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
+jdk:
+  - oraclejdk8
+
+env:
+  matrix:
+    - ANDROID_TARGET=android-18 ANDROID_ABI=armeabi-v7a
+
+android:
+  components:
+    - platform-tools
+    - tools
+    - android-23
+    - build-tools-23.0.1
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - sys-img-armeabi-v7a-android-22
+
+before_install:
+  - export JAVA7_HOME=/usr/lib/jvm/java-7-oracle
+  - export JAVA8_HOME=/usr/lib/jvm/java-8-oracle
+  - export JAVA_HOME=$JAVA8_HOME
+
+before_script:
+  - mkdir "$ANDROID_HOME/licenses" || true
+  - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
+  - echo -e "\n79120722343a6f314e0719f863036c702b0e6b2a" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+  - emulator -avd test -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+
+script:
+  - adb devices
+  - ./gradlew check build -PdisablePreDex --continue --stacktrace
