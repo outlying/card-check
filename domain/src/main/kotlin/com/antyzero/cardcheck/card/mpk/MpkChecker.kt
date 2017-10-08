@@ -2,13 +2,13 @@ package com.antyzero.cardcheck.card.mpk
 
 import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.card.Checker
+import io.reactivex.Observable
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.temporal.ChronoUnit
-import rx.Observable
 import java.util.*
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
@@ -24,7 +24,7 @@ class MpkChecker(
 
         var result: CardCheckResult = CardCheckResult.UnableToGetInformation()
 
-        val httpUrlBuilder = HttpUrl.parse("http://www.mpk.krakow.pl/pl/sprawdz-waznosc-biletu/index,1.html").newBuilder()
+        val httpUrlBuilder = HttpUrl.parse("http://www.mpk.krakow.pl/pl/sprawdz-waznosc-biletu/index,1.html")!!.newBuilder()
 
         httpUrlBuilder.apply {
             val date = "${localDate.year}-${localDate.monthValue}-${localDate.dayOfMonth}"
@@ -43,7 +43,7 @@ class MpkChecker(
 
         try {
 
-            val webSource = okHttpClient.newCall(request).execute().body().string()
+            val webSource = okHttpClient.newCall(request).execute().body()!!.string()
 
             "<!-- Index:Begin -->(.+)<!-- Index:End -->".toPattern(Pattern.DOTALL)
                     .matcher(webSource).run {
@@ -94,9 +94,7 @@ class MpkChecker(
                     { earlier, (later) -> earlier.second.until(later, ChronoUnit.DAYS).toInt().abs() == 1 },
                     { (earlier), later -> earlier to later.second })
 
-            ranges.forEach {
-                val (startDate, endDate) = it
-
+            ranges.forEach { (startDate, endDate) ->
                 if ((localDate.isBefore(endDate) || localDate.isEqual(endDate)) && (localDate.isAfter(startDate) || localDate.isEqual(startDate))) {
                     returningResult = CardCheckResult.Valid(localDate.until(endDate, ChronoUnit.DAYS).toInt())
                 }

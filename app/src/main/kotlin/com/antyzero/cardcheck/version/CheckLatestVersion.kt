@@ -26,8 +26,7 @@ class CheckLatestVersion(val okHttpClient: OkHttpClient = OkHttpClient()) {
 
     private fun syncLatestVersion(applicationId: String): Pair<LocalDate, String?> {
 
-        val httpUrl = HttpUrl.parse("https://play.google.com/store/apps/details?hl=en")
-                .newBuilder()
+        val httpUrl = HttpUrl.parse("https://play.google.com/store/apps/details?hl=en")!!.newBuilder()
                 .setEncodedQueryParameter("id", applicationId)
                 .build()
 
@@ -35,7 +34,7 @@ class CheckLatestVersion(val okHttpClient: OkHttpClient = OkHttpClient()) {
             url(httpUrl)
         }.build()
 
-        return okHttpClient.newCall(request).execute().body().string().let {
+        return okHttpClient.newCall(request).execute().body()!!.string().let {
 
             val localDate = "itemprop=\"datePublished\">(.+?)</div>".toPattern().matcher(it).run {
                 if (find()) {

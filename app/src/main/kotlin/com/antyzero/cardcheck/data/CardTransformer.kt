@@ -3,7 +3,6 @@ package com.antyzero.cardcheck.data
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.card.Checker
-import rx.Observable
 
 object CardTransformer {
 

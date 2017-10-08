@@ -10,9 +10,9 @@ import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.card.mpk.MpkChecker
 import com.antyzero.cardcheck.storage.FileStorage
 import com.antyzero.cardcheck.storage.PersistentStorage
+import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import org.threeten.bp.LocalDate
-import rx.Observable
 
 
 class CardCheck(val okHttpClient: OkHttpClient = OkHttpClient(), storage: PersistentStorage = FileStorage()) : Checker<Card>, PersistentStorage by storage {

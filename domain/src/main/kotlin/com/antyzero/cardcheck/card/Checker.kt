@@ -1,7 +1,7 @@
 package com.antyzero.cardcheck.card
 
+import io.reactivex.Observable
 import org.threeten.bp.LocalDate
-import rx.Observable
 
 interface Checker<in T : Card> {
 
