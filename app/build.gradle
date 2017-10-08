@@ -5,13 +5,13 @@ apply plugin: 'com.github.triplet.play'
 apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.3"
+    compileSdkVersion androidVars.compileSdkVersion
+    buildToolsVersion androidVars.buildTools
 
     defaultConfig {
         applicationId "com.antyzero.cardcheck"
-        minSdkVersion 19
-        targetSdkVersion 24
+        minSdkVersion androidVars.minSdkVersion
+        targetSdkVersion androidVars.targetSdkVersion
         versionCode appVersionCode as Integer
         versionName appVersionName as String
         vectorDrawables.useSupportLibrary = true
@@ -91,31 +91,31 @@ configurations.all {
 
 dependencies {
 
-    compile project(':domain')
-    compile "com.android.support:appcompat-v7:${libVersion.android.support.appCompat}"
-    compile "com.android.support:design:${libVersion.android.support.appCompat}"
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.firebase:firebase-jobdispatcher-with-gcm-dep:0.5.0'
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+    implementation project(':domain')
+    implementation "com.android.support:appcompat-v7:${libVersion.android.support.appCompat}"
+    implementation "com.android.support:design:${libVersion.android.support.appCompat}"
+    implementation "com.android.support.constraint:constraint-layout:${libVersion.android.support.constraint}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.firebase:firebase-jobdispatcher-with-gcm-dep:0.5.0'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }
 
     //Rx dependencies
-    compile 'io.reactivex:rxandroid:1.2.1'
+    implementation 'io.reactivex:rxandroid:1.2.1'
 
     //Dagger 2 dependencies
-    compile "com.google.dagger:dagger:${libVersion.google.dagger}"
+    implementation "com.google.dagger:dagger:${libVersion.google.dagger}"
     kapt "com.google.dagger:dagger-compiler:${libVersion.google.dagger}"
-    provided 'org.glassfish:javax.annotation:10.0-b28'
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.assertj:assertj-core:2.5.0'
-    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.assertj:assertj-core:2.5.0'
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test:rules:0.5'
-    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+    androidTestImplementation 'com.android.support.test:runner:0.5'
+    androidTestImplementation 'com.android.support.test:rules:0.5'
+    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 }
 
 repositories {

@@ -13,5 +13,5 @@ sealed class CardCheckResult {
 
     class Expired : CardCheckResult()
 
-    class UnableToGetInformation(val exception: Exception) : CardCheckResult()
+    class UnableToGetInformation(val exception: Exception? = null) : CardCheckResult()
 }

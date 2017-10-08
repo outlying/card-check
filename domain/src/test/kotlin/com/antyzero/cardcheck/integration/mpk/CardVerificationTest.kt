@@ -21,7 +21,7 @@ class CardVerificationTest {
         val testSubscriber: TestSubscriber<CardCheckResult> = TestSubscriber()
 
         // When
-        checker.check(card, LocalDate.of(2016, 7, 19)).subscribe(testSubscriber)
+        checker.check(card, LocalDate.of(2017, 7, 19)).subscribe(testSubscriber)
 
         // Then
         testSubscriber.assertNoErrors()
