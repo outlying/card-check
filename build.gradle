@@ -29,7 +29,9 @@ buildscript {
                         gson  : '2.8.2'
                 ],
                 rx         : [
-                        kotlin: "2.0.0-RC1"
+                        android: '2.0.1',
+                        java   : '2.1.3',
+                        kotlin : "2.0.0-RC1"
                 ],
                 squareup   : [
                         okhttp3: '3.9.0'],

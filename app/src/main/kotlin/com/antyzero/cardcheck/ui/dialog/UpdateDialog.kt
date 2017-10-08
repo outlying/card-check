@@ -7,8 +7,8 @@ import com.antyzero.cardcheck.BuildConfig
 import com.antyzero.cardcheck.dsl.extension.checkLatestVersion
 import com.antyzero.cardcheck.dsl.extension.logger
 import com.antyzero.cardcheck.dsl.extension.show
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class UpdateDialog : InfoDialog() {
 

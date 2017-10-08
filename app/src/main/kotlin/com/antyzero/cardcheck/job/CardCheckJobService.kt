@@ -11,9 +11,9 @@ import com.antyzero.cardcheck.tracker.Tracker
 import com.antyzero.cardcheck.ui.notification.CardNotification
 import com.firebase.jobdispatcher.JobParameters
 import com.firebase.jobdispatcher.JobService
-import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class CardCheckJobService() : JobService() {
@@ -35,7 +35,7 @@ class CardCheckJobService() : JobService() {
 
             CARD_CHECK -> {
 
-                Observable.from(cardCheck.getCards())
+                Observable.fromIterable(cardCheck.getCards())
                         .compose(CardTransformer.status(cardCheck))
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())

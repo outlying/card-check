@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'io.fabric'
 
@@ -102,7 +103,8 @@ dependencies {
     }
 
     //Rx dependencies
-    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation "io.reactivex.rxjava2:rxandroid:${libVersion.rx.android}"
+    implementation "io.reactivex.rxjava2:rxjava:${libVersion.rx.java}"
 
     //Dagger 2 dependencies
     implementation "com.google.dagger:dagger:${libVersion.google.dagger}"

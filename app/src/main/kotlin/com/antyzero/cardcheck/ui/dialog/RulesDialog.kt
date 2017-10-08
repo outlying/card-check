@@ -29,23 +29,21 @@ class RulesDialog : InfoDialog() {
     }
 
     override fun dataPositiveButton(): Pair<String, DialogInterface.OnClickListener> {
-        return getString(R.string.understand_and_accept) to DialogInterface.OnClickListener { dialogInterface, i ->
+        return getString(R.string.understand_and_accept) to DialogInterface.OnClickListener { _, _ ->
             context.sharedPreferences().acceptRules()
         }
     }
 
     override fun dataNegativeButton(): Pair<String, DialogInterface.OnClickListener> {
-        return getString(R.string.decline) to DialogInterface.OnClickListener { dialogInterface, i ->
-            activity.let {
-                it.finish()
-            }
+        return getString(R.string.decline) to DialogInterface.OnClickListener { _, _ ->
+            activity.finish()
         }
     }
 
     override fun dataContent(): View {
         return layoutInflater().inflate(R.layout.dialog_rules, null).apply {
 
-            (findViewById(R.id.textViewRulesDescription) as TextView).apply {
+            findViewById<TextView>(R.id.textViewRulesDescription).apply {
                 text = fromHtml(getString(R.string.rules_description))
                 movementMethod = LinkMovementMethod.getInstance()
             }

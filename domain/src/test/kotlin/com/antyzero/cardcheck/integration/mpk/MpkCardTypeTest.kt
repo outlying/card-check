@@ -14,7 +14,7 @@ class MpkCardTypeTest {
     @Test
     fun testCollectionMatch() {
         val request = Request.Builder().url("http://www.mpk.krakow.pl/pl/").build()
-        val response = OkHttpClient().newCall(request).execute().body().string()
+        val response = OkHttpClient().newCall(request).execute().body()!!.string()
 
         "cityCardType.+?>(.+)</select>".toPattern(Pattern.DOTALL).matcher(response).run {
             if (!find()) throw IllegalStateException("Missing data")

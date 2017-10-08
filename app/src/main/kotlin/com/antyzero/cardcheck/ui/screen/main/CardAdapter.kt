@@ -59,8 +59,8 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
 
 class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val localization: Localization) : RecyclerView.ViewHolder(itemView) {
 
-    private val textViewCardNameId: TextView = itemView.findViewById(R.id.textViewCardNameId) as TextView
-    private val textViewCardStatus: TextView = itemView.findViewById(R.id.textViewCardStatus) as TextView
+    private val textViewCardNameId: TextView = itemView.findViewById<TextView>(R.id.textViewCardNameId)
+    private val textViewCardStatus: TextView = itemView.findViewById<TextView>(R.id.textViewCardStatus)
     private val cardIndicator: View = itemView.findViewById(R.id.cardIndicator)
     private val context: Context = itemView.context
 

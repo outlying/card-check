@@ -1,8 +1,7 @@
 package com.antyzero.cardcheck.version
 
-import android.content.Context
 import com.antyzero.cardcheck.BuildConfig
-import com.antyzero.cardcheck.dsl.extension.println
+import io.reactivex.Observable
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -11,7 +10,6 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
-import rx.Observable
 import java.util.*
 
 class CheckLatestVersion(val okHttpClient: OkHttpClient = OkHttpClient()) {

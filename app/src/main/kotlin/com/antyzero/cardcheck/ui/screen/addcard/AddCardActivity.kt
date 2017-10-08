@@ -9,10 +9,10 @@ import android.widget.TextView
 import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.card.mpk.Type
+import com.antyzero.cardcheck.dsl.extension.browse
 import com.antyzero.cardcheck.dsl.extension.label
 import com.antyzero.cardcheck.dsl.extension.layoutInflater
 import com.antyzero.cardcheck.dsl.extension.setVisible
-import com.antyzero.cardcheck.dsl.extension.browse
 import com.antyzero.cardcheck.ui.BaseActivity
 import com.antyzero.cardcheck.ui.form.EmptyTextViewValidator
 import com.antyzero.cardcheck.ui.form.TextViewValidator
@@ -81,13 +81,13 @@ class AddCardActivity : BaseActivity(), AddCardView, AdapterView.OnItemSelectedL
 /**
  * Adapter for spinner
  */
-class CardProviderAdapter() : BaseAdapter() {
+class CardProviderAdapter : BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val label = getItem(position).label(parent.context)
         return parent.context.layoutInflater()
                 .inflate(android.R.layout.simple_list_item_1, parent, false).apply {
-            (findViewById(android.R.id.text1) as TextView).text = label
+            findViewById<TextView>(android.R.id.text1).text = label
         }
     }
 

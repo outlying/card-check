@@ -6,7 +6,6 @@ import com.antyzero.cardcheck.card.dumb.DumbCard
 import com.antyzero.cardcheck.card.dumb.DumbChecker
 import org.amshove.kluent.`should be`
 import org.junit.Test
-import rx.observers.TestSubscriber
 
 class CardCheckTest {
 
@@ -30,15 +29,14 @@ class CardCheckTest {
         val assumedResult = CardCheckResult.Expired()
         val checker = DumbChecker(assumedResult)
         val card = DumbCard()
-        val testSubscriber = TestSubscriber<CardCheckResult>()
 
         // When
-        checker.check(card).subscribe(testSubscriber)
-
-        // Then
-        testSubscriber.assertNoErrors()
-        testSubscriber.assertCompleted()
-        testSubscriber.assertValueCount(1)
-        testSubscriber.onNextEvents[0] `should be` assumedResult
+        with(checker.check(card).test()) {
+            awaitTerminalEvent()
+            assertNoErrors()
+            assertComplete()
+            assertValueCount(1)
+            values()[0] `should be` assumedResult
+        }
     }
 }
