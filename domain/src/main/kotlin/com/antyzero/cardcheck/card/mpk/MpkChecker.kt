@@ -10,9 +10,15 @@ import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.temporal.ChronoUnit
 import rx.Observable
 import java.util.*
+import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
-class MpkChecker(private val okHttpClient: OkHttpClient = OkHttpClient()) : Checker<MpkCard> {
+class MpkChecker(
+        private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .build()) : Checker<MpkCard> {
 
     override fun check(card: MpkCard, localDate: LocalDate): Observable<CardCheckResult> {
         return Observable.defer { Observable.just(syncCheck(card, localDate)) }
@@ -79,7 +85,7 @@ class MpkChecker(private val okHttpClient: OkHttpClient = OkHttpClient()) : Chec
                 }
             }
         } catch (e: Exception) {
-            result = CardCheckResult.UnableToGetInformation()
+            result = CardCheckResult.UnableToGetInformation(e)
         }
 
         return result

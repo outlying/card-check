@@ -4,7 +4,7 @@ import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.card.mpk.MpkChecker
 import org.amshove.kluent.`should be`
-import org.amshove.kluent.`should equal`
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.threeten.bp.LocalDate
 import rx.observers.TestSubscriber
@@ -27,7 +27,7 @@ class CardVerificationTest {
         testSubscriber.assertNoErrors()
         testSubscriber.assertCompleted()
         val cardCheckResult = testSubscriber.result()
-        assert(cardCheckResult is CardCheckResult.Valid)
+        assertThat(cardCheckResult is CardCheckResult.Valid).isTrue().overridingErrorMessage("Got result $cardCheckResult, is not Valid")
         (cardCheckResult as CardCheckResult.Valid).daysLeft `should be` CardCheckResult.Valid(30).daysLeft
     }
 
