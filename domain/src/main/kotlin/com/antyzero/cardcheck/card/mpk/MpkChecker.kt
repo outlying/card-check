@@ -2,6 +2,7 @@ package com.antyzero.cardcheck.card.mpk
 
 import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.card.Checker
+import com.antyzero.cardcheck.dsl.runIfTrue
 import io.reactivex.Observable
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
@@ -14,7 +15,8 @@ import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
 class MpkChecker(
-        private val okHttpClient: OkHttpClient = defaultClient()) : Checker<MpkCard> {
+        private val okHttpClient: OkHttpClient = defaultClient(),
+        private val debug: Boolean = false) : Checker<MpkCard> {
 
     override fun check(card: MpkCard, localDate: LocalDate): Observable<CardCheckResult> {
         return Observable.defer { Observable.just(syncCheck(card, localDate)) }
@@ -37,9 +39,11 @@ class MpkChecker(
             httpUrlBuilder.setEncodedQueryParameter("cityCardNumber", card.cityCardId.toString())
         }
 
-        val request = Request.Builder()
-                .url(httpUrlBuilder.build())
-                .build()
+        val url = httpUrlBuilder.build()
+
+        debug.runIfTrue { println(url) }
+
+        val request = Request.Builder().url(url).build()
 
         try {
 
