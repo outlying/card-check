@@ -33,10 +33,6 @@ android:
     - platform-tools
     - tools
 
-matrix:
-  include: # More Emulator API levels to build in parallel
-    - env: API=25
-
 before_install:
   - export EMULATOR="system-images;android-${API};${TAG};${ABI}" # Used to install/create emulator
   - echo 'count=0' > /home/travis/.android/repositories.cfg # Avoid warning
