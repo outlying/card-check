@@ -24,6 +24,7 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
     - sys-img-armeabi-v7a-android-25
+
   licenses:
     - 'android-sdk-preview-license-52d11cd2'
     - 'android-sdk-license-.+'
@@ -39,7 +40,7 @@ before_script:
   - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
   - echo -e "\n79120722343a6f314e0719f863036c702b0e6b2a" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
   - android list targets
-  - echo no | android create avd --force -n test -t android-25
+  - echo no | android create avd --force -n test -t android-25 --abi "armeabi-v7a"
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
