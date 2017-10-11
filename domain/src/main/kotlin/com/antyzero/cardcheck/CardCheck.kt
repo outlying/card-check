@@ -2,10 +2,7 @@ package com.antyzero.cardcheck
 
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
-import com.antyzero.cardcheck.card.CardCheckResult.Expired
 import com.antyzero.cardcheck.card.Checker
-import com.antyzero.cardcheck.card.dumb.DumbCard
-import com.antyzero.cardcheck.card.dumb.DumbChecker
 import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.card.mpk.MpkChecker
 import com.antyzero.cardcheck.storage.FileStorage

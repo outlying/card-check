@@ -1,7 +1,6 @@
 package com.antyzero.cardcheck.storage
 
 import com.antyzero.cardcheck.card.Card
-import com.antyzero.cardcheck.card.dumb.DumbCard
 import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.google.gson.*
 import java.io.File
@@ -14,12 +13,11 @@ class FileStorage(
         private val filePath: File = File.createTempFile(fileName, "txt")) : PersistentStorage {
 
     private val cardsSet: MutableSet<Card> = mutableSetOf()
-    private val gson: Gson
+    private val gson: Gson = GsonBuilder()
+            .registerTypeHierarchyAdapter(CardList::class.java, Deser())
+            .create()
 
     init {
-        gson = GsonBuilder()
-                .registerTypeHierarchyAdapter(CardList::class.java, Deser())
-                .create()
 
         filePath.apply {
             if (!exists()) {
@@ -103,7 +101,6 @@ private class Deser() : JsonDeserializer<CardList> {
                     val cardElement = it.getAsJsonObject("card")
 
                     val card = gson.fromJson(cardElement, when (classCannonical) {
-                        "com.antyzero.cardcheck.card.dumb.DumbCard" -> DumbCard::class.java
                         "com.antyzero.cardcheck.card.mpk.MpkCard.Kkm" -> MpkCard.Kkm::class.java
                         "com.antyzero.cardcheck.card.mpk.MpkCard.Student" -> MpkCard.Student::class.java
                         else -> throw IllegalArgumentException("Unsupported type")
