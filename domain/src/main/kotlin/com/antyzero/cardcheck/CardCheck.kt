@@ -21,7 +21,6 @@ class CardCheck(val okHttpClient: OkHttpClient = OkHttpClient(), storage: Persis
 
         return when (card) {
             is MpkCard -> MpkChecker(okHttpClient).check(card, localDate)
-            is DumbCard -> DumbChecker(Expired()).check(card, localDate) // TODO remove in future
             else -> throw IllegalArgumentException("Unsupported card type: ${card.javaClass}")
         }
     }
