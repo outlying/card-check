@@ -22,7 +22,7 @@ class PersistenceStorageTest {
         // Then
         fileStorage.getCards().size `should be` 1
 
-        val secondCard = fileStorage.getCards()[1]
+        val secondCard = fileStorage.getCards()[0]
         (secondCard is MpkCard.Kkm) `should be` true
         (secondCard as MpkCard.Kkm).cardType `should be` Type.KKM
         secondCard.clientId `should equal` 2170708
