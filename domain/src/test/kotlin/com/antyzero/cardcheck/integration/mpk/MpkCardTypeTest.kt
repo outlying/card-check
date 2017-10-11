@@ -3,7 +3,7 @@ package com.antyzero.cardcheck.integration.mpk
 import com.antyzero.cardcheck.card.mpk.Type
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.util.regex.Pattern
 
 class MpkCardTypeTest {

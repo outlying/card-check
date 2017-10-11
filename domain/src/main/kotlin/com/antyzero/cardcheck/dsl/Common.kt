@@ -6,3 +6,9 @@ fun Boolean.runIfTrue(body: () -> Unit) {
         body.invoke()
     }
 }
+
+fun Int.abs() = if (this < 0) {
+    this.times(-1)
+} else {
+    this
+}

@@ -6,7 +6,7 @@ import com.antyzero.cardcheck.card.mpk.MpkChecker
 import io.reactivex.observers.TestObserver
 import org.amshove.kluent.`should be instance of`
 import org.amshove.kluent.`should be`
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.threeten.bp.LocalDate
 
 class CardVerificationTest {

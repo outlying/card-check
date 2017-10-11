@@ -5,7 +5,7 @@ import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.card.mpk.Type
 import org.amshove.kluent.`should be`
 import org.amshove.kluent.`should equal`
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.io.File
 
 

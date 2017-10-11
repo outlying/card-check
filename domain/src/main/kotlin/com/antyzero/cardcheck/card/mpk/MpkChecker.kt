@@ -2,6 +2,7 @@ package com.antyzero.cardcheck.card.mpk
 
 import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.card.Checker
+import com.antyzero.cardcheck.dsl.abs
 import com.antyzero.cardcheck.dsl.runIfTrue
 import io.reactivex.Observable
 import okhttp3.HttpUrl
@@ -130,10 +131,4 @@ fun <E> MutableList<E>.reduceIf(condition: (E, E) -> Boolean, reduction: (E, E) 
             }
         }
     } while (changed)
-}
-
-fun Int.abs() = if (this < 0) {
-    this.times(-1)
-} else {
-    this
 }
