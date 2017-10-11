@@ -1,5 +1,6 @@
 language: android
 sudo: false
+jdk: oraclejdk8
 
 notifications:
   email:
@@ -16,14 +17,14 @@ cache:
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
 
-jdk:
-  - oraclejdk8
-
 env:
   global:
     - JAVA7_HOME=/usr/lib/jvm/java-7-oracle
     - JAVA8_HOME=/usr/lib/jvm/java-8-oracle
     - JAVA_HOME=$JAVA8_HOME
+    - API=26 # Android API level by default
+    - TAG=google_apis # Google APIs by default, alternatively use default
+    - ABI=armeabi-v7a # ARM ABI v7a by default
 
 android:
   components:
@@ -32,7 +33,12 @@ android:
     - platform-tools
     - tools
 
+matrix:
+  include: # More Emulator API levels to build in parallel
+    - env: API=25
+
 before_install:
+  - export EMULATOR="system-images;android-${API};${TAG};${ABI}" # Used to install/create emulator
   - echo 'count=0' > /home/travis/.android/repositories.cfg # Avoid warning
 
 install:
@@ -59,12 +65,13 @@ install:
   - echo yes | sdkmanager "tools"
   - echo yes | sdkmanager "build-tools;26.0.2"
   - echo yes | sdkmanager "platforms;android-26"
+  - echo yes | sdkmanager "platforms;android-${API}"
   - echo yes | sdkmanager "extras;android;m2repository"
   - echo yes | sdkmanager "extras;google;m2repository"
   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
   # Create and start emulator
-  - echo no | avdmanager create avd --force -n test --abi armeabi-v7a
+  - echo no | avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
   - emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
 
 
