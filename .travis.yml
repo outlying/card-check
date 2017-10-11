@@ -1,48 +1,68 @@
 language: android
 sudo: false
+jdk: oraclejdk8
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
 
 before_cache:
-  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
 cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
-
-jdk:
-  - oraclejdk8
+    - $HOME/.android/build-cache
 
 env:
-  matrix:
-    - ANDROID_TARGET=android-18 ANDROID_ABI=armeabi-v7a
+  global:
+    - JAVA7_HOME=/usr/lib/jvm/java-7-oracle
+    - JAVA8_HOME=/usr/lib/jvm/java-8-oracle
+    - JAVA_HOME=$JAVA8_HOME
+    - API=26 # Android API level by default
+    - TAG=google_apis # Google APIs by default, alternatively use default
+    - ABI=armeabi-v7a # ARM ABI v7a by default
 
 android:
   components:
+    - tools
+    - build-tools-26.0.2
     - platform-tools
     - tools
-    - android-26
-    - build-tools-26.0.2
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-23
-
-  licenses:
-    - 'android-sdk-preview-license-52d11cd2'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
 
 before_install:
-  - export JAVA7_HOME=/usr/lib/jvm/java-7-oracle
-  - export JAVA8_HOME=/usr/lib/jvm/java-8-oracle
-  - export JAVA_HOME=$JAVA8_HOME
+  - export EMULATOR="system-images;android-${API};${TAG};${ABI}" # Used to install/create emulator
+  - echo 'count=0' > /home/travis/.android/repositories.cfg # Avoid warning
+
+install:
+  # List and delete unnecessary components to free space
+  - sdkmanager --list || true
+  # Update sdk tools to latest version and install/update components
+  - echo yes | sdkmanager "tools"
+  - echo yes | sdkmanager "build-tools;26.0.2"
+  - echo yes | sdkmanager "platforms;android-26"
+  - echo yes | sdkmanager "platforms;android-${API}"
+  - echo yes | sdkmanager "extras;android;m2repository"
+  - echo yes | sdkmanager "extras;google;m2repository"
+  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
+  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+  # Create and start emulator
+  - echo no | avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
+  - emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
+  # Check components status
+  - sdkmanager --list || true
+
 
 before_script:
-  - mkdir "$ANDROID_HOME/licenses" || true
-  - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
-  - echo -e "\n79120722343a6f314e0719f863036c702b0e6b2a" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
-  - android list targets
-  - echo no | android create avd --force -n test -t android-25 --abi "armeabi-v7a"
-  - emulator -avd test -no-audio -no-window &
+  # Wait for emulator fully-booted and disable animations
   - android-wait-for-emulator
+  - adb shell settings put global window_animation_scale 0 &
+  - adb shell settings put global transition_animation_scale 0 &
+  - adb shell settings put global animator_duration_scale 0 &
+  - sleep 30
   - adb shell input keyevent 82 &
 
 script:
