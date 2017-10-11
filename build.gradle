@@ -20,17 +20,18 @@ buildscript {
                         ],
                         gradle : '3.0.0-beta7'
                 ],
-                crashlytics: '2.6.8',
+                crashlytics: '2.7.0',
+                fabric     : '1.24.2',
                 firebase   : [
                         jobdispatcher: '0.8.3'
                 ],
                 google     : [
-                        dagger: '2.11',
+                        dagger: '2.12',
                         gson  : '2.8.2'
                 ],
                 rx         : [
                         android: '2.0.1',
-                        java   : '2.1.3',
+                        java   : '2.1.5',
                         kotlin : "2.0.0-RC1"
                 ],
                 squareup   : [
@@ -66,13 +67,13 @@ buildscript {
         classpath "org.junit.platform:junit-platform-gradle-plugin:${libVersion.test.jupiter.gradle}"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
         classpath 'com.github.triplet.gradle:play-publisher:1.2.0'
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath "io.fabric.tools:gradle:${libVersion.fabric}"
     }
 }
 
-allprojects {
-    apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'com.github.ben-manes.versions'
 
+allprojects {
     repositories {
         jcenter()
         google()
