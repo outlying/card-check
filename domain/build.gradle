@@ -10,14 +10,23 @@ dependencies {
     compile "com.google.code.gson:gson:${libVersion.google.gson}"
 
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${libVersion.test.junit5.main}")
-
     testCompile("org.junit.jupiter:junit-jupiter-api:${libVersion.test.junit5.main}")
 
     testCompile "org.assertj:assertj-core:${libVersion.test.assertj}"
     testCompile "org.amshove.kluent:kluent:${libVersion.test.kluent}"
 
+    testRuntime "org.junit.platform:junit-platform-runner:${libVersion.test.junit5.gradle}"
+
     // For older IDEs
-    testRuntime("org.junit.platform:junit-platform-launcher:1.0.1")
+    testRuntime("org.junit.platform:junit-platform-launcher:${libVersion.test.junit5.gradle}")
+}
+
+junitPlatform {
+    filters {
+        engines {
+            include 'junit-jupiter'
+        }
+    }
 }
 
 //noinspection GroovyAssignabilityCheck

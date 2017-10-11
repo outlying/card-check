@@ -10,11 +10,11 @@ class LocalizationTest {
     @Test
     fun testDaysLeftEn() {
         localization = LocalizationEn()
-        assertThat(localization.cardLastDays(25)).isEqualTo("Your card will last 26 more days")
-        assertThat(localization.cardLastDays(20)).isEqualTo("Your card will last 21 more days")
-        assertThat(localization.cardLastDays(10)).isEqualTo("Your card will last 11 more days")
-        assertThat(localization.cardLastDays(1)).isEqualTo("Your card will last until tomorrow")
-        assertThat(localization.cardLastDays(0)).isEqualTo("Your card will last until today")
+        assertThat(localization.cardLastDays(25)).isEqualTo("Card will last 26 more days")
+        assertThat(localization.cardLastDays(20)).isEqualTo("Card will last 21 more days")
+        assertThat(localization.cardLastDays(10)).isEqualTo("Card will last 11 more days")
+        assertThat(localization.cardLastDays(1)).isEqualTo("Card will last until tomorrow")
+        assertThat(localization.cardLastDays(0)).isEqualTo("Card will last until today")
     }
 
     @Test
