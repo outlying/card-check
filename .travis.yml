@@ -41,6 +41,9 @@ android:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 
+before_install:
+  - echo 'count=0' > /home/travis/.android/repositories.cfg # Avoid warning
+
 install:
   - mkdir "$ANDROID_HOME/licenses" || true
   - echo -e "8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
