@@ -12,6 +12,7 @@ dependencies {
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${libVersion.test.junit5.main}")
 
     testCompile("org.junit.jupiter:junit-jupiter-api:${libVersion.test.junit5.main}")
+
     testCompile "org.assertj:assertj-core:${libVersion.test.assertj}"
     testCompile "org.amshove.kluent:kluent:${libVersion.test.kluent}"
 

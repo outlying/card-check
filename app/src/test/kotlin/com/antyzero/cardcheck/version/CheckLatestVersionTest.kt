@@ -2,7 +2,7 @@ package com.antyzero.cardcheck.version
 
 import com.antyzero.cardcheck.dsl.extension.abs
 import com.google.common.truth.Truth.assertThat
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.temporal.ChronoUnit

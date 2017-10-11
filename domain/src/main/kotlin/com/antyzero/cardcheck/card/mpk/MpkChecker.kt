@@ -89,8 +89,9 @@ class MpkChecker(
                 ranges.add(startDate to endDate)
             }
 
+            returningResult = CardCheckResult.Expired()
+            
             if (ranges.isEmpty()) {
-                returningResult = CardCheckResult.Expired()
                 return@run
             }
 
@@ -100,7 +101,11 @@ class MpkChecker(
                     { (earlier), later -> earlier to later.second })
 
             ranges.forEach { (startDate, endDate) ->
-                if ((localDate.isBefore(endDate) || localDate.isEqual(endDate)) && (localDate.isAfter(startDate) || localDate.isEqual(startDate))) {
+                val beforeEndDate = localDate.isBefore(endDate) || localDate.isEqual(endDate)
+                val afterStartDate = localDate.isAfter(startDate) || localDate.isEqual(startDate)
+
+                if (beforeEndDate && afterStartDate) {
+                    debug.runIfTrue { println("[ $startDate | $localDate | $endDate ]") }
                     returningResult = CardCheckResult.Valid(localDate.until(endDate, ChronoUnit.DAYS).toInt())
                 }
             }

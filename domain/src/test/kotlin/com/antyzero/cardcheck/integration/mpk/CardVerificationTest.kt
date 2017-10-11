@@ -6,6 +6,7 @@ import com.antyzero.cardcheck.card.mpk.MpkChecker
 import io.reactivex.observers.TestObserver
 import org.amshove.kluent.`should be instance of`
 import org.amshove.kluent.`should be`
+import org.amshove.kluent.`should equal to`
 import org.junit.jupiter.api.Test
 import org.threeten.bp.LocalDate
 
@@ -16,6 +17,7 @@ class CardVerificationTest {
 
     @Test
     fun validCard() {
+        println("Valid Card")
         with(checker.check(card, LocalDate.of(2016, 7, 19)).test()) {
             awaitTerminalEvent()
             assertNoErrors()
@@ -25,8 +27,9 @@ class CardVerificationTest {
         }
     }
 
-    // @Test test disabled
+    @Test
     fun invalidCard() {
+        println("Invalid Card")
         with(checker.check(card, LocalDate.of(2000, 7, 28)).test()) {
             awaitTerminalEvent()
             assertNoErrors()
@@ -35,14 +38,15 @@ class CardVerificationTest {
         }
     }
 
-    // Test disabled
+    @Test
     fun accumulateRanges() {
+        println("Accumulate Ranges")
         with(checker.check(card, LocalDate.of(2016, 10, 27)).test()) {
             awaitTerminalEvent()
             assertNoErrors()
             assertComplete()
             result.`should be instance of`(CardCheckResult.Valid::class.java)
-            (result as CardCheckResult.Valid).daysLeft `should be` CardCheckResult.Valid(61).daysLeft
+            (result as CardCheckResult.Valid).daysLeft `should equal to` 212
         }
     }
 

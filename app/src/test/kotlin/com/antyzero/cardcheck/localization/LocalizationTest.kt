@@ -1,9 +1,7 @@
 package com.antyzero.cardcheck.localization
 
+import org.junit.jupiter.api.Test
 import com.google.common.truth.Truth.assertThat
-import com.google.common.truth.Truth.assertWithMessage
-import org.junit.Test
-
 
 class LocalizationTest {
 
