@@ -13,9 +13,9 @@ class LocalizationEn : Localization {
 
     override fun cardLastDays(days: Int): String {
         return when (days) {
-            1 -> "Your card will last until tomorrow"
-            0 -> "Your card will last until today"
-            else -> "Your card will last ${days.inc()} more days"
+            1 -> "Card will last until tomorrow"
+            0 -> "Card will last until today"
+            else -> "Card will last ${days.inc()} more days"
         }
     }
 }
