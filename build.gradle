@@ -18,7 +18,7 @@ buildscript {
                                 appCompat : '26.1.0',
                                 constraint: '1.0.2'
                         ],
-                        gradle : '3.0.0-beta7'
+                        gradle : '3.0.0-rc1'
                 ],
                 crashlytics: '2.7.0',
                 fabric     : '1.24.2',
