@@ -23,7 +23,7 @@ class DomainModule {
     fun provideFileStorage(context: Context): PersistentStorage {
         return FileStorage("", context.getFileStreamPath("storage").absoluteFile).apply {
             if (BuildConfig.DEBUG) {
-                addCard(MpkCard.Kkm(2170708, 20603546690))
+                //addCard(MpkCard.Kkm(2170708, 20603546690))
             }
         }
     }

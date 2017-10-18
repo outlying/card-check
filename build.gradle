@@ -64,7 +64,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:${libVersion.android.gradle}"
+        classpath 'com.android.tools.build:gradle:3.0.0-rc1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.junit.platform:junit-platform-gradle-plugin:${libVersion.test.junit5.gradle}"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'

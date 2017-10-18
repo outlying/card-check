@@ -41,14 +41,15 @@ install:
   # List and delete unnecessary components to free space
   - sdkmanager --list || true
   # Update sdk tools to latest version and install/update components
-  - echo yes | sdkmanager "tools"
-  - echo yes | sdkmanager "build-tools;26.0.2"
-  - echo yes | sdkmanager "platforms;android-26"
-  - echo yes | sdkmanager "platforms;android-${API}"
-  - echo yes | sdkmanager "extras;android;m2repository"
-  - echo yes | sdkmanager "extras;google;m2repository"
-  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
-  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+  #  > /dev/null hides progress bar which overloads log (failing build)
+  - echo yes | sdkmanager "tools" > /dev/null
+  - echo yes | sdkmanager "build-tools;26.0.2" > /dev/null
+  - echo yes | sdkmanager "platforms;android-26" > /dev/null
+  - echo yes | sdkmanager "platforms;android-${API}" > /dev/null
+  - echo yes | sdkmanager "extras;android;m2repository" > /dev/null
+  - echo yes | sdkmanager "extras;google;m2repository" > /dev/null
+  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2" > /dev/null
+  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2" > /dev/null
   # Create and start emulator
   - echo no | avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
   - emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
