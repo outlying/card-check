@@ -18,10 +18,10 @@ buildscript {
                                 appCompat : '26.1.0',
                                 constraint: '1.0.2'
                         ],
-                        gradle : '3.0.0-rc1'
+                        gradle : '3.0.0-rc2'
                 ],
                 crashlytics: '2.7.0',
-                fabric     : '1.24.2',
+                fabric     : '1.24.3',
                 firebase   : [
                         jobdispatcher: '0.8.3'
                 ],
@@ -64,7 +64,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-rc1'
+        classpath "com.android.tools.build:gradle:${libVersion.android.gradle}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.junit.platform:junit-platform-gradle-plugin:${libVersion.test.junit5.gradle}"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'

@@ -112,7 +112,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:${libVersion.google.dagger}"
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
 
-    testCompileOnly junit5EmbeddedRuntime()// (Optional) For running tests inside Android Studio 3.x (see below for details)
+    testCompileOnly junit5EmbeddedRuntime()// For running tests inside Android Studio 3.x
 
     testImplementation junit5()
     testImplementation junit5Params()
