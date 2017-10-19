@@ -25,6 +25,7 @@ env:
     - API=26 # Android API level by default
     - TAG=google_apis # Google APIs by default, alternatively use default
     - ABI=x86
+    - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ANDROID_HOME/tools/lib
 
 android:
   components:
@@ -55,7 +56,7 @@ install:
   # Create and start emulator
   - echo Emulator command, avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
   - echo no | avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
-  - emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
+  - emulator -avd acib -engine auto -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
   # Check components status
   - sdkmanager --list || true
 
