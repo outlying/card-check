@@ -19,6 +19,9 @@ target/
 build/
 local.properties
 
+# Script
+/*.sh
+
 # Binaries
 bin/
 gen/

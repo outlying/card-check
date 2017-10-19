@@ -26,6 +26,7 @@ env:
     - TAG=google_apis # Google APIs by default, alternatively use default
     - ABI=x86
     - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ANDROID_HOME/tools/lib
+    - PATH=$ANDROID_HOME/emulator;$PATH
 
 android:
   components:
@@ -37,6 +38,7 @@ android:
 before_install:
   - export EMULATOR="system-images;android-$API;$TAG;$ABI" # Used to install/create emulator
   - echo 'count=0' > /home/travis/.android/repositories.cfg # Avoid warning
+  - echo $ANDROID_HOME
 
 install:
   # List and delete unnecessary components to free space
