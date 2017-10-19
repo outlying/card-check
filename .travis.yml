@@ -50,7 +50,7 @@ install:
   - echo yes | sdkmanager "extras;google;m2repository" > /dev/null
   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2" > /dev/null
   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2" > /dev/null
-  - echo yes | sdkmanager "$EMULATOR"
+  - echo yes | sdkmanager "$EMULATOR" > /dev/null
   # Create and start emulator
   - echo Emulator command, avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
   - echo no | avdmanager create avd -n acib -k \"$EMULATOR\" -f --abi \"$ABI\" --tag \"$TAG\"
