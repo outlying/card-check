@@ -22,9 +22,9 @@ env:
     - JAVA7_HOME=/usr/lib/jvm/java-7-oracle
     - JAVA8_HOME=/usr/lib/jvm/java-8-oracle
     - JAVA_HOME=$JAVA8_HOME
-    - API=26 # Android API level by default
+    - API=25 # Android API level by default
     - TAG=google_apis # Google APIs by default, alternatively use default
-    - ABI=x86
+    - ABI=armeabi-v7a
     - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ANDROID_HOME/tools/lib
     - PATH=$ANDROID_HOME/emulator:$PATH
 
