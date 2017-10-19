@@ -59,9 +59,6 @@ install:
   - echo Emulator command, avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
   - echo no | avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
   - emulator -avd acib -engine auto -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
-  # Check components status
-  - sdkmanager --list || true
-
 
 before_script:
   # Wait for emulator fully-booted and disable animations
