@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'io.fabric'
 apply plugin: "de.mannodermaus.android-junit5"
-//apply plugin: 'composer'
+apply plugin: 'composer'
 
 android {
     compileSdkVersion androidVars.compileSdkVersion

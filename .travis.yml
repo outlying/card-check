@@ -71,4 +71,4 @@ before_script:
 
 script:
   - adb devices
-  - ./gradlew check build -PdisablePreDex --continue --stacktrace
+  - ./gradlew check build tDC -PdisablePreDex --continue --stacktrace

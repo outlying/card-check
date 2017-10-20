@@ -42,7 +42,7 @@ buildscript {
                                 uiautomator: '2.1.3'
                         ],
                         assertj : '2.5.0',
-                        composer: '0.3.0',
+                        composer: 'AGP-3.0.0-SNAPSHOT',
                         junit   : '4.12',
                         junit5  : [
                                 androidPlugin: '1.0.10',
