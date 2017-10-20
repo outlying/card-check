@@ -71,4 +71,6 @@ before_script:
 
 script:
   - adb devices
-  - ./gradlew check build tDC -PdisablePreDex --continue --stacktrace
+  - ./gradlew check build -PdisablePreDex --continue --stacktrace
+  - adb shell input keyevent 82 &
+  - ./gradlew tDC -PdisablePreDex --continue --stacktrace
