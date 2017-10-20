@@ -30,7 +30,7 @@ class UpdateDialog : InfoDialog() {
 
         fun showIfUpdatePossible(activity: AppCompatActivity) {
 
-            val logger = activity.logger()
+            val logger = activity.logger
             val checkLatestVersion = activity.checkLatestVersion()
 
             checkLatestVersion.latestVersion(BuildConfig.APPLICATION_ID)

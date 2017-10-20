@@ -36,7 +36,7 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        component().let {
+        component.let {
             presenter = it.mainPresenter().apply {
                 attachView(this@MainActivity)
             }
@@ -44,7 +44,7 @@ class MainActivity : BaseActivity(), MainView, ActionMode.Callback {
 
         button.setOnClickListener { goToAddCardScreen() }
         button.api(LOLLIPOP) {
-            setOnTouchListener { view: View, event: MotionEvent ->
+            setOnTouchListener { _, event: MotionEvent ->
                 event.let {
                     when (it.action and MotionEvent.ACTION_MASK) {
                         MotionEvent.ACTION_DOWN -> button.elevation = dip2pixels(16)

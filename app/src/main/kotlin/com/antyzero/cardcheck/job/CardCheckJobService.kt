@@ -16,7 +16,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class CardCheckJobService() : JobService() {
+class CardCheckJobService : JobService() {
 
     @Inject lateinit var cardCheck: CardCheck
     @Inject lateinit var cardNotification: CardNotification
@@ -26,7 +26,7 @@ class CardCheckJobService() : JobService() {
 
     override fun onCreate() {
         super.onCreate()
-        applicationComponent().inject(this)
+        applicationComponent.inject(this)
     }
 
     override fun onStartJob(job: JobParameters): Boolean {

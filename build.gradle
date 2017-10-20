@@ -37,19 +37,20 @@ buildscript {
                 squareup   : [
                         okhttp3: '3.9.0'],
                 test       : [
-                        android: [
+                        android : [
                                 support    : '1.0.1',
                                 uiautomator: '2.1.3'
                         ],
-                        assertj: '2.5.0',
-                        junit  : '4.12',
-                        junit5 : [
+                        assertj : '2.5.0',
+                        composer: '0.3.0',
+                        junit   : '4.12',
+                        junit5  : [
                                 androidPlugin: '1.0.10',
-                                gradle: '1.0.1',
-                                main: '5.0.1'
+                                gradle       : '1.0.1',
+                                main         : '5.0.1'
                         ],
-                        kluent : '1.30',
-                        truth  : '0.36'
+                        kluent  : '1.30',
+                        truth   : '0.36'
                 ],
                 threeten   : '1.3.6'
 
@@ -57,10 +58,11 @@ buildscript {
     }
 
     repositories {
+        google()
         jcenter()
         mavenCentral()
         maven { url 'https://maven.fabric.io/public' }
-        google()
+        maven { url "https://jitpack.io" }
     }
 
     dependencies {
@@ -71,6 +73,7 @@ buildscript {
         classpath 'com.github.triplet.gradle:play-publisher:1.2.0'
         classpath "io.fabric.tools:gradle:${libVersion.fabric}"
         classpath "de.mannodermaus.gradle.plugins:android-junit5:${libVersion.test.junit5.androidPlugin}"
+        classpath "com.github.trevjonez.composer-gradle-plugin:plugin:${libVersion.test.composer}"
     }
 }
 

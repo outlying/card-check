@@ -5,6 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'io.fabric'
 apply plugin: "de.mannodermaus.android-junit5"
+//apply plugin: 'composer'
 
 android {
     compileSdkVersion androidVars.compileSdkVersion
@@ -75,10 +76,6 @@ android {
     }
 }
 
-kapt {
-    generateStubs = true
-}
-
 play {
     jsonFile = new File("" + System.getenv("PLAY_JSON"))
     track = 'beta'
@@ -91,6 +88,59 @@ configurations.all {
     }
 }
 
+/**
+ * Grant permission tasks for all variants
+ */
+android.applicationVariants.all { variant ->
+    def applicationId = variant.applicationId
+    def adb = android.getAdbExecutable().toString()
+    def variantName = variant.name.capitalize()
+    def grantPermissionTask = tasks.create("grant${variantName}Permissions") << {
+        "${adb} devices".execute().text.eachLine {
+            if (it.endsWith("device")) {
+                def device = it.split()[0]
+                println "Granting permissions on devices ${device}"
+                "${adb} -s ${device} shell pm grant ${applicationId} android.permission.READ_EXTERNAL_STORAGE".execute()
+                "${adb} -s ${device} shell pm grant ${applicationId} android.permission.WRITE_EXTERNAL_STORAGE".execute()
+            }
+        }
+    }
+}
+
+/**
+ * Setup some tasks dependencies
+ */
+tasks.whenTaskAdded { task ->
+    project.android.applicationVariants.all { variant ->
+
+        def variantName = variant.name.capitalize()
+
+        // Permission before composer
+        def composerTaskName = "test${variantName}Composer" as String
+        if (task.name == composerTaskName) {
+            def composerTask = tasks.findByName(composerTaskName)
+            def grantPermissionTask = tasks.findByName("grant${variantName}Permissions")
+            composerTask.dependsOn grantPermissionTask
+        }
+
+        // App install before permission
+        def installTaskName = "install${variantName}" as String
+        if (task.name == installTaskName) {
+            def installTask = tasks.findByName(installTaskName)
+            def grantPermissionTask = tasks.findByName("grant${variantName}Permissions")
+            grantPermissionTask.dependsOn installTask
+        }
+    }
+
+    // Disable lint checks
+    if (task.name == "lint") {
+        task.enabled = false
+    }
+}
+
+/**
+ * Copy Kotlin sources for unit tests
+ */
 afterEvaluate {
     android.buildTypes.all {
         def name = it.name

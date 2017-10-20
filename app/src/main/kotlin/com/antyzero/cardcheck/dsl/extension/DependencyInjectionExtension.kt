@@ -3,8 +3,10 @@ package com.antyzero.cardcheck.dsl.extension
 import android.content.Context
 
 
-fun Context.applicationComponent() = this.application().applicationComponent
+val Context.applicationComponent
+    get() = this.application.applicationComponent
 
-fun Context.logger() = this.applicationComponent().logger()
+val Context.logger
+    get() = this.applicationComponent.logger()
 
-fun Context.checkLatestVersion() = this.applicationComponent().checkLatestVersion()
+fun Context.checkLatestVersion() = this.applicationComponent.checkLatestVersion()

@@ -13,7 +13,7 @@ class AddCardPresenter(context: Context) : Presenter<AddCardView> {
     private lateinit var view: AddCardView
 
     init {
-        context.applicationComponent().inject(this)
+        context.applicationComponent.inject(this)
     }
 
     override fun attachView(view: AddCardView) {
