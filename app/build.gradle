@@ -91,6 +91,19 @@ configurations.all {
     }
 }
 
+afterEvaluate {
+    android.buildTypes.all {
+        def name = it.name
+
+        def copyTask = project.task(type: Copy, "copyKotlin${name.capitalize()}UnitTestClasses") {
+            from "build/tmp/kotlin-classes/${name}UnitTest"
+            into "build/intermediates/classes/test/$name"
+        }
+
+        project.tasks.getByName("compile${name.capitalize()}UnitTestSources").finalizedBy copyTask
+    }
+}
+
 dependencies {
 
     implementation project(':domain')
