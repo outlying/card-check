@@ -115,7 +115,6 @@ dependencies {
     testCompileOnly junit5EmbeddedRuntime()// For running tests inside Android Studio 3.x
 
     testImplementation junit5()
-    testImplementation junit5Params()
     testImplementation "com.google.truth:truth:${libVersion.test.truth}"
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 
