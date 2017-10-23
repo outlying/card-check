@@ -15,11 +15,11 @@ class UpdateDialog : InfoDialog() {
     override fun dataToolbarTitle(): String = "Dostępna nowa wersja"
 
     override fun dataPositiveButton(): Pair<String, DialogInterface.OnClickListener> {
-        return "Zaktualizuj" to DialogInterface.OnClickListener { dialogInterface, i -> }
+        return "Zaktualizuj" to DialogInterface.OnClickListener { _, _ -> }
     }
 
     override fun dataNegativeButton(): Pair<String, DialogInterface.OnClickListener> {
-        return "Nie teraz" to DialogInterface.OnClickListener { dialogInterface, i -> }
+        return "Nie teraz" to DialogInterface.OnClickListener { _, _ -> }
     }
 
     override fun dataContent(): View {

@@ -4,8 +4,8 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.support.annotation.StringRes
+import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
-import android.support.v7.app.NotificationCompat
 import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.Card
 import com.antyzero.cardcheck.card.CardCheckResult
@@ -35,7 +35,7 @@ class CardNotification(private val context: Context, private val localization: L
                 .setContentTitle(getString(R.string.card_expired))
                 .setContentText(context.getString(R.string.card_expired_message, card))
                 .setAutoCancel(true)
-                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setDefaults(android.support.v4.app.NotificationCompat.DEFAULT_ALL)
                 .setSmallIcon(R.drawable.ic_directions_bus_white_24px)
                 .setContentIntent(pendingIntentMainActivity())
                 .build()
@@ -63,11 +63,16 @@ class CardNotification(private val context: Context, private val localization: L
         return context.pendingActivityIntent(0, MainActivity::class.java, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
-    private fun Context.notificationBuilder() = NotificationCompat.Builder(this)
+    private fun Context.notificationBuilder() = NotificationCompat.Builder(this, CHANNEL_STANDARD)
 
     private fun getString(@StringRes stringId: Int) = this.context.getString(stringId)
 
     private fun NotificationManagerCompat.notify(card: Card, notification: Notification) {
         this.notify(1000 + card.hashCode(), notification)
+    }
+
+    companion object {
+
+        private val CHANNEL_STANDARD = "Standard channel"
     }
 }

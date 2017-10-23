@@ -44,6 +44,7 @@ class RulesDialog : InfoDialog() {
         return layoutInflater().inflate(R.layout.dialog_rules, null).apply {
 
             findViewById<TextView>(R.id.textViewRulesDescription).apply {
+                @Suppress("DEPRECATION")
                 text = fromHtml(getString(R.string.rules_description))
                 movementMethod = LinkMovementMethod.getInstance()
             }

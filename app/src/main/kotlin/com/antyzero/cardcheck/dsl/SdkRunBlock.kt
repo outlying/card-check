@@ -9,3 +9,11 @@ inline fun <T, R> T.api(apiLevel: Int, block: T.() -> R) {
         block()
     }
 }
+
+inline fun (() -> Unit).api(apiLevel: Int, block: () -> Unit) {
+    if (Build.VERSION.SDK_INT >= apiLevel) {
+        this.invoke()
+    } else {
+        block.invoke()
+    }
+}
