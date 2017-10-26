@@ -1,0 +1,649 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> / Sprawdź ważność biletu</title>	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Author" content="Ideo Sp. z o.o. - www.ideo.pl" />
+	<meta name="Generator" content="Edito CMS - www.edito.pl" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<meta name="Language" content="pl" />
+	
+	<meta name="Robots" content="index, follow" />
+    
+    <script src="/Shared/Scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="/Shared/Scripts/jQuery.UI-1.9.1.js" type="text/javascript"></script>
+    <script src="/Shared/Scripts/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+	<script src="/Shared/Scripts/jQuery.Form.js" type="text/javascript"></script>
+	
+	<script src="/Shared/Scripts/jQuery.Lightbox.js" type="text/javascript"></script>
+	<script src="/Shared/Scripts/jQuery.Autocomplete.js" type="text/javascript"></script>
+	<script src="/Shared/Scripts/jQuery.FCKEditor.js" type="text/javascript"></script>
+	<script src="/Shared/Scripts/jquery.marquee.js" type="text/javascript"></script>
+	<script src="/Shared/Scripts/swfobject.js" type="text/javascript"></script>
+	<script src="/Themes/MPK2/Scripts/cufon-yui.js" type="text/javascript"></script>
+	<script src="/Themes/MPK2/Scripts/Myriad_Pro_600.font.js" type="text/javascript"></script>
+	<script src="/Shared/Edito/Edito.Cookie.js" type="text/javascript"></script>
+	<script src="/Themes/MPK2/Scripts/cufon-yui.js" type="text/javascript"></script>
+	<script src="/Themes/MPK2/Scripts/Myriad_Pro_600.font.js" type="text/javascript"></script>
+	<script src="/Shared/Scripts/jquery.Plugins.js" type="text/javascript"></script>
+	<script src="/Themes/MPK2/Scripts/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="/Themes/MPK2/Scripts/datepicker-de.js" type="text/javascript"></script>
+	<script src="/Themes/MPK2/Scripts/datepicker-pl.js" type="text/javascript"></script>
+
+	<script src="/Themes/MPK2/Scripts/default.js?26102017" type="text/javascript"></script>
+	<script src="/Themes/MPK2/Scripts/calend-pl.js" type="text/javascript"></script>
+
+	
+		<link href="/Themes/MPK2/Styles/base.css" rel="stylesheet" type="text/css" title="normal"/>
+	
+
+	<link href="/Themes/MPK2/Styles/forms.css" rel="stylesheet" type="text/css" />
+	<link href="/Themes/MPK2/Styles/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
+	<link href="/Themes/MPK2/Styles/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+	<link href="/Themes/MPK2/Styles/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
+	<link href="/Themes/MPK2/Styles/wai.css" rel="stylesheet" type="text/css" title="niewidzacy" />
+	<link href="/Themes/MPK2/Styles/wai.css" rel="stylesheet" type="text/css" title="mobile" media="handheld"/>
+	<script type="text/javascript">
+	Cufon.replace(['.menu_g_bg ul.poziom1 li a', 'h2.tytulKKM2', 'h2.tytulKKM', 'h2.tytul-szary', '.spr-tlo input.przycisk2', '.tabs1 .aktywna a ', 'div.tabs1 a', 'h2.tytul1',
+	'.tytul1_koment', '.kontener h2.tytul', 'h2.tytulUnia'], {
+		hover: true
+	});
+	  
+	</script>
+	
+	<!--<link href="/Themes/MPK2/Styles/grayscale.css" rel="stylesheet" type="text/css" title="normal"/>
+	<script src="/Themes/MPK2/Scripts/grayscale.js" type="text/javascript"></script> -->
+	
+	
+	<!--- test nowego osadzenia flasha -->
+	 <script type="text/javascript">
+	 	var flashvars = {
+	 		
+	 	};
+	 	var params = {
+	 		wmode: "transparent",
+	 		allowScriptAccess: "sameDomain",
+	 		quality: "high",
+	 		devicefont: "false",
+	 		menu: "true",
+	 		allowFullScreen: "false",
+	 		bgcolor: "#cccccc"
+	 	};
+	 	var attributes = {
+
+	 };
+
+	 swfobject.embedSWF("http://www.mpk.krakow.pl/Themes/MPK2/Flash/mpk.swf", "mpk-flash", "1016", "145", "10.0.0.0", "http://www.macromedia.com/go/getflashplayer", flashvars, params);
+      
+	  $(document).ready(function() {
+	  	//Polityka ciastek.
+	  	var cookieVal = Edito.Cookie.getCookie('poityka-ciastek');
+	  	if (cookieVal == '1') {
+	  		$('#poityka-ciastek').attr("style", "display:none");
+	  	}
+	  });
+	</script>
+
+	<link href="/Themes/MPK2/favicon.ico" rel="SHORTCUT ICON" />
+	<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-16876132-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</head>
+<body> 
+	<div class="tlo">
+    <div class="tlo_dol">
+
+	<div class="tlo_srodek">
+	
+	 <div id="poityka-ciastek">
+		<input type="button" value="Ok" onclick="akceptujeCiastka()" class="glosuj" /><b>Ważne: Strona www.mpk.krakow.pl wykorzystuje pliki cookies.</b>
+		<br/>Używamy cookies i podobnych technologii m.in. w celach reklamowych, statystycznych, świadczenia usług. Korzystanie z witryny bez zmiany ustawień 
+		Twojej przeglądarki oznacza, że będą one umieszczane w Twoim urządzeniu końcowym. Zawsze możesz zmienić te ustawienia. -<a class='link-wstecz2' href='http://www.mpk.krakow.pl/pl/polityka-cookies/'> Poznaj szczegóły.</a>   
+	</div>
+	<div class="gora fix">
+	 <div class="naglowek">
+		<div class="mobile-title schowaj">
+		
+		 <img src="/Themes/MPK2/Images/telefon.gif" alt="" class="tel-ico" />
+		
+		 Wersja Mobilna</div>
+	 
+	  <h1><a href="/pl/" class="logo" title="" accesskey="1"><span></span></a></h1>
+		
+		<div class="right">	
+		<div class="reg1">
+		   
+    <div class="jezyk">
+   Język
+    
+		<a href="/en/" title="English" class="lang"><img src="/Themes/MPK2/images/flaga_en.gif" width="13" height="9" alt="Edito.Configuration.LangSection" border="0" /></a>
+		
+		<a href="/de/" title="Deutsch" class="lang"><img src="/Themes/MPK2/images/flaga_de.gif" width="13" height="9" alt="Edito.Configuration.LangSection" border="0" /></a>
+		</div>
+			
+					
+				<span class="kreska">
+						<input name="page$niewidzacy" type="submit" id="page_niewidzacy" onclick="switch_style('niewidzacy');  return false;" value="Wersja dla niedowidzących" />
+				</span>
+			  	<span class="kreska">
+			  		
+						<img src="/Themes/MPK2/Images/mobile.png" alt="" class="tel-ico1" />
+					
+						<a href="http://mpk.krakow.pl/pl/mobilna" id="page_mobile" class="mobile">Wersja mobilna.</a>
+				</span><span id="page_Span2" class="kreska">
+						 <a href="https://twitter.com/MPK_Krakow" id="A2" class="facebook">
+							
+							 <img src="/Themes/MPK2/images/twitter.png" alt="" class="tel-ico1 face-ico" />
+						 
+				 		</a>
+						
+					</span><span id="page_Span1" class="kreska">
+						 <a href="http://www.facebook.com/pages/Miejskie-Przedsiebiorstwo-Komunikacyjne-SA-w-Krakowie/118439364835801" id="A1" class="facebook">
+							
+							 <img src="/Themes/MPK2/images/facebook.png" alt="" class="tel-ico1 face-ico" />
+						 
+				 		</a>
+						
+					</span>
+				<span class="kreska">
+						 <a href="https://www.instagram.com/mpk_krakow/" id="A3" class="facebook">
+							 <img src="/Themes/MPK2/images/instagram.png" alt="" class="tel-ico1 face-ico" style="width:24px" />
+				 		</a>
+						
+					</span>
+				<span class="kreska">
+						 <a href="https://www.youtube.com/mpkkrakow/" id="A4" class="facebook">
+							 <img src="/Themes/MPK2/images/youtube.png" alt="" class="tel-ico1 face-ico" style="width:34px" />
+				 		</a>
+						
+					</span>
+					
+			
+<div class="pusty">
+
+<ul class="poziom1">
+<li class="first"><a href="/pl/kanaly-rss/"><span>Kanały RSS</span></a></li>
+<li class=""><a href="/pl/kontakt/"><span>Kontakt</span></a></li>
+<li class=""><a href="/pl/mapa-strony/"><span>Mapa strony</span></a></li>
+<li class="last"><a href="/pl/"><span>Strona główna</span></a></li>
+</ul>
+
+  
+   
+
+</div>
+			<input type="submit"
+				  onclick="switch_style('normal');return false;"
+				  name="theme" value="Normalna wersja" id="normal" />
+	      
+	    </div>
+		</div>
+	</div> 
+	<div class="clear"></div>
+		<div class="time">
+			<img src="/Themes/MPK2/images/clock.gif" width="16" height="16" alt="" />
+			<div class="czas"></div><span id="godz" class="gruby"></span>
+		</div>
+	 <div class="menu_g_l"> </div>
+	 <div class="menu_g_bg"> 
+		    <div class="menu_g_r"> </div>
+	    	
+				<img src="/Themes/MPK2/Images/rozklad_ico.gif" width="18" height="27" alt="" />
+			
+<div class="pusty">
+
+<ul class="poziom1">
+<li class="first"><a href="/pl/page-f3044045/"><span>Rozkłady jazdy</span></a></li>
+<li class=""><a href="/pl/import-komunikaty/"><span>Komunikaty</span></a></li>
+<li class=""><a href="http://www.kkm.krakow.pl"><span>Krakowska Karta Miejska</span></a></li>
+<li class=""><a href="/pl/przetargi-i-ogloszenia/"><span>Przetargi</span></a></li>
+<li class=""><a href="http://reklama.mpk.krakow.pl"><span>Reklama</span></a></li>
+<li class="last"><a href="/pl/wyszukiwarka-polaczen/"><span>Wyszukiwarki połączeń</span></a></li>
+</ul>
+
+  
+   
+
+</div>
+<div class="pusty">
+
+
+<div class="szukaj-blok">
+<form method="get" action="/pl/wyszukiwarka-edito/index,1.html?Query=">
+<table border="0">
+<tr>
+<td>
+	<input type="text" maxlength="128" name="Query"
+		onblur = "if(this.value=='') this.value='szukana fraza...';"
+		onfocus = "if(this.value=='szukana fraza...') this.value='';"
+		value="szukana fraza..." />
+</td>
+<td>
+	<input type="submit" value="" class="szukaj-przycisk" />
+</td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+	    
+	
+	</div>
+	<div id="page_container_10" class="glowny newsBar">
+	
+		
+<div class="pusty">
+
+
+    <script type="text/javascript">
+    <!--
+    	$(function() {
+    		// basic version is: $('div.demo marquee').marquee() - but we're doing some sexy extras
+
+    	$('div.newsBar marquee').marquee('pointer').mouseover(function() {
+    			$(this).trigger('stop');
+    		}).mouseout(function() {
+    			$(this).trigger('start');
+    		}).mousemove(function(event) {
+    			if ($(this).data('drag') == true) {
+    				this.scrollLeft = $(this).data('scrollX') + ($(this).data('x') - event.clientX);
+    			}
+    		}).mousedown(function(event) {
+    			$(this).data('drag', true).data('x', event.clientX).data('scrollX', this.scrollLeft);
+    		}).mouseup(function() {
+    			$(this).data('drag', false);
+    		});
+    	});
+    //-->
+    </script>
+
+
+<div class="newsBar" style="display:inline;font-size: 14px;">	
+	<marquee behavior="scroll" direction="left" scrollamount="2" width="955">
+	<b>Komunikaty on-line:</b>
+	
+			<a href="/pl/import-komunikaty/news,5532,funkcjonowanie-komunikacji-miejskiej-w-okresie-wszystkich-swietych-2017.html">
+				<span class="data-gruba">2017-10-26 12:50:51</span> - Funkcjonowanie komunikacji miejskiej w okresie Wszystkich Świętych 2017</a> 
+				
+					<span>
+				
+				</span>&nbsp;
+				
+			<a href="/pl/import-komunikaty/news,5531,wykaz-linii-kursujacych-w-okresie-wszystkich-swietych-2017.html">
+				<span class="data-gruba">2017-10-26 12:38:46</span> - Wykaz linii kursujących w okresie Wszystkich Świętych 2017</a> 
+				
+					<span>
+				
+				</span>&nbsp;
+				
+			<a href="/pl/import-komunikaty/news,5528,linia-222-remont-nawierzchni-na-drodze-powiatej---w-miejscowosci-polanowice-i-marszowice.html">
+				<span class="data-gruba">2017-10-23 15:13:44</span> - Linia 222. Remont nawierzchni na drodze powiatej - w miejscowości POLANOWICE i MARSZOWICE</a> 
+				
+					<span>
+				
+				</span>&nbsp;
+				
+			<a href="/pl/import-komunikaty/news,5524,linie-213-263-273-remont-przejazdu-kolejowego-w-miejscowosci-rzozow-w-ciagu-drogi-wojewodzkiej-nr-953.html">
+				<span class="data-gruba">2017-10-20 16:00:22</span> - Linie: 213, 263, 273. Remont przejazdu kolejowego w miejscowości RZOZÓW, w ciągu drogi wojewódzkiej nr 953</a> 
+				
+					<span>
+				
+				</span>&nbsp;
+				
+			<a href="/pl/import-komunikaty/news,5510,linia-4---wylaczenie-ruchu-tramwajowego-na-ulicy-ujastek.html">
+				<span class="data-gruba">2017-10-03 12:48:59</span> - Linia 4 - wyłączenie ruchu tramwajowego na ulicy Ujastek</a> 
+				
+					  <span style="border:none;">
+				 
+				</span>&nbsp;
+					
+	</marquee>
+</div>
+
+
+
+
+</div>
+	
+</div>
+	</div>
+	<div class="sciezka">
+		<a href="http://www.mpk.krakow.pl/">Główna</a>
+		
+		&#155; <a href="/pl/sprawdz-waznosc-biletu/">Sprawdź ważność biletu</a>
+		
+	</div>	
+			
+	<div id="page_container_3" class="tlo-szare">
+	
+		<div class="reg3">
+			
+
+ <div class="box_left">
+	<div class="box_right">
+	   <div class="box_top">
+	        <div class="box_bottom">
+			    <div class="box_tr">
+		    	    <div class="box_br">
+		    	    <div class="spr-tlo">
+                        <h2 class="tytulKKM2">Sprawdź ważność biletu</h2> 
+                      
+                      	 
+
+
+<script type="text/javascript">
+function alertselected(selectobj){
+	if (selectobj.selectedIndex != 0)
+	{
+		document.getElementById('cardNumber').readOnly = true;
+		document.getElementById('cardNumber').value = 'nie jest wymagany';
+		document.getElementById('cardNumber').disabled = true;
+	}
+	else
+	{
+		document.getElementById('cardNumber').readOnly = false;
+		document.getElementById('cardNumber').value = '';
+		document.getElementById('cardNumber').disabled = false;
+	}
+}
+</script>
+
+<div class="spr-karte">
+<form method="get" action="/pl/sprawdz-waznosc-biletu/index,1.html?Query=">
+<table border="0">
+<tr>
+<td>
+<div class="line">Rodzaj karty</div>
+	<select id="cardMenu" name="cityCardType" onchange="alertselected(this)">
+		<option value="0">Karta KKM</option>
+		<option value="20">Legitymacja WSZiB</option>
+		<option value="21">Legitymacja AGH</option>
+		<option value="22">Legitymacja UJ</option>
+		<option value="23">Legitymacja PK</option>
+		<option value="24">Legitymacja UE</option>
+		<option value="25">Legitymacja UR</option>
+		<option value="26">Legitymacja PWST</option>
+		<option value="27">Legitymacja AM</option>
+		<option value="28">Legitymacja WSE</option>
+		<option value="29">Legitymacja AIK (WSFP)</option>
+		<option value="30">Legitymacja UP</option>
+		<option value="31">Legitymacja WSH</option>
+		
+		<option value="32">Legitymacja KA</option>
+		<option value="33">Legitymacja WSEI</option>
+        <option value="34">Legitymacja IFJ PAN</option>
+		<option value="35">Legitymacja IF PAN</option>
+		<option value="36">Legitymacja IKiFP PAN</option>
+	</select>
+	<div class="line">Data* (RRRR-MM-DD)</div>
+	<input type="text" size="22" value="2017-10-26"  name="dateValidity" />
+	
+</td>
+</tr>
+<tr>
+<td>
+<div class="line">Nr klienta/albumu</div>
+
+	<input type="text" size="22" value="" name="identityNumber" />
+
+</td>
+</tr>
+<tr>
+<td>
+<div class="line">Nr karty KKM</div>
+	<input type="text" size="22" value="" name="cityCardNumber" id="cardNumber" />
+	
+</td>
+</tr>
+<tr>
+<td>
+		* Pokazywane są wszystkie bilety
+		ważne w danym dniu i wszystkie późniejsze
+	
+</td>
+</tr>
+<tr>
+<td><span class="info3-blue">
+    <a href="http://www.kkm.krakow.pl/pl/komunikacja/jak-sprawdzic-waznosc/">
+      Jakie dane wpisać aby sprawdzić ważność?
+    </a></span>
+</td>
+</tr>
+<tr>
+<td>
+	<input type="submit" name="sprawdz_kkm" value="Sprawdź" class="przycisk2" />
+</td>
+</tr>
+</table>
+</form>
+</div>
+
+
+
+                        
+	                </div>	       
+	              </div>
+	           </div>
+	        </div>
+	      </div>
+	   </div>
+   </div>
+
+ 
+<div class="box_left">
+<div class="box_right">
+   <div class="box_top">
+        <div class="box_bottom">
+		    <div class="box_tr">
+	    	    <div class="box_br">	
+                <h2 class="tytul-szary">Usługi reklamowe</h2> 
+                 <div class="lista-wewn">
+                  
+<ul class="poziom1">
+<li class="first"><a href="/pl/bus-tv/"><span>BUS TV</span></a></li>
+<li class=""><a href="/pl/cennik-reklam/"><span>Cennik reklam</span></a></li>
+<li class=""><a href="/pl/nasza-oferta/"><span>Nasza oferta</span></a></li>
+<li class="last"><a href="/pl/zasady-realizacji/"><span>Zasady realizacji</span></a></li>
+</ul>
+
+  
+   
+
+                </div>
+              </div>
+           </div>
+        </div>
+      </div>
+   </div>
+</div>
+
+ 
+<div class="box_left">
+<div class="box_right">
+   <div class="box_top">
+        <div class="box_bottom">
+		    <div class="box_tr">
+	    	    <div class="box_br">	
+                <h2 class="tytul-szary">Sonda</h2> 
+                 <div class="lista-wewn">
+                  <form id="page_ctl09_view_frmLoginView" name="frmLoginView" method="post" action="" enctype="multipart/form-data">
+<input type="hidden" name="__WEBPART" value="02E74F10E0327AD868D138F2B4FDD6F0"/>
+
+<div class="poll" rel="26">
+	
+	<div class="question">
+		<h3 class="tytul2">Co jest najważniejszym elementem wyposażenia nowych autobusów MPK SA:</h3>
+		<div class="ankieta-blok">
+			<ul>
+				<li><input id="answer1" type="radio" name="answer" value="1" checked="checked" /><label for="answer1">Ekologiczne silniki</label></li>
+				<li><input id="answer2" type="radio" name="answer" value="2" /><label for="answer2">Klimatyzacja </label></li>
+				<li><input id="answer3" type="radio" name="answer" value="3" /><label for="answer3">Nowe automaty biletowe z opcją zapłaty kartą</label></li>
+				<li><input id="answer4" type="radio" name="answer" value="4" /><label for="answer4">Porty USB do ładowania urządzeń mobilnych </label></li>
+			</ul>
+		</div>
+	
+		<div class="ankieta-przyciski">
+			<input type="submit" name="btnVote" value="Głosuj" class="glosuj" />
+			<a href="/pl/sonda/" ><input type="button" name="btnSee" value="Wyniki" class="zobacz" /></a>
+		</div>
+	</div>
+</div>
+</form>
+
+
+
+                </div>
+              </div>
+           </div>
+        </div>
+      </div>
+   </div>
+</div>
+
+		</div>
+	
+</div>
+	
+	<div class="glowny fix">
+		
+	
+		<div class="clear"></div>
+		<div class="reg5">
+			<div class="box_left">
+				<div class="box_right">
+				   <div class="box_top">
+						<div class="box_bottom">
+							<div class="box_tr">
+	    						<div class="box_br">
+	    						<img height="18" border="0" width="18" onclick="javascript: window.print();" title="drukuj" alt="drukuj" class="drukuj" src="/Themes/MPK2/images/ikona-drukuj.gif" />
+	    						<img height="18" border="0" width="18"  title="duża czcionka" alt="zwiększ czcionkę" class="duzyR" src="/Themes/MPK2/images/font-up.jpg" />
+	    						<img height="18" border="0" width="18"  title="standard" alt="czcionka standardowa" class="standR" src="/Themes/MPK2/images/font-standard.jpg" />
+	    						<img height="18" border="0" width="18"  title="mała czcionka" alt="zmniejsz czcionkę" class="malyR" src="/Themes/MPK2/images/fontDown.jpg" />
+	    						
+	    						<h2 class="tytul1">
+								   Sprawdź ważność biletu
+								</h2>  
+								<!-- Index:Begin -->
+   
+									
+
+<div class="kkm-card">
+<div>
+		Wszelkie uwagi i sugestie prosimy kierować na adres reklamacje@kkm.krakow.pl</div>
+<br />
+
+
+	<div>s unable to process request. ---> could not execute query
+[ SELECT this_.TicketKindID as TicketKi1_3_0_, this_.Code as Code3_0_, this_.Description as Descript3_3_0_, this_.St</div>
+
+
+<br />
+
+</div>
+
+								<!-- Index:End -->
+
+								
+								<div class="clear"></div>
+								<div class="box_grad"></div>
+							</div>
+						</div>
+					</div>
+				  </div>
+			   </div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div id="page_Panel11">
+	
+			
+		
+</div>
+		
+		
+	</div>
+	
+	<div class="clear"></div>
+	<div class="stopa">
+		
+<div class="pusty">
+
+<ul class="poziom1">
+<li class="first"><a href="/pl/aktualnosci/"><span>Aktualności</span></a></li>
+<li class=""><a href="/pl/import-komunikaty/"><span>Komunikaty</span></a></li>
+<li class=""><a href="http://www.kkm.krakow.pl/"><span>Krakowska Karta Miejska</span></a></li>
+<li class=""><a href="/pl/media2/"><span>Media</span></a></li>
+<li class=""><a href="/pl/polityka-cookies/"><span>Polityka cookies</span></a></li>
+<li class="last"><a href="http://rozklady.mpk.krakow.pl"><span>Rozkład jazdy</span></a></li>
+</ul>
+
+  
+   
+
+</div>
+	</div>
+	<div class="clear"></div>
+	
+	
+		</div>
+    </div>
+     <div class="clear"></div>
+     
+	
+	<div style="text-align:center;padding:8px 0px;" id="mpk-flash">
+	
+	</div>
+		
+		
+      <div class="stopka">
+		<div class="gora fix">
+			<div class="reg11">
+			
+				Wszelkie prawa zastrzeżone <b>MPK Kraków 2013</b>
+			</div>
+			<div class="realizacja">
+		
+			
+		    	<span>realizacja</span>
+				<a href="http://www.ideo.pl/" title="" id="ideolink">Ideo</a>
+				<span>powered by:</span>
+				<a href="http://www.edito.pl/" title="Edito CMS">Edito</a>
+				<a href="http://www.edito.pl/" title="Edito CMS">CMS</a>
+			
+			</div>
+		</div>
+	</div>
+    </div>
+   <div class="clear"></div>
+   	<input type="hidden" id="hdnTheme" value="/Themes/MPK2" />
+   <!--
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-16876132-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script type="text/javascript" src="/Themes/MPK2/scripts/stats.js?p=1,pl,429&d=63644655362"></script> -->
+</body>
+</html>
