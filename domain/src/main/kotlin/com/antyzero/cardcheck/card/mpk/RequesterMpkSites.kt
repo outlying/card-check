@@ -5,9 +5,9 @@ import io.reactivex.Flowable
 import okhttp3.HttpUrl
 import org.threeten.bp.LocalDate
 
-class MpkSites(private val requester: Requester) {
+class RequesterMpkSites(private val requester: Requester) : MpkSites {
 
-    fun cardStatus(card: MpkCard, localDate: LocalDate): Flowable<String> {
+    override fun cardStatus(card: MpkCard, localDate: LocalDate): Flowable<String> {
 
         val httpUrlBuilder = HttpUrl.parse("http://www.mpk.krakow.pl/pl/sprawdz-waznosc-biletu/index,1.html")!!.newBuilder()
 
@@ -26,4 +26,10 @@ class MpkSites(private val requester: Requester) {
 
         return requester.get(url.toString())
     }
+}
+
+
+interface MpkSites {
+
+    fun cardStatus(card: MpkCard, localDate: LocalDate): Flowable<String>
 }

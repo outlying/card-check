@@ -5,9 +5,7 @@ import com.antyzero.cardcheck.card.Checker
 import com.antyzero.cardcheck.dsl.abs
 import com.antyzero.cardcheck.dsl.runIfTrue
 import io.reactivex.Observable
-import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.temporal.ChronoUnit
@@ -16,7 +14,7 @@ import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
 class MpkChecker(
-        private val okHttpClient: OkHttpClient = defaultClient(),
+        private val mpkSites: MpkSites,
         private val debug: Boolean = false) : Checker<MpkCard> {
 
     override fun check(card: MpkCard, localDate: LocalDate): Observable<CardCheckResult> {
@@ -27,28 +25,9 @@ class MpkChecker(
 
         var result: CardCheckResult = CardCheckResult.UnableToGetInformation()
 
-        val httpUrlBuilder = HttpUrl.parse("http://www.mpk.krakow.pl/pl/sprawdz-waznosc-biletu/index,1.html")!!.newBuilder()
-
-        httpUrlBuilder.apply {
-            val date = "${localDate.year}-${localDate.monthValue}-${localDate.dayOfMonth}"
-            setEncodedQueryParameter("identityNumber", card.clientId.toString())
-            setEncodedQueryParameter("cityCardType", card.cardType.typeId.toString())
-            setEncodedQueryParameter("dateValidity", date)
-        }
-
-        if (card is MpkCard.Kkm) {
-            httpUrlBuilder.setEncodedQueryParameter("cityCardNumber", card.cityCardId.toString())
-        }
-
-        val url = httpUrlBuilder.build()
-
-        debug.runIfTrue { println(url) }
-
-        val request = Request.Builder().url(url).build()
-
         try {
 
-            val webSource = okHttpClient.newCall(request).execute().body()!!.string()
+            val webSource = mpkSites.cardStatus(card, localDate).blockingFirst()
 
             "<!-- Index:Begin -->(.+)<!-- Index:End -->".toPattern(Pattern.DOTALL)
                     .matcher(webSource).run {
