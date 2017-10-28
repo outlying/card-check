@@ -1,9 +1,6 @@
-package com.antyzero.cardcheck.integration.mpk
+package com.antyzero.cardcheck.card.mpk
 
 import com.antyzero.cardcheck.card.CardCheckResult
-import com.antyzero.cardcheck.card.mpk.MpkCard
-import com.antyzero.cardcheck.card.mpk.MpkChecker
-import com.antyzero.cardcheck.card.mpk.MpkSites
 import io.reactivex.Flowable
 import io.reactivex.observers.TestObserver
 import org.amshove.kluent.`should be instance of`
