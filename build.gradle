@@ -15,7 +15,7 @@ buildscript {
         libVersion = [
                 android      : [
                         support: [
-                                appCompat : '26.1.0',
+                                appCompat : '27.0.0',
                                 constraint: '1.0.2'
                         ],
                         gradle : '3.0.0'
@@ -31,7 +31,7 @@ buildscript {
                 ],
                 rx           : [
                         android: '2.0.1',
-                        java   : '2.1.5',
+                        java   : '2.1.6',
                         kotlin : "2.0.0-RC1"
                 ],
                 squareup     : [
