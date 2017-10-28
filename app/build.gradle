@@ -152,7 +152,7 @@ afterEvaluate {
             into "build/intermediates/classes/test/$name"
         }
 
-        project.tasks.getByName("compile${name.capitalize()}UnitTestSources").finalizedBy copyTask
+        project.tasks.findByName("compile${name.capitalize()}UnitTestSources")?.finalizedBy copyTask
     }
 }
 
