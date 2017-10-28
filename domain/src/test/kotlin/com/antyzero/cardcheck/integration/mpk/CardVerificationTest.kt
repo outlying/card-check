@@ -4,11 +4,8 @@ import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.card.mpk.MpkCard
 import com.antyzero.cardcheck.card.mpk.MpkChecker
 import com.antyzero.cardcheck.card.mpk.MpkSites
-import com.antyzero.cardcheck.card.mpk.RequesterMpkSites
-import com.antyzero.cardcheck.network.OkHttpRequester
 import io.reactivex.Flowable
 import io.reactivex.observers.TestObserver
-import okhttp3.OkHttpClient
 import org.amshove.kluent.`should be instance of`
 import org.amshove.kluent.`should be`
 import org.amshove.kluent.`should equal to`
@@ -18,14 +15,13 @@ import java.util.*
 
 class CardVerificationTest {
 
-    //private val mpkSite = TestMpkSites() // TODO use for tests
-    private val mpkSite = RequesterMpkSites(OkHttpRequester(OkHttpClient()))
+    private val mpkSite = TestMpkSites()
     private val card = MpkCard.Kkm(2170708, 20603546690)
-    private val checker = MpkChecker(mpkSite, debug = true)
+    private val checker = MpkChecker(mpkSite, debug = false)
 
     @Test
     fun validCard() {
-        println("Valid Card")
+        mpkSite.response("/mpk_valid.html")
         with(checker.check(card, LocalDate.of(2016, 7, 19)).test()) {
             awaitTerminalEvent()
             assertNoErrors()
@@ -37,7 +33,7 @@ class CardVerificationTest {
 
     @Test
     fun invalidCard() {
-        println("Invalid Card")
+        mpkSite.response("/mpk_invalid.html")
         with(checker.check(card, LocalDate.of(2000, 7, 28)).test()) {
             awaitTerminalEvent()
             assertNoErrors()
@@ -48,7 +44,7 @@ class CardVerificationTest {
 
     @Test
     fun accumulateRanges() {
-        println("Accumulate Ranges")
+        mpkSite.response("/mpk_accumulate.html")
         with(checker.check(card, LocalDate.of(2016, 10, 27)).test()) {
             awaitTerminalEvent()
             assertNoErrors()
@@ -62,7 +58,8 @@ class CardVerificationTest {
 
         val queue: Queue<String> = ArrayDeque<String>()
 
-        fun add(response: String) {
+        fun response(responseFile: String) {
+            val response = (javaClass::getResource)(responseFile).readText()
             queue.add(response)
         }
 
