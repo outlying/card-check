@@ -1,12 +1,15 @@
 package com.antyzero.cardcheck.ui.screen.settings
 
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceActivity
 import android.preference.PreferenceFragment
-import android.support.annotation.StringRes
+import android.support.v7.app.AppCompatActivity
 import com.antyzero.cardcheck.R
+import com.antyzero.cardcheck.dsl.extension.applicationComponent
+import com.antyzero.cardcheck.settings.ContextSettings
+import javax.inject.Inject
 
-class SettingsActivity : PreferenceActivity() {
+class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,14 +17,19 @@ class SettingsActivity : PreferenceActivity() {
     }
 }
 
-class SettingsFragment : PreferenceFragment() {
+class SettingsFragment : PreferenceFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
+
+    @Inject lateinit var settings: ContextSettings
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.preference_main)
+        applicationComponent.inject(this)
+
+        settings.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
     }
 
-    private fun findPreference(@StringRes key: Int) {
-        findPreference(getString(key))
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        findPreference(settings.keyDaysBeforeExpiration).summary = "Days"
     }
 }

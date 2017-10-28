@@ -7,10 +7,13 @@ import com.antyzero.cardcheck.localization.LocalizationModule
 import com.antyzero.cardcheck.logger.Logger
 import com.antyzero.cardcheck.logger.LoggerModule
 import com.antyzero.cardcheck.network.NetworkModule
+import com.antyzero.cardcheck.settings.SettingsModule
 import com.antyzero.cardcheck.ui.notification.NotificationModule
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardPresenter
 import com.antyzero.cardcheck.ui.screen.main.*
+import com.antyzero.cardcheck.ui.screen.settings.SettingsActivity
+import com.antyzero.cardcheck.ui.screen.settings.SettingsFragment
 import com.antyzero.cardcheck.version.CheckLatestVersion
 import dagger.Component
 import javax.inject.Singleton
@@ -19,6 +22,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(
         AndroidModule::class,
+        SettingsModule::class,
         FabricModule::class,
         NetworkModule::class,
         DomainModule::class,
@@ -36,6 +40,8 @@ interface ApplicationComponent {
     fun inject(addCardActivity: AddCardActivity)
     fun inject(cardCheckJobService: CardCheckJobService)
     fun inject(cardAdapter: CardAdapter)
+    fun inject(settingsActivity: SettingsActivity)
+    fun inject(settingsFragment: SettingsFragment)
 
     // Graph
 
@@ -45,4 +51,6 @@ interface ApplicationComponent {
 
     fun checkLatestVersion(): CheckLatestVersion
     fun logger(): Logger
+
+
 }

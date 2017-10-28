@@ -1,20 +1,20 @@
 package com.antyzero.cardcheck.settings
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
+import com.antyzero.cardcheck.R
 
 class ContextSettings(context: Context) : Settings {
 
-    private val sharedPreferences = context.getSharedPreferences("ContextSettings", Context.MODE_PRIVATE)
+    val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+
+    val keyDaysBeforeExpiration: String = context.getString(R.string.preference_days_before_expire)
 
     override var daysBeforeCardExpiration: Int
-        get() = sharedPreferences.getInt(KEY_DAYS_BEFORE_EXPIRATION, Settings.DEFAULT_DAYS_BEFORE_CARD_EXPIRES)
+        get() = sharedPreferences.getInt(keyDaysBeforeExpiration, Settings.DEFAULT_DAYS_BEFORE_CARD_EXPIRES)
         set(value) {
             sharedPreferences.edit()
-                    .putInt(KEY_DAYS_BEFORE_EXPIRATION, value).apply()
+                    .putInt(keyDaysBeforeExpiration, value).apply()
         }
-
-    private companion object {
-
-        val KEY_DAYS_BEFORE_EXPIRATION = "KEY_DAYS_BEFORE_EXPIRATION"
-    }
 }

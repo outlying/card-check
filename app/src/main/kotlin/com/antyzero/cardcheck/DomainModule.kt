@@ -25,10 +25,6 @@ class DomainModule {
 
     @Provides
     @Singleton
-    fun provideSettings(context: Context): Settings = Settings.Default
-
-    @Provides
-    @Singleton
     fun provideFileStorage(context: Context): PersistentStorage {
         return FileStorage("", context.getFileStreamPath("storage").absoluteFile).apply {
             if (BuildConfig.DEBUG) {

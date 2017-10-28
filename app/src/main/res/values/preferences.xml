@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="pref_time" translatable="false">keyPreferenceTime</string>
+    <string name="preference_days_before_expire" translatable="false">preference_days_before_expire</string>
 
 </resources>
