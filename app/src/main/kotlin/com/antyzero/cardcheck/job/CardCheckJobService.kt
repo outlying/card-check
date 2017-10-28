@@ -7,6 +7,7 @@ import com.antyzero.cardcheck.dsl.extension.applicationComponent
 import com.antyzero.cardcheck.dsl.extension.tag
 import com.antyzero.cardcheck.job.Jobs.Tags.CARD_CHECK
 import com.antyzero.cardcheck.logger.Logger
+import com.antyzero.cardcheck.settings.Settings
 import com.antyzero.cardcheck.tracker.Tracker
 import com.antyzero.cardcheck.ui.notification.CardNotification
 import com.firebase.jobdispatcher.JobParameters
@@ -23,6 +24,7 @@ class CardCheckJobService : JobService() {
     @Inject lateinit var jobs: Jobs
     @Inject lateinit var logger: Logger
     @Inject lateinit var tracker: Tracker
+    @Inject lateinit var settings: Settings
 
     override fun onCreate() {
         super.onCreate()
@@ -44,7 +46,7 @@ class CardCheckJobService : JobService() {
                                     val result = it.second
                                     when (result) {
                                         is CardCheckResult.Valid -> {
-                                            if (result.daysLeft <= 5) { // TODO move 5 to preferences
+                                            if (result.daysLeft <= settings.daysBeforeCardExpiration) {
                                                 cardNotification.cardStatus(it.first, result)
                                             }
                                         }

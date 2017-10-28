@@ -7,10 +7,10 @@ interface Settings {
 
     companion object Default : Settings {
 
-        private val daysBeforeCardExpirationDefault = 5
+        const val DEFAULT_DAYS_BEFORE_CARD_EXPIRES: Int = 5
 
         override var daysBeforeCardExpiration: Int
-            get() = daysBeforeCardExpirationDefault
+            get() = DEFAULT_DAYS_BEFORE_CARD_EXPIRES
             set(value) {
                 0 + 0
             }

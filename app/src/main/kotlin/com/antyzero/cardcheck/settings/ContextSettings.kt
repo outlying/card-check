@@ -7,7 +7,7 @@ class ContextSettings(context: Context) : Settings {
     private val sharedPreferences = context.getSharedPreferences("ContextSettings", Context.MODE_PRIVATE)
 
     override var daysBeforeCardExpiration: Int
-        get() = sharedPreferences.getInt(KEY_DAYS_BEFORE_EXPIRATION, 45)
+        get() = sharedPreferences.getInt(KEY_DAYS_BEFORE_EXPIRATION, Settings.DEFAULT_DAYS_BEFORE_CARD_EXPIRES)
         set(value) {
             sharedPreferences.edit()
                     .putInt(KEY_DAYS_BEFORE_EXPIRATION, value).apply()
