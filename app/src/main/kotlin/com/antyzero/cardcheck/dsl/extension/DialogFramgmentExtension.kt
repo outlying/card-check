@@ -7,11 +7,12 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
+import android.view.View
 import com.antyzero.cardcheck.R
 
 @Suppress("DEPRECATION")
 fun AlertDialog.Builder.setToolbar(toolbarText: String): Toolbar {
-    val toolbar = LayoutInflater.from(context).inflate(R.layout.dialog_toolbar, null) as Toolbar
+    val toolbar = View.inflate(context, R.layout.dialog_toolbar, null) as Toolbar
     toolbar.setTitleTextColor(context.resources.getColor(android.R.color.primary_text_dark))
     toolbar.setBackgroundColor(context.resources.getColor(R.color.colorPrimary))
     toolbar.title = toolbarText
@@ -29,6 +30,6 @@ fun AlertDialog.Builder.setNegativeButton(pair: Pair<String, DialogInterface.OnC
     return this
 }
 
-fun Fragment.layoutInflater() = activity.layoutInflater
+fun Fragment.layoutInflater(): LayoutInflater = activity?.layoutInflater ?: throw IllegalStateException("Missing activity")
 
 fun DialogFragment.show(appCompatActivity: AppCompatActivity, tag: String) = this.show(appCompatActivity.supportFragmentManager, tag)

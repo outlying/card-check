@@ -13,10 +13,10 @@ import com.antyzero.cardcheck.dsl.extension.setToolbar
 
 abstract class InfoDialog : DialogFragment() {
 
-    lateinit protected var toolbar: Toolbar
+    lateinit private var toolbar: Toolbar
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return AlertDialog.Builder(activity).apply {
+        return AlertDialog.Builder(context ?: throw IllegalStateException("Missing context")).apply {
             toolbar = setToolbar(dataToolbarTitle())
             setView(dataContent())
             setPositiveButton(dataPositiveButton())

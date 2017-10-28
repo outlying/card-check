@@ -19,7 +19,7 @@ import com.antyzero.cardcheck.dsl.extension.tag
 
 class RulesDialog : InfoDialog() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         isCancelable = false
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -30,13 +30,13 @@ class RulesDialog : InfoDialog() {
 
     override fun dataPositiveButton(): Pair<String, DialogInterface.OnClickListener> {
         return getString(R.string.understand_and_accept) to DialogInterface.OnClickListener { _, _ ->
-            context.sharedPreferences().acceptRules()
+            context?.sharedPreferences()?.acceptRules() ?: throw IllegalStateException("Unable to set rules accepted")
         }
     }
 
     override fun dataNegativeButton(): Pair<String, DialogInterface.OnClickListener> {
         return getString(R.string.decline) to DialogInterface.OnClickListener { _, _ ->
-            activity.finish()
+            activity?.finish() ?: throw IllegalStateException("Unable fo finish activity")
         }
     }
 
