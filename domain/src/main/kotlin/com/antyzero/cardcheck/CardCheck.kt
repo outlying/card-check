@@ -8,6 +8,7 @@ import com.antyzero.cardcheck.card.mpk.MpkChecker
 import com.antyzero.cardcheck.card.mpk.RequesterMpkSites
 import com.antyzero.cardcheck.network.OkHttpRequester
 import com.antyzero.cardcheck.network.Requester
+import com.antyzero.cardcheck.settings.Settings
 import com.antyzero.cardcheck.storage.FileStorage
 import com.antyzero.cardcheck.storage.PersistentStorage
 import io.reactivex.Observable
@@ -17,7 +18,8 @@ import org.threeten.bp.LocalDate
 
 class CardCheck(
         okHttpClient: OkHttpClient = OkHttpClient(),
-        storage: PersistentStorage = FileStorage()) : Checker<Card>, PersistentStorage by storage {
+        storage: PersistentStorage = FileStorage(),
+        val settings: Settings) : Checker<Card>, PersistentStorage by storage {
 
     private val requester: Requester = OkHttpRequester(okHttpClient)
 
