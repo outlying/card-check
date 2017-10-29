@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditTextPreference
+    <com.antyzero.cardcheck.ui.preference.NumberPickerPreference
         android:key="@string/preference_days_before_expire"
-        android:title="Days before card expires"
-        android:summary="xXX asdasd"/>
+        android:title="Days before card expires" />
 
 </PreferenceScreen>

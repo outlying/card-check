@@ -43,7 +43,7 @@ buildscript {
                         ],
                         assertj : '3.8.0',
                         composer: [
-                                plugin: 'AGP-3.0.0-SNAPSHOT',
+                                plugin: '0.4.0',
                                 tester: '0.2.6'
                         ],
                         junit   : '4.12',
