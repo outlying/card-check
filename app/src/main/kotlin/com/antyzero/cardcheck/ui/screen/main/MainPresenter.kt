@@ -6,9 +6,9 @@ import com.antyzero.cardcheck.data.CardTransformer
 import com.antyzero.cardcheck.job.Jobs
 import com.antyzero.cardcheck.logger.Logger
 import com.antyzero.cardcheck.mvp.Presenter
-import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 class MainPresenter(val cardCheck: CardCheck, val jobs: Jobs, val logger: Logger) : Presenter<MainView> {
@@ -20,7 +20,7 @@ class MainPresenter(val cardCheck: CardCheck, val jobs: Jobs, val logger: Logger
     }
 
     fun loadCardList() {
-        Observable.from(cardCheck.getCards())
+        Observable.fromIterable(cardCheck.getCards())
                 .compose(CardTransformer.status(cardCheck))
                 .toList()
                 .subscribeOn(Schedulers.newThread())
@@ -28,10 +28,13 @@ class MainPresenter(val cardCheck: CardCheck, val jobs: Jobs, val logger: Logger
                 .doOnSubscribe {
                     view.showLoading()
                 }
+                .doAfterTerminate {
+                    view.hideLoading()
+                }
                 .subscribe(
-                        { view.showCards(it) },
-                        { view.hideLoading() },
+                        { cards -> view.showCards(cards) },
                         { view.hideLoading() })
+
 
         jobs.scheduleCardCheck()
     }

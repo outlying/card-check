@@ -1,9 +1,8 @@
-package com.antyzero.cardcheck.integration.mpk
+package com.antyzero.cardcheck.card.mpk
 
-import com.antyzero.cardcheck.card.mpk.Type
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.util.regex.Pattern
 
 class MpkCardTypeTest {
@@ -14,7 +13,7 @@ class MpkCardTypeTest {
     @Test
     fun testCollectionMatch() {
         val request = Request.Builder().url("http://www.mpk.krakow.pl/pl/").build()
-        val response = OkHttpClient().newCall(request).execute().body().string()
+        val response = OkHttpClient().newCall(request).execute().body()!!.string()
 
         "cityCardType.+?>(.+)</select>".toPattern(Pattern.DOTALL).matcher(response).run {
             if (!find()) throw IllegalStateException("Missing data")

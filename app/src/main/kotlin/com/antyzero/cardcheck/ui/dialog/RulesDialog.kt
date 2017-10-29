@@ -19,7 +19,7 @@ import com.antyzero.cardcheck.dsl.extension.tag
 
 class RulesDialog : InfoDialog() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         isCancelable = false
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -29,23 +29,22 @@ class RulesDialog : InfoDialog() {
     }
 
     override fun dataPositiveButton(): Pair<String, DialogInterface.OnClickListener> {
-        return getString(R.string.understand_and_accept) to DialogInterface.OnClickListener { dialogInterface, i ->
-            context.sharedPreferences().acceptRules()
+        return getString(R.string.understand_and_accept) to DialogInterface.OnClickListener { _, _ ->
+            context?.sharedPreferences()?.acceptRules() ?: throw IllegalStateException("Unable to set rules accepted")
         }
     }
 
     override fun dataNegativeButton(): Pair<String, DialogInterface.OnClickListener> {
-        return getString(R.string.decline) to DialogInterface.OnClickListener { dialogInterface, i ->
-            activity.let {
-                it.finish()
-            }
+        return getString(R.string.decline) to DialogInterface.OnClickListener { _, _ ->
+            activity?.finish() ?: throw IllegalStateException("Unable fo finish activity")
         }
     }
 
     override fun dataContent(): View {
         return layoutInflater().inflate(R.layout.dialog_rules, null).apply {
 
-            (findViewById(R.id.textViewRulesDescription) as TextView).apply {
+            findViewById<TextView>(R.id.textViewRulesDescription).apply {
+                @Suppress("DEPRECATION")
                 text = fromHtml(getString(R.string.rules_description))
                 movementMethod = LinkMovementMethod.getInstance()
             }

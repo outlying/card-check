@@ -14,15 +14,17 @@ import com.antyzero.cardcheck.BuildConfig
 import com.antyzero.cardcheck.CardCheckApplication
 import kotlin.reflect.KClass
 
-fun Context.application() = this.applicationContext as CardCheckApplication
+val Context.application
+    get() = this.applicationContext as CardCheckApplication
+
+val Context.cardCheck
+    get() = application.cardCheck
 
 fun Context.toast() = this.toast(this.toString())
 
 fun Context.toast(message: String?) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
 fun Context.toast(@StringRes id: Int) = Toast.makeText(this, id, Toast.LENGTH_SHORT).show()
-
-fun Context.cardCheck() = application().cardCheck
 
 fun Context.startActivity(activityClass: KClass<out Activity>) = this.startActivity(Intent(this, activityClass.java))
 

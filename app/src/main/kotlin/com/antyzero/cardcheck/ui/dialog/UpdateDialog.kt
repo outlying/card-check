@@ -7,19 +7,19 @@ import com.antyzero.cardcheck.BuildConfig
 import com.antyzero.cardcheck.dsl.extension.checkLatestVersion
 import com.antyzero.cardcheck.dsl.extension.logger
 import com.antyzero.cardcheck.dsl.extension.show
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class UpdateDialog : InfoDialog() {
 
     override fun dataToolbarTitle(): String = "Dostępna nowa wersja"
 
     override fun dataPositiveButton(): Pair<String, DialogInterface.OnClickListener> {
-        return "Zaktualizuj" to DialogInterface.OnClickListener { dialogInterface, i -> }
+        return "Zaktualizuj" to DialogInterface.OnClickListener { _, _ -> }
     }
 
     override fun dataNegativeButton(): Pair<String, DialogInterface.OnClickListener> {
-        return "Nie teraz" to DialogInterface.OnClickListener { dialogInterface, i -> }
+        return "Nie teraz" to DialogInterface.OnClickListener { _, _ -> }
     }
 
     override fun dataContent(): View {
@@ -30,7 +30,7 @@ class UpdateDialog : InfoDialog() {
 
         fun showIfUpdatePossible(activity: AppCompatActivity) {
 
-            val logger = activity.logger()
+            val logger = activity.logger
             val checkLatestVersion = activity.checkLatestVersion()
 
             checkLatestVersion.latestVersion(BuildConfig.APPLICATION_ID)

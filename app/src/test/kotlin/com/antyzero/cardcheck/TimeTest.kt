@@ -2,8 +2,8 @@ package com.antyzero.cardcheck
 
 import com.antyzero.cardcheck.dsl.extension.abs
 import com.antyzero.cardcheck.dsl.extension.betweenWithMidnight
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
+import com.google.common.truth.Truth.assertThat
+import org.junit.jupiter.api.Test
 import org.threeten.bp.LocalTime
 import org.threeten.bp.temporal.ChronoUnit
 

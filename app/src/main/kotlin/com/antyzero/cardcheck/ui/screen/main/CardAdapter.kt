@@ -26,7 +26,7 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
     private var internalSelectableMode: Boolean = false
 
     init {
-        context.applicationComponent().inject(this)
+        context.applicationComponent.inject(this)
     }
 
     val selectedItems: MutableList<Pair<Card, CardCheckResult>> = mutableListOf()
@@ -57,16 +57,16 @@ class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>
     }
 }
 
-class CardViewHolder(itemView: View, val cardAdapter: CardAdapter, private val localization: Localization) : RecyclerView.ViewHolder(itemView) {
+class CardViewHolder(itemView: View, private val cardAdapter: CardAdapter, private val localization: Localization) : RecyclerView.ViewHolder(itemView) {
 
-    private val textViewCardNameId: TextView = itemView.findViewById(R.id.textViewCardNameId) as TextView
-    private val textViewCardStatus: TextView = itemView.findViewById(R.id.textViewCardStatus) as TextView
+    private val textViewCardNameId: TextView = itemView.findViewById(R.id.textViewCardNameId)
+    private val textViewCardStatus: TextView = itemView.findViewById(R.id.textViewCardStatus)
     private val cardIndicator: View = itemView.findViewById(R.id.cardIndicator)
     private val context: Context = itemView.context
 
     private var internalSelected: Boolean = false
 
-    var selected: Boolean
+    private var selected: Boolean
         get() = internalSelected
         set(value) {
             internalSelected = value

@@ -1,8 +1,9 @@
 package com.antyzero.cardcheck
 
 import com.antyzero.cardcheck.card.mpk.reduceIf
+import com.antyzero.cardcheck.dsl.abs
 import org.amshove.kluent.`should be`
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 
 class CollectionFunTest {
@@ -20,10 +21,4 @@ class CollectionFunTest {
         // Then
         data.containsAll(expectedResult).and(expectedResult.containsAll(data)) `should be` true
     }
-}
-
-private fun Int.abs() = if (this < 0) {
-    this.times(-1)
-} else {
-    this
 }

@@ -1,27 +1,92 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
-    ext.kotlin_version = '1.0.6'
+
+    ext {
+        ignoreFailures = project.hasProperty('ignoreFailures') ? ignoreFailures : false
+
+        kotlin_version = '1.1.51'
+
+        androidVars = [
+                buildTools       : '26.0.2',
+                compileSdkVersion: 26,
+                minSdkVersion    : 19,
+                targetSdkVersion : 26
+        ]
+
+        libVersion = [
+                android      : [
+                        support: [
+                                appCompat : '27.0.0',
+                                constraint: '1.0.2'
+                        ],
+                        gradle : '3.0.0'
+                ],
+                crashlytics  : '2.7.1',
+                fabric       : '1.24.4',
+                firebase     : [
+                        jobdispatcher: '0.8.4'
+                ],
+                google       : [
+                        dagger: '2.12',
+                        gson  : '2.8.2'
+                ],
+                rx           : [
+                        android: '2.0.1',
+                        java   : '2.1.6',
+                        kotlin : "2.0.0-RC1"
+                ],
+                squareup     : [
+                        okhttp3: '3.9.0'],
+                test         : [
+                        android : [
+                                support    : '1.0.1',
+                                uiautomator: '2.1.3'
+                        ],
+                        assertj : '3.8.0',
+                        composer: [
+                                plugin: '0.4.0',
+                                tester: '0.2.6'
+                        ],
+                        junit   : '4.12',
+                        junit5  : [
+                                androidPlugin: '1.0.11',
+                                gradle       : '1.0.1',
+                                main         : '5.0.1'
+                        ],
+                        kluent  : '1.30',
+                        truth   : '0.36'
+                ],
+                threeten     : '1.3.6',
+                versionPlugin: '0.17.0'
+
+        ]
+    }
+
     repositories {
+        google()
         jcenter()
         mavenCentral()
         maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://jitpack.io" }
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath "com.android.tools.build:gradle:${libVersion.android.gradle}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M2'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
-        classpath 'com.github.triplet.gradle:play-publisher:1.1.5'
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath "org.junit.platform:junit-platform-gradle-plugin:${libVersion.test.junit5.gradle}"
+        classpath "com.github.ben-manes:gradle-versions-plugin:${libVersion.versionPlugin}"
+        classpath 'com.github.triplet.gradle:play-publisher:1.2.0'
+        classpath "io.fabric.tools:gradle:${libVersion.fabric}"
+        classpath "de.mannodermaus.gradle.plugins:android-junit5:${libVersion.test.junit5.androidPlugin}"
+        classpath "com.github.trevjonez.composer-gradle-plugin:plugin:${libVersion.test.composer.plugin}"
     }
 }
 
-allprojects {
-    apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'com.github.ben-manes.versions'
 
+allprojects {
     repositories {
         jcenter()
+        google()
     }
 }
 
@@ -29,30 +94,15 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-ext {
-    ignoreFailures = project.hasProperty('ignoreFailures') ? ignoreFailures : false
-
-    libVersion = [
-            android: [
-                    support: [
-                            appCompat: '24.2.1'
-                    ]
-            ],
-            google: [
-                    dagger: '2.8',
-                    gson: '2.8.0'
-            ],
-            rx: [
-                    kotlin: "0.60.0"
-            ],
-            squareup : [
-                    okhttp3: '3.5.0'],
-            test: [
-                    assertj: '2.5.0',
-                    junit: '4.12',
-                    kluent: '1.9'
-            ],
-            threeten: '1.3.3'
-
-    ]
+dependencyUpdates.resolutionStrategy = {
+    componentSelection { rules ->
+        rules.all { ComponentSelection selection ->
+            boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
+                selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+            }
+            if (rejected) {
+                selection.reject('Release candidate')
+            }
+        }
+    }
 }

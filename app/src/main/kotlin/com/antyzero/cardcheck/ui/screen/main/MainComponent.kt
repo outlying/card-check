@@ -23,4 +23,5 @@ class MainModule(val mainActivity: MainActivity) {
     fun provideMainPresenter(cardCheck: CardCheck, jobs: Jobs, logger: Logger) = MainPresenter(cardCheck, jobs, logger)
 }
 
-internal fun MainActivity.component() = applicationComponent().extend(MainModule(this))
+val MainActivity.component: MainComponent
+    get() = applicationComponent.extend(MainModule(this))

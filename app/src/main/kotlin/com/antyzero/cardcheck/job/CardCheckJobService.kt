@@ -7,26 +7,28 @@ import com.antyzero.cardcheck.dsl.extension.applicationComponent
 import com.antyzero.cardcheck.dsl.extension.tag
 import com.antyzero.cardcheck.job.Jobs.Tags.CARD_CHECK
 import com.antyzero.cardcheck.logger.Logger
+import com.antyzero.cardcheck.settings.Settings
 import com.antyzero.cardcheck.tracker.Tracker
 import com.antyzero.cardcheck.ui.notification.CardNotification
 import com.firebase.jobdispatcher.JobParameters
 import com.firebase.jobdispatcher.JobService
-import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class CardCheckJobService() : JobService() {
+class CardCheckJobService : JobService() {
 
     @Inject lateinit var cardCheck: CardCheck
     @Inject lateinit var cardNotification: CardNotification
     @Inject lateinit var jobs: Jobs
     @Inject lateinit var logger: Logger
     @Inject lateinit var tracker: Tracker
+    @Inject lateinit var settings: Settings
 
     override fun onCreate() {
         super.onCreate()
-        applicationComponent().inject(this)
+        applicationComponent.inject(this)
     }
 
     override fun onStartJob(job: JobParameters): Boolean {
@@ -35,7 +37,7 @@ class CardCheckJobService() : JobService() {
 
             CARD_CHECK -> {
 
-                Observable.from(cardCheck.getCards())
+                Observable.fromIterable(cardCheck.getCards())
                         .compose(CardTransformer.status(cardCheck))
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -44,7 +46,7 @@ class CardCheckJobService() : JobService() {
                                     val result = it.second
                                     when (result) {
                                         is CardCheckResult.Valid -> {
-                                            if (result.daysLeft <= 5) { // TODO move 5 to preferences
+                                            if (result.daysLeft <= settings.daysBeforeCardExpiration) {
                                                 cardNotification.cardStatus(it.first, result)
                                             }
                                         }
@@ -63,10 +65,7 @@ class CardCheckJobService() : JobService() {
                 // Re-schedule for next day
                 jobs.scheduleCardCheck()
             }
-
-            else -> logger.w(tag(), "No job for tag [${job.tag}]")
         }
-
         return false
     }
 

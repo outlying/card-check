@@ -1,17 +1,20 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'io.fabric'
+apply plugin: "de.mannodermaus.android-junit5"
+apply plugin: 'composer'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.3"
+    compileSdkVersion androidVars.compileSdkVersion
+    buildToolsVersion androidVars.buildTools
 
     defaultConfig {
         applicationId "com.antyzero.cardcheck"
-        minSdkVersion 19
-        targetSdkVersion 24
+        minSdkVersion androidVars.minSdkVersion
+        targetSdkVersion androidVars.targetSdkVersion
         versionCode appVersionCode as Integer
         versionName appVersionName as String
         vectorDrawables.useSupportLibrary = true
@@ -73,10 +76,6 @@ android {
     }
 }
 
-kapt {
-    generateStubs = true
-}
-
 play {
     jsonFile = new File("" + System.getenv("PLAY_JSON"))
     track = 'beta'
@@ -89,33 +88,104 @@ configurations.all {
     }
 }
 
+/**
+ * Grant permission tasks for all variants
+ */
+android.applicationVariants.all { variant ->
+    def applicationId = variant.applicationId
+    def adb = android.getAdbExecutable().toString()
+    def variantName = variant.name.capitalize()
+    def grantPermissionTask = tasks.create("grant${variantName}Permissions") {
+        doLast {
+            "${adb} devices".execute().text.eachLine {
+                if (it.endsWith("device")) {
+                    def device = it.split()[0]
+                    println "Granting permissions on devices ${device}"
+                    "${adb} -s ${device} shell pm grant ${applicationId} android.permission.READ_EXTERNAL_STORAGE".execute()
+                    "${adb} -s ${device} shell pm grant ${applicationId} android.permission.WRITE_EXTERNAL_STORAGE".execute()
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Setup some tasks dependencies
+ */
+tasks.whenTaskAdded { task ->
+    project.android.applicationVariants.all { variant ->
+
+        def variantName = variant.name.capitalize()
+
+        // Permission before composer
+        def composerTaskName = "test${variantName}Composer" as String
+        if (task.name == composerTaskName) {
+            def composerTask = tasks.findByName(composerTaskName)
+            def grantPermissionTask = tasks.findByName("grant${variantName}Permissions")
+            composerTask.dependsOn grantPermissionTask
+        }
+
+        // App install before permission
+        def installTaskName = "install${variantName}" as String
+        if (task.name == installTaskName) {
+            def installTask = tasks.findByName(installTaskName)
+            def grantPermissionTask = tasks.findByName("grant${variantName}Permissions")
+            grantPermissionTask.dependsOn installTask
+        }
+    }
+
+    // Disable lint checks
+    if (task.name == "lint") {
+        task.enabled = false
+    }
+}
+
+/**
+ * Copy Kotlin sources for unit tests
+ */
+afterEvaluate {
+    android.buildTypes.all {
+        def name = it.name
+
+        def copyTask = project.task(type: Copy, "copyKotlin${name.capitalize()}UnitTestClasses") {
+            from "build/tmp/kotlin-classes/${name}UnitTest"
+            into "build/intermediates/classes/test/$name"
+        }
+
+        project.tasks.findByName("compile${name.capitalize()}UnitTestSources")?.finalizedBy copyTask
+    }
+}
+
 dependencies {
 
-    compile project(':domain')
-    compile "com.android.support:appcompat-v7:${libVersion.android.support.appCompat}"
-    compile "com.android.support:design:${libVersion.android.support.appCompat}"
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.firebase:firebase-jobdispatcher-with-gcm-dep:0.5.0'
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
-        transitive = true;
+    implementation project(':domain')
+    implementation "com.android.support:appcompat-v7:${libVersion.android.support.appCompat}"
+    implementation "com.android.support:design:${libVersion.android.support.appCompat}"
+    implementation "com.android.support.constraint:constraint-layout:${libVersion.android.support.constraint}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "com.firebase:firebase-jobdispatcher-with-gcm-dep:${libVersion.firebase.jobdispatcher}"
+    implementation("com.crashlytics.sdk.android:crashlytics:${libVersion.crashlytics}@aar") {
+        transitive = true
     }
 
     //Rx dependencies
-    compile 'io.reactivex:rxandroid:1.2.1'
+    implementation "io.reactivex.rxjava2:rxandroid:${libVersion.rx.android}"
+    implementation "io.reactivex.rxjava2:rxjava:${libVersion.rx.java}"
 
     //Dagger 2 dependencies
-    compile "com.google.dagger:dagger:${libVersion.google.dagger}"
+    implementation "com.google.dagger:dagger:${libVersion.google.dagger}"
     kapt "com.google.dagger:dagger-compiler:${libVersion.google.dagger}"
-    provided 'org.glassfish:javax.annotation:10.0-b28'
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.assertj:assertj-core:2.5.0'
-    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testCompileOnly junit5EmbeddedRuntime()// For running tests inside Android Studio 3.x
 
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test:rules:0.5'
-    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+    testImplementation junit5()
+    testImplementation "com.google.truth:truth:${libVersion.test.truth}"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+
+    androidTestImplementation "com.android.support.test:runner:${libVersion.test.android.support}"
+    androidTestImplementation "com.android.support.test:rules:${libVersion.test.android.support}"
+    androidTestImplementation "com.android.support.test.uiautomator:uiautomator-v18:${libVersion.test.android.uiautomator}"
 }
 
 repositories {
