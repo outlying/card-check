@@ -39,4 +39,5 @@
     <string name="email">E-mail</string>
     <string name="information">Informacje</string>
     <string name="days_before_expire_summary">%d dni wcześniej</string>
+    <string name="days_before_expire_title">Informuj o wygaśnięciu karty</string>
 </resources>
