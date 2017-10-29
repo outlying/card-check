@@ -19,6 +19,7 @@ class ContextSettings(context: Context) : Settings {
         if (readAgain || !defaultValueSp.getBoolean(KEY_HAS_SET_DEFAULT_VALUES, false)) {
 
             sharedPreferences.edit().apply {
+                // Manually set default values
                 putInt(keyDaysBeforeExpiration, Settings.DEFAULT_DAYS_BEFORE_CARD_EXPIRES)
             }.apply()
 
@@ -32,9 +33,17 @@ class ContextSettings(context: Context) : Settings {
     }
 
     override var daysBeforeCardExpiration: Int
-        get() = sharedPreferences.getInt(keyDaysBeforeExpiration, Settings.DEFAULT_DAYS_BEFORE_CARD_EXPIRES)
+        get() = getInt(keyDaysBeforeExpiration)
         set(value) {
             sharedPreferences.edit()
                     .putInt(keyDaysBeforeExpiration, value).apply()
         }
+
+    private fun getInt(key: String): Int {
+        return sharedPreferences.getInt(key, Int.MIN_VALUE).apply {
+            if (this == Int.MIN_VALUE) {
+                throw IllegalStateException("Default value for '$key' not defined")
+            }
+        }
+    }
 }

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.dsl.extension.applicationComponent
 import com.antyzero.cardcheck.settings.ContextSettings
+import com.antyzero.cardcheck.settings.Settings
 import javax.inject.Inject
 
 class SettingsActivity : AppCompatActivity() {
@@ -26,7 +27,17 @@ class SettingsFragment : PreferenceFragment(), SharedPreferences.OnSharedPrefere
         addPreferencesFromResource(R.xml.preference_main)
         applicationComponent.inject(this)
 
+        findPreference(settings.keyDaysBeforeExpiration).setDefaultValue(Settings.DEFAULT_DAYS_BEFORE_CARD_EXPIRES)
+    }
+
+    override fun onResume() {
+        super.onResume()
         settings.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        settings.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
