@@ -38,4 +38,5 @@
     <string name="card_expired_message">Twoja karta %s utraciła ważność</string>
     <string name="email">E-mail</string>
     <string name="information">Informacje</string>
+    <string name="days_before_expire_summary">%d dni wcześniej</string>
 </resources>

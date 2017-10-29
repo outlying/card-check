@@ -43,5 +43,6 @@
     <string name="decline">Decline</string>
     <string name="rules_dialog_title">Terms of use</string>
     <string name="forum" translatable="false">Forum</string>
+    <string name="days_before_expire_summary">Days before %d</string>
 
 </resources>

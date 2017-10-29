@@ -9,7 +9,7 @@ import com.antyzero.cardcheck.R
 class ContextSettings(context: Context) : Settings {
 
     val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    val keyDaysBeforeExpiration: String = context.getString(R.string.preference_days_before_expire)
+    val keyDaysBeforeCardExpiration: String = context.getString(R.string.preference_days_before_expire)
 
     init {
         val readAgain = false // true for reset defaults
@@ -20,7 +20,7 @@ class ContextSettings(context: Context) : Settings {
 
             sharedPreferences.edit().apply {
                 // Manually set default values
-                putInt(keyDaysBeforeExpiration, Settings.DEFAULT_DAYS_BEFORE_CARD_EXPIRES)
+                putInt(keyDaysBeforeCardExpiration, Settings.DEFAULT_DAYS_BEFORE_CARD_EXPIRES)
             }.apply()
 
             val editor = defaultValueSp.edit().putBoolean(KEY_HAS_SET_DEFAULT_VALUES, true)
@@ -33,10 +33,10 @@ class ContextSettings(context: Context) : Settings {
     }
 
     override var daysBeforeCardExpiration: Int
-        get() = getInt(keyDaysBeforeExpiration)
+        get() = getInt(keyDaysBeforeCardExpiration)
         set(value) {
             sharedPreferences.edit()
-                    .putInt(keyDaysBeforeExpiration, value).apply()
+                    .putInt(keyDaysBeforeCardExpiration, value).apply()
         }
 
     private fun getInt(key: String): Int {

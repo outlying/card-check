@@ -42,7 +42,7 @@ class NumberPickerPreference @JvmOverloads constructor(
         super.showDialog(state)
         val numberPicker: NumberPicker = dialog.findViewById(R.id.numberPicker)
 
-        numberPicker.minValue = 0
+        numberPicker.minValue = 1
         numberPicker.maxValue = 20
         numberPicker.value = selectedValue
         numberPicker.setOnValueChangedListener(this)
