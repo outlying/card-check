@@ -3,6 +3,6 @@
 
     <com.antyzero.cardcheck.ui.preference.NumberPickerPreference
         android:key="@string/preference_days_before_expire"
-        android:title="Days before card expires" />
+        android:title="@string/days_before_expire_title" />
 
 </PreferenceScreen>
