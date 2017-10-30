@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Card Check</string>
+    <string name="app_name">Monthly ticket</string>
 
     <string name="card_kkm">KKM card</string>
     <string name="card_wszib">Student card, WSZiB</string>
