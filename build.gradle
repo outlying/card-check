@@ -43,12 +43,12 @@ buildscript {
                         ],
                         assertj : '3.8.0',
                         composer: [
-                                plugin: '0.4.0',
+                                plugin: '0.4.1',
                                 tester: '0.2.6'
                         ],
                         junit   : '4.12',
                         junit5  : [
-                                androidPlugin: '1.0.11',
+                                androidPlugin: '1.0.12',
                                 gradle       : '1.0.1',
                                 main         : '5.0.1'
                         ],
@@ -97,7 +97,7 @@ task clean(type: Delete) {
 dependencyUpdates.resolutionStrategy = {
     componentSelection { rules ->
         rules.all { ComponentSelection selection ->
-            boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
+            boolean rejected = ['alpha', 'beta', 'cr', 'm'].any { qualifier ->
                 selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
             }
             if (rejected) {
