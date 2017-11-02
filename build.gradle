@@ -8,7 +8,7 @@ buildscript {
         androidVars = [
                 buildTools       : '26.0.2',
                 compileSdkVersion: 26,
-                minSdkVersion    : 19,
+                minSdkVersion    : 21,
                 targetSdkVersion : 26
         ]
 

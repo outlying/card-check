@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Bilet miesięczny</string>
+    
     <string name="card_kkm">Karta KKM</string>
     <string name="card_agh">Legitymacja AGH</string>
     <string name="card_aik">Legitymacja AIK (WSFP)</string>
