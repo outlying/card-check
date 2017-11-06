@@ -35,7 +35,8 @@ buildscript {
                         kotlin : "2.0.0-RC1"
                 ],
                 squareup     : [
-                        okhttp3: '3.9.0'],
+                        okhttp3: '3.9.0'
+                ],
                 test         : [
                         android : [
                                 support    : '1.0.1',
