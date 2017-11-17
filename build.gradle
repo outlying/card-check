@@ -15,20 +15,21 @@ buildscript {
         libVersion = [
                 android      : [
                         support: [
-                                appCompat : '27.0.0',
+                                appCompat : '27.0.1',
                                 constraint: '1.0.2'
                         ],
                         gradle : '3.0.0'
                 ],
                 crashlytics  : '2.7.1',
-                fabric       : '1.24.4',
+                fabric       : '1.24.5',
                 firebase     : [
                         jobdispatcher: '0.8.4'
                 ],
                 google       : [
-                        dagger: '2.12',
+                        dagger: '2.13',
                         gson  : '2.8.2'
                 ],
+                playPublisher: '1.2.0',
                 rx           : [
                         android: '2.0.1',
                         java   : '2.1.6',
@@ -44,14 +45,14 @@ buildscript {
                         ],
                         assertj : '3.8.0',
                         composer: [
-                                plugin: '0.4.1',
-                                tester: '0.2.6'
+                                plugin: '0.5.0',
+                                tester: '0.2.8'
                         ],
                         junit   : '4.12',
                         junit5  : [
                                 androidPlugin: '1.0.12',
-                                gradle       : '1.0.1',
-                                main         : '5.0.1'
+                                gradle       : '1.0.2',
+                                main         : '5.0.2'
                         ],
                         kluent  : '1.30',
                         truth   : '0.36'
@@ -75,7 +76,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.junit.platform:junit-platform-gradle-plugin:${libVersion.test.junit5.gradle}"
         classpath "com.github.ben-manes:gradle-versions-plugin:${libVersion.versionPlugin}"
-        classpath 'com.github.triplet.gradle:play-publisher:1.2.0'
+        classpath "com.github.triplet.gradle:play-publisher:${libVersion.playPublisher}"
         classpath "io.fabric.tools:gradle:${libVersion.fabric}"
         classpath "de.mannodermaus.gradle.plugins:android-junit5:${libVersion.test.junit5.androidPlugin}"
         classpath "com.github.trevjonez.composer-gradle-plugin:plugin:${libVersion.test.composer.plugin}"

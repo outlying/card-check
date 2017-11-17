@@ -1,6 +1,7 @@
 package com.antyzero.cardcheck.ui.screen.addcard
 
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -18,6 +19,9 @@ import com.antyzero.cardcheck.ui.form.EmptyTextViewValidator
 import com.antyzero.cardcheck.ui.form.TextViewValidator
 import com.antyzero.cardcheck.ui.form.ValidatorCollection
 import com.antyzero.cardcheck.ui.form.with
+import com.antyzero.cardcheck.ui.inputfilter.OnlyDigitsInputFilter
+import com.antyzero.cardcheck.ui.inputfilter.OnlyPositiveIntInputFilter
+import com.antyzero.cardcheck.ui.inputfilter.OnlyPositiveLongInputFilter
 import kotlinx.android.synthetic.main.activity_card_add.*
 
 class AddCardActivity : BaseActivity(), AddCardView, AdapterView.OnItemSelectedListener {
@@ -34,6 +38,14 @@ class AddCardActivity : BaseActivity(), AddCardView, AdapterView.OnItemSelectedL
         textViewNumbers.setOnClickListener {
             browse("http://www.kkm.krakow.pl/pl/komunikacja/jak-sprawdzic-waznosc/")
         }
+
+        editTextClientId.filters = arrayOf(
+                OnlyDigitsInputFilter,
+                OnlyPositiveIntInputFilter)
+
+        editTextCardId.filters = arrayOf(
+                OnlyDigitsInputFilter,
+                OnlyPositiveLongInputFilter)
 
         button.setOnClickListener {
 
