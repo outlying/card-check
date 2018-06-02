@@ -3,7 +3,7 @@ buildscript {
     ext {
         ignoreFailures = project.hasProperty('ignoreFailures') ? ignoreFailures : false
 
-        kotlin_version = '1.1.51'
+        kotlin_version = '1.2.41'
 
         androidVars = [
                 buildTools       : '26.0.2',
@@ -26,7 +26,7 @@ buildscript {
                         jobdispatcher: '0.8.4'
                 ],
                 google       : [
-                        dagger: '2.13',
+                        dagger: '2.16',
                         gson  : '2.8.2'
                 ],
                 playPublisher: '1.2.0',
