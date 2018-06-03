@@ -3,20 +3,19 @@ package com.antyzero.cardcheck.tracker
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import com.antyzero.cardcheck.dsl.extension.tag
+import com.antyzero.cardcheck.dsl.extension.TAG
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 
 class TrackManager(context: Context, tracker: Tracker) : Tracker by tracker {
 
-    private var sharedPreferences: SharedPreferences
+    private var sharedPreferences: SharedPreferences = context.getSharedPreferences(TAG, MODE_PRIVATE)
 
     val firstRun: LocalDateTime
         get() = LocalDateTime.ofInstant(Instant.ofEpochMilli(sharedPreferences.getLong(KEY_FIRST_RUN_TIME, 0)), ZoneId.systemDefault())
 
     init {
-        sharedPreferences = context.getSharedPreferences(tag(), MODE_PRIVATE)
 
         // Tracking
         trackFirstRun()
