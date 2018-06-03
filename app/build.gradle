@@ -178,6 +178,7 @@ dependencies {
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
 
     testImplementation junit5.unitTests()
+    testImplementation project(':tests:scheduler')
     testImplementation "com.google.truth:truth:${libVersion.test.truth}"
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 
