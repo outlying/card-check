@@ -76,17 +76,13 @@ class FileStorage(
     }
 }
 
-class CardList() : ArrayList<Card>() {
-
-}
+class CardList : ArrayList<Card>()
 
 data class CardMeta(
         val cardType: String,
-        val card: Card) {
+        val card: Card)
 
-}
-
-private class Deser() : JsonDeserializer<CardList> {
+private class Deser : JsonDeserializer<CardList> {
 
     override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): CardList {
         val cardList = CardList()
