@@ -4,7 +4,6 @@ import com.antyzero.cardcheck.fabric.FabricModule
 import com.antyzero.cardcheck.job.CardCheckJobService
 import com.antyzero.cardcheck.job.JobModule
 import com.antyzero.cardcheck.localization.LocalizationModule
-import com.antyzero.cardcheck.logger.Logger
 import com.antyzero.cardcheck.logger.LoggerModule
 import com.antyzero.cardcheck.network.NetworkModule
 import com.antyzero.cardcheck.settings.SettingsModule
@@ -49,6 +48,4 @@ interface ApplicationComponent {
 
     // Exposed
     fun checkLatestVersion(): CheckLatestVersion
-    fun logger(): Logger
-
 }

@@ -21,7 +21,6 @@ class CardCheckApplication : Application() {
     @Inject lateinit var cardCheck: CardCheck
     @Inject lateinit var jobs: Jobs
     @Inject lateinit var trackManager: TrackManager
-    @Inject lateinit var logger: Logger
 
     override fun onCreate() {
         super.onCreate()
@@ -39,6 +38,6 @@ class CardCheckApplication : Application() {
         applicationComponent.inject(this)
 
         jobs.scheduleCardCheck()
-        logger.i(tag(), "First run: ${trackManager.firstRun}")
+        Logger.i(tag(), "First run: ${trackManager.firstRun}")
     }
 }

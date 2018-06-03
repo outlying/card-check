@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.antyzero.cardcheck.BuildConfig
 import com.antyzero.cardcheck.dsl.extension.checkLatestVersion
-import com.antyzero.cardcheck.dsl.extension.logger
 import com.antyzero.cardcheck.dsl.extension.show
+import com.antyzero.cardcheck.logger.Logger
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -30,7 +30,6 @@ class UpdateDialog : InfoDialog() {
 
         fun showIfUpdatePossible(activity: AppCompatActivity) {
 
-            val logger = activity.logger
             val checkLatestVersion = activity.checkLatestVersion()
 
             checkLatestVersion.latestVersion(BuildConfig.APPLICATION_ID)
@@ -42,7 +41,7 @@ class UpdateDialog : InfoDialog() {
                                     UpdateDialog().show(activity, "UpdateDialog")
                                 }
                             },
-                            { logger.w("UpdateDialog", "Unable to show app update dialog", it) }
+                            { Logger.w("UpdateDialog", "Unable to show app update dialog", it) }
                     )
         }
     }

@@ -7,9 +7,6 @@ import android.content.Context
 val Context.applicationComponent
     get() = this.application.applicationComponent
 
-val Context.logger
-    get() = this.applicationComponent.logger()
-
 val Fragment.applicationComponent
     get() = this.activity?.application?.applicationComponent ?: throw IllegalStateException("Activity not available")
 

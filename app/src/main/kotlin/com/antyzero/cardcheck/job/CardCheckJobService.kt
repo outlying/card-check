@@ -22,7 +22,6 @@ class CardCheckJobService : JobService() {
     @Inject lateinit var cardCheck: CardCheck
     @Inject lateinit var cardNotification: CardNotification
     @Inject lateinit var jobs: Jobs
-    @Inject lateinit var logger: Logger
     @Inject lateinit var tracker: Tracker
     @Inject lateinit var settings: Settings
 
@@ -53,12 +52,12 @@ class CardCheckJobService : JobService() {
                                         is CardCheckResult.Expired -> {
                                             cardNotification.cardStatus(it.first, result)
                                         }
-                                        else -> logger.w(tag(), "Unsupported result $result")
+                                        else -> Logger.w(tag(), "Unsupported result $result")
                                     }
 
                                 },
                                 {
-                                    logger.w(tag(), "Cannot display notification", it)
+                                    Logger.w(tag(), "Cannot display notification", it)
                                     tracker.unableToShowNotification(it)
                                 })
 

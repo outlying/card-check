@@ -12,14 +12,14 @@ import com.firebase.jobdispatcher.Lifetime
 import org.threeten.bp.LocalTime
 import org.threeten.bp.temporal.ChronoUnit
 
-class Jobs(private val dispatcher: FirebaseJobDispatcher, private val logger: Logger) {
+class Jobs(private val dispatcher: FirebaseJobDispatcher) {
 
     private val serviceClass = CardCheckJobService::class.java
 
     fun scheduleCardCheck(scheduleTime: LocalTime = LocalTime.of(4, 0), duration: Int = 3600) {
 
         val windowStart = ChronoUnit.SECONDS.betweenWithMidnight(LocalTime.now(), scheduleTime).abs().toInt()
-        val windowEnd = windowStart.plus(duration).toInt()
+        val windowEnd = windowStart.plus(duration)
 
         dispatcher.newJobBuilder().apply {
             setTag(CARD_CHECK)
@@ -34,7 +34,7 @@ class Jobs(private val dispatcher: FirebaseJobDispatcher, private val logger: Lo
         }.build().let {
 
             if (dispatcher.schedule(it) != FirebaseJobDispatcher.SCHEDULE_RESULT_SUCCESS) {
-                logger.w(tag(), "Unable to schedule card check")
+                Logger.w(tag(), "Unable to schedule card check")
             }
         }
     }
