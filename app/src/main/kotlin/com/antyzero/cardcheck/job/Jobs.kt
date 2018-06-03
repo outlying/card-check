@@ -1,9 +1,9 @@
 package com.antyzero.cardcheck.job
 
 import com.antyzero.cardcheck.TriggerConfigurator
+import com.antyzero.cardcheck.dsl.extension.TAG
 import com.antyzero.cardcheck.dsl.extension.abs
 import com.antyzero.cardcheck.dsl.extension.betweenWithMidnight
-import com.antyzero.cardcheck.dsl.extension.tag
 import com.antyzero.cardcheck.job.Jobs.Tags.CARD_CHECK
 import com.antyzero.cardcheck.logger.Logger
 import com.firebase.jobdispatcher.FirebaseJobDispatcher
@@ -34,7 +34,7 @@ class Jobs(private val dispatcher: FirebaseJobDispatcher) {
         }.build().let {
 
             if (dispatcher.schedule(it) != FirebaseJobDispatcher.SCHEDULE_RESULT_SUCCESS) {
-                Logger.w(tag(), "Unable to schedule card check")
+                Logger.w(TAG, "Unable to schedule card check")
             }
         }
     }

@@ -12,9 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.antyzero.cardcheck.R
+import com.antyzero.cardcheck.dsl.extension.TAG
 import com.antyzero.cardcheck.dsl.extension.layoutInflater
 import com.antyzero.cardcheck.dsl.extension.showDialog
-import com.antyzero.cardcheck.dsl.extension.tag
 
 
 class RulesDialog : InfoDialog() {
@@ -58,12 +58,12 @@ class RulesDialog : InfoDialog() {
         fun showIfRequired(appCompatActivity: AppCompatActivity) {
             if (appCompatActivity.sharedPreferences().areRulesAccepted().not()) {
                 val dialog = RulesDialog()
-                appCompatActivity.showDialog(dialog, dialog.tag())
+                appCompatActivity.showDialog(dialog, dialog.TAG)
             }
         }
 
         private fun Context.sharedPreferences(): SharedPreferences {
-            return getSharedPreferences(tag(), Context.MODE_PRIVATE)
+            return getSharedPreferences(TAG, Context.MODE_PRIVATE)
         }
 
         private fun SharedPreferences.acceptRules() {
