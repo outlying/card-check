@@ -67,7 +67,7 @@ class RulesDialog : InfoDialog() {
         }
 
         private fun SharedPreferences.acceptRules() {
-            edit().putBoolean(key, true).commit()
+            edit().putBoolean(key, true).apply()
         }
 
         private fun SharedPreferences.areRulesAccepted(): Boolean {

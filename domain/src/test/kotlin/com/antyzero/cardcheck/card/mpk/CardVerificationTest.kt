@@ -3,9 +3,9 @@ package com.antyzero.cardcheck.card.mpk
 import com.antyzero.cardcheck.card.CardCheckResult
 import io.reactivex.Flowable
 import io.reactivex.observers.TestObserver
+import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should be instance of`
 import org.amshove.kluent.`should be`
-import org.amshove.kluent.`should equal to`
 import org.junit.jupiter.api.Test
 import org.threeten.bp.LocalDate
 import java.util.*
@@ -47,7 +47,7 @@ class CardVerificationTest {
             assertNoErrors()
             assertComplete()
             result.`should be instance of`(CardCheckResult.Valid::class.java)
-            (result as CardCheckResult.Valid).daysLeft `should equal to` 212
+            (result as CardCheckResult.Valid).daysLeft `should be equal to` 212
         }
     }
 
