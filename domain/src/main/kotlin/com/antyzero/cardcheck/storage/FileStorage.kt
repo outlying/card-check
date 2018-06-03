@@ -24,7 +24,7 @@ class FileStorage(
                 createNewFile()
             } else {
                 val result = filePath.readLines().joinToString("\n")
-                if (!result.isNullOrEmpty()) {
+                if (!result.isEmpty()) {
                     cardsSet.addAll(gson.fromJson(result, CardList::class.java))
                     saveSetState()
                 }
