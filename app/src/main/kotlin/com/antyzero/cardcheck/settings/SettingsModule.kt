@@ -6,10 +6,10 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-@Singleton
 class SettingsModule {
 
     private lateinit var context: Context
+
     private val contextSettings: ContextSettings by lazy {
         ContextSettings(context)
     }

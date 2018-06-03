@@ -7,8 +7,6 @@ import dagger.Provides
 import java.util.*
 import javax.inject.Singleton
 
-
-@Singleton
 @Module
 class LocalizationModule {
 

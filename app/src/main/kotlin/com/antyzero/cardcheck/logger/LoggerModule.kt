@@ -12,7 +12,6 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Singleton
 @Module
 class LoggerModule {
 
@@ -32,5 +31,5 @@ class LoggerModule {
 
     @Provides
     @Singleton
-    fun provideTracker(trackManager: TrackManager): Tracker = trackManager // keep return type
+    fun provideTracker(trackManager: TrackManager): Tracker = trackManager
 }

@@ -7,7 +7,6 @@ import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
 
-@Singleton
 @Module
 class NetworkModule {
 
