@@ -4,12 +4,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'io.fabric'
-apply plugin: "de.mannodermaus.android-junit5"
+apply plugin: 'de.mannodermaus.android-junit5'
 apply plugin: 'composer'
 
 android {
+
     compileSdkVersion androidVars.compileSdkVersion
-    buildToolsVersion androidVars.buildTools
 
     defaultConfig {
         applicationId "com.antyzero.cardcheck"
@@ -177,9 +177,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:${libVersion.google.dagger}"
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
 
-    testCompileOnly junit5EmbeddedRuntime()// For running tests inside Android Studio 3.x
-
-    testImplementation junit5()
+    testImplementation junit5.unitTests()
     testImplementation "com.google.truth:truth:${libVersion.test.truth}"
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 
