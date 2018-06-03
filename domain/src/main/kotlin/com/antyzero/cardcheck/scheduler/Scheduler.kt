@@ -3,7 +3,7 @@ package com.antyzero.cardcheck.scheduler
 
 interface Scheduler {
 
-    fun addSchedule()
+    fun addSchedule():Boolean
 
     fun removeAll()
 }

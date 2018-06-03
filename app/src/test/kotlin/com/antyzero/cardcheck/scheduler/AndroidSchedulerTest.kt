@@ -1,5 +1,9 @@
 package com.antyzero.cardcheck.scheduler
 
+import com.antyzero.cardcheck.BaseSchedulerTest
 
-class AndroidSchedulerTest {
+
+class AndroidSchedulerTest : BaseSchedulerTest() {
+
+    override fun provideScheduler(): Scheduler = AndroidScheduler()
 }
