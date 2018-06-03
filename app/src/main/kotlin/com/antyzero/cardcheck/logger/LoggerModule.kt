@@ -17,12 +17,6 @@ class LoggerModule {
 
     @Provides
     @Singleton
-    fun provideLogger(crashlytics: Crashlytics): Logger {
-        return if (BuildConfig.DEBUG) AndroidLogger() else CrashlyticsLogger(crashlytics)
-    }
-
-    @Provides
-    @Singleton
     fun provideTrackerManager(context: Context, answers: Answers): TrackManager {
         return TrackManager(context, AggregationTracker(
                 AnswersTracker(answers)

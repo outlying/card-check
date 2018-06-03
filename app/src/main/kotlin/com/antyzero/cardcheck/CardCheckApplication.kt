@@ -4,6 +4,8 @@ import android.app.Application
 import com.antyzero.cardcheck.dsl.extension.tag
 import com.antyzero.cardcheck.fabric.FabricModule
 import com.antyzero.cardcheck.job.Jobs
+import com.antyzero.cardcheck.logger.AndroidLogger
+import com.antyzero.cardcheck.logger.CrashlyticsLogger
 import com.antyzero.cardcheck.logger.Logger
 import com.antyzero.cardcheck.tracker.TrackManager
 import com.crashlytics.android.Crashlytics
@@ -25,6 +27,9 @@ class CardCheckApplication : Application() {
         super.onCreate()
         val crashlytics = Crashlytics()
         val answers = Answers()
+
+        // Setup loggers
+        Logger.add(if (BuildConfig.DEBUG) AndroidLogger() else CrashlyticsLogger(crashlytics))
 
         Fabric.with(this, crashlytics, answers)
         applicationComponent = DaggerApplicationComponent.builder()

@@ -20,16 +20,16 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = arrayOf(
-        AndroidModule::class,
-        SettingsModule::class,
-        FabricModule::class,
-        NetworkModule::class,
-        DomainModule::class,
-        JobModule::class,
-        NotificationModule::class,
-        LoggerModule::class,
-        LocalizationModule::class))
+@Component(modules = [
+    AndroidModule::class,
+    SettingsModule::class,
+    FabricModule::class,
+    NetworkModule::class,
+    DomainModule::class,
+    JobModule::class,
+    NotificationModule::class,
+    LoggerModule::class,
+    LocalizationModule::class])
 
 interface ApplicationComponent {
 
@@ -48,9 +48,7 @@ interface ApplicationComponent {
     fun extend(mainModule: MainModule): MainComponent
 
     // Exposed
-
     fun checkLatestVersion(): CheckLatestVersion
     fun logger(): Logger
-
 
 }
