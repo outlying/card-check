@@ -1,7 +1,7 @@
 package com.antyzero.cardcheck
 
 import android.app.Application
-import com.antyzero.cardcheck.dsl.extension.tag
+import com.antyzero.cardcheck.dsl.extension.TAG
 import com.antyzero.cardcheck.fabric.FabricModule
 import com.antyzero.cardcheck.job.Jobs
 import com.antyzero.cardcheck.logger.AndroidLogger
@@ -38,6 +38,6 @@ class CardCheckApplication : Application() {
         applicationComponent.inject(this)
 
         jobs.scheduleCardCheck()
-        Logger.i(tag(), "First run: ${trackManager.firstRun}")
+        Logger.i(TAG, "First run: ${trackManager.firstRun}")
     }
 }
