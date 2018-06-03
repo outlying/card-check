@@ -14,7 +14,7 @@ class FileStorage(
 
     private val cardsSet: MutableSet<Card> = mutableSetOf()
     private val gson: Gson = GsonBuilder()
-            .registerTypeHierarchyAdapter(CardList::class.java, Deser())
+            .registerTypeHierarchyAdapter(CardList::class.java, CardListDeserializer())
             .create()
 
     init {
@@ -82,7 +82,7 @@ data class CardMeta(
         val cardType: String,
         val card: Card)
 
-private class Deser : JsonDeserializer<CardList> {
+private class CardListDeserializer : JsonDeserializer<CardList> {
 
     override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): CardList {
         val cardList = CardList()
