@@ -163,7 +163,7 @@ dependencies {
     implementation "com.android.support:design:${libVersion.android.support.appCompat}"
     implementation "com.android.support.constraint:constraint-layout:${libVersion.android.support.constraint}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "com.firebase:firebase-jobdispatcher-with-gcm-dep:${libVersion.firebase.jobdispatcher}"
+    implementation "com.firebase:firebase-jobdispatcher:${libVersion.firebase.jobdispatcher}"
     implementation("com.crashlytics.sdk.android:crashlytics:${libVersion.crashlytics}@aar") {
         transitive = true
     }

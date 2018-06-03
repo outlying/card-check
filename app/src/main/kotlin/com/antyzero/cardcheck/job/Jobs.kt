@@ -1,11 +1,13 @@
 package com.antyzero.cardcheck.job
 
+import com.antyzero.cardcheck.TriggerConfigurator
 import com.antyzero.cardcheck.dsl.extension.TAG
 import com.antyzero.cardcheck.dsl.extension.abs
 import com.antyzero.cardcheck.dsl.extension.betweenWithMidnight
-import com.antyzero.cardcheck.job.Jobs.Tags.CARD_CHECK
+import com.antyzero.cardcheck.job.Jobs.Tag.CARD_CHECK
 import com.antyzero.cardcheck.logger.Logger
 import com.firebase.jobdispatcher.FirebaseJobDispatcher
+import com.firebase.jobdispatcher.Job
 import com.firebase.jobdispatcher.Lifetime
 import org.threeten.bp.LocalTime
 import org.threeten.bp.temporal.ChronoUnit
@@ -39,18 +41,22 @@ class Jobs(private val dispatcher: FirebaseJobDispatcher) {
     /**
      * Register of possible tags
      */
-    enum class Tags {
+    enum class Tag {
         CARD_CHECK;
 
         override fun toString() = name
 
         companion object {
-            fun findByName(name: String): Tags {
+            fun findByName(name: String): Tag {
                 values().forEach {
-                    if (it.name == name) return it
+                    if (it.name.compareTo(name, ignoreCase = true) == 0) return it
                 }
                 throw IllegalArgumentException("No enum value found for: $name")
             }
         }
     }
+}
+
+private fun Job.Builder.setTag(tag: Jobs.Tag) {
+    this.tag = tag.toString()
 }

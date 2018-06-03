@@ -5,7 +5,7 @@ import com.antyzero.cardcheck.card.CardCheckResult
 import com.antyzero.cardcheck.data.CardTransformer
 import com.antyzero.cardcheck.dsl.extension.TAG
 import com.antyzero.cardcheck.dsl.extension.applicationComponent
-import com.antyzero.cardcheck.job.Jobs.Tags.CARD_CHECK
+import com.antyzero.cardcheck.job.Jobs.Tag.CARD_CHECK
 import com.antyzero.cardcheck.logger.Logger
 import com.antyzero.cardcheck.settings.Settings
 import com.antyzero.cardcheck.tracker.Tracker
@@ -32,7 +32,7 @@ class CardCheckJobService : JobService() {
 
     override fun onStartJob(job: JobParameters): Boolean {
 
-        when (Jobs.Tags.findByName(job.tag)) {
+        when (Jobs.Tag.findByName(job.tag)) {
 
             CARD_CHECK -> {
 
