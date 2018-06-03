@@ -12,16 +12,16 @@ import com.antyzero.cardcheck.card.Card
  * but each college have it's own sets of numbers, ergo, we can have 1234 album number in college
  * A, B, C to Z.
  */
-sealed class MpkCard(val clientId: Int, val cityCardId: Long?, val cardType: Type = Type.KKM) : Card() {
+sealed class MpkCard(val clientId: Long, val cityCardId: Long?, val cardType: Type = Type.KKM) : Card() {
 
-    class Kkm(clientId: Int, cardId: Long) : MpkCard(clientId, cityCardId = cardId, cardType = Type.KKM) {
+    class Kkm(clientId: Long, cardId: Long) : MpkCard(clientId, cityCardId = cardId, cardType = Type.KKM) {
 
         override fun toString(): String {
             return "KKM #$cityCardId"
         }
     }
 
-    class Student(clientId: Int, cardType: Type) : MpkCard(clientId = clientId, cityCardId = null, cardType = cardType) {
+    class Student(clientId: Long, cardType: Type) : MpkCard(clientId = clientId, cityCardId = null, cardType = cardType) {
 
         init {
             if (cardType == Type.KKM) {

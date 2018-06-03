@@ -64,11 +64,11 @@ class AddCardActivity : BaseActivity(), AddCardView, AdapterView.OnItemSelectedL
                 }
 
                 presenter.addCard(MpkCard.Kkm(
-                        editTextClientId.text.toString().toInt(),
+                        editTextClientId.text.toString().toLong(),
                         editTextCardId.text.toString().toLong()))
             } else {
                 presenter.addCard(MpkCard.Student(
-                        editTextClientId.text.toString().toInt(), cardType))
+                        editTextClientId.text.toString().toLong(), cardType))
             }
             finish()
         }
