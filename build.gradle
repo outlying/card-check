@@ -6,9 +6,9 @@ buildscript {
         kotlin_version = '1.2.41'
 
         androidVars = [
-                compileSdkVersion: 27,
-                minSdkVersion    : 21,
-                targetSdkVersion : 27
+                compileSdkVersion: 27 as Integer,
+                minSdkVersion    : 21 as Integer,
+                targetSdkVersion : 27 as Integer
         ]
 
         libVersion = [
