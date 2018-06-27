@@ -22,6 +22,9 @@ class AndroidScheduler : Scheduler {
                 CARD_CHECKING_WORK,
                 ExistingPeriodicWorkPolicy.REPLACE,
                 cardCheckWork)
+
+        val state = workManager.getStatusesForUniqueWork(CARD_CHECKING_WORK).value?.get(0)?.state
+        print(state)
     }
 
     override fun removeAll() {

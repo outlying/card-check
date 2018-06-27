@@ -2,6 +2,7 @@ package com.antyzero.cardcheck.card.mpk
 
 import com.antyzero.cardcheck.card.CardCheckResult
 import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should be instance of`
@@ -60,8 +61,8 @@ class CardVerificationTest {
             queue.add(response)
         }
 
-        override fun cardStatus(card: MpkCard, localDate: LocalDate): Flowable<String>
-                = Flowable.just(queue.poll())
+        override fun cardStatus(card: MpkCard, localDate: LocalDate): Single<String>
+                = Single.just(queue.poll())
 
     }
 }

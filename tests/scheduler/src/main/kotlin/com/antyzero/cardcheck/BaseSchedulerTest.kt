@@ -10,9 +10,11 @@ abstract class BaseSchedulerTest {
     abstract fun provideScheduler(): Scheduler
 
     @Test
-    fun addJobSchedule() {
+    fun addCardCheckSchedule() {
         val schedule = provideScheduler()
-        assertThat(schedule.scheduleCardsCheck()).isTrue()
+        assertThat(schedule.scheduleCardsCheck()) // isCalled
+
+
     }
 
     @Test
