@@ -6,6 +6,7 @@ import com.antyzero.cardcheck.job.JobModule
 import com.antyzero.cardcheck.localization.LocalizationModule
 import com.antyzero.cardcheck.logger.LoggerModule
 import com.antyzero.cardcheck.network.NetworkModule
+import com.antyzero.cardcheck.scheduler.CardCheckWorker
 import com.antyzero.cardcheck.settings.SettingsModule
 import com.antyzero.cardcheck.ui.notification.NotificationModule
 import com.antyzero.cardcheck.ui.screen.addcard.AddCardActivity
@@ -41,6 +42,7 @@ interface ApplicationComponent {
     fun inject(cardAdapter: CardAdapter)
     fun inject(settingsActivity: SettingsActivity)
     fun inject(settingsFragment: SettingsFragment)
+    fun inject(cardCheckWorker: CardCheckWorker)
 
     // Graph
 

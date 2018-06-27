@@ -19,12 +19,17 @@ class AndroidScheduler : Scheduler {
                 .build()
 
         workManager.enqueueUniquePeriodicWork(
-                cardCheckWork.hashCode().toString(), // TODO replace with something better
+                CARD_CHECKING_WORK,
                 ExistingPeriodicWorkPolicy.REPLACE,
                 cardCheckWork)
     }
 
     override fun removeAll() {
         workManager.cancelAllWork()
+    }
+
+    companion object {
+
+        private const val CARD_CHECKING_WORK = "some text"
     }
 }
