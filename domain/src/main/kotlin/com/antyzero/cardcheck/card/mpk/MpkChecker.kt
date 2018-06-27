@@ -5,6 +5,7 @@ import com.antyzero.cardcheck.card.Checker
 import com.antyzero.cardcheck.dsl.abs
 import com.antyzero.cardcheck.dsl.runIfTrue
 import io.reactivex.Observable
+import io.reactivex.Single
 import okhttp3.OkHttpClient
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
@@ -17,8 +18,8 @@ class MpkChecker(
         private val mpkSites: MpkSites,
         private val debug: Boolean = false) : Checker<MpkCard> {
 
-    override fun check(card: MpkCard, localDate: LocalDate): Observable<CardCheckResult> {
-        return Observable.defer { Observable.just(syncCheck(card, localDate)) }
+    override fun check(card: MpkCard, localDate: LocalDate): Single<CardCheckResult> {
+        return Single.defer { Single.just(syncCheck(card, localDate)) }
     }
 
     private fun syncCheck(card: MpkCard, localDate: LocalDate): CardCheckResult {
@@ -27,7 +28,7 @@ class MpkChecker(
 
         try {
 
-            val webSource = mpkSites.cardStatus(card, localDate).blockingFirst()
+            val webSource = mpkSites.cardStatus(card, localDate).blockingGet()
 
             "<!-- Index:Begin -->(.+)<!-- Index:End -->".toPattern(Pattern.DOTALL)
                     .matcher(webSource).run {

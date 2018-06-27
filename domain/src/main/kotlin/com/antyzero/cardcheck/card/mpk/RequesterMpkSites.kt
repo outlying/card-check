@@ -2,12 +2,13 @@ package com.antyzero.cardcheck.card.mpk
 
 import com.antyzero.cardcheck.network.Requester
 import io.reactivex.Flowable
+import io.reactivex.Single
 import okhttp3.HttpUrl
 import org.threeten.bp.LocalDate
 
 class RequesterMpkSites(private val requester: Requester) : MpkSites {
 
-    override fun cardStatus(card: MpkCard, localDate: LocalDate): Flowable<String> {
+    override fun cardStatus(card: MpkCard, localDate: LocalDate): Single<String> {
 
         val httpUrlBuilder = HttpUrl.parse("http://www.mpk.krakow.pl/pl/sprawdz-waznosc-biletu/index,1.html")!!.newBuilder()
 
@@ -31,5 +32,5 @@ class RequesterMpkSites(private val requester: Requester) : MpkSites {
 
 interface MpkSites {
 
-    fun cardStatus(card: MpkCard, localDate: LocalDate): Flowable<String>
+    fun cardStatus(card: MpkCard, localDate: LocalDate): Single<String>
 }

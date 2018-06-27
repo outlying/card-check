@@ -1,8 +1,8 @@
 package com.antyzero.cardcheck.network
 
-import io.reactivex.Flowable
+import io.reactivex.Single
 
 interface Requester {
 
-    fun get(url: String): Flowable<String>
+    fun get(url: String): Single<String>
 }

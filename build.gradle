@@ -15,7 +15,7 @@ buildscript {
                 android      : [
                         support: [
                                 appCompat : "${androidVars.targetSdkVersion}.1.1",
-                                constraint: '1.1.0'
+                                constraint: '1.1.2'
                         ],
                         gradle : '3.1.3'
                 ],
@@ -31,7 +31,7 @@ buildscript {
                 playPublisher: '1.2.2',
                 rx           : [
                         android: '2.0.2',
-                        java   : '2.1.14',
+                        java   : '2.1.16',
                         kotlin : "2.0.0-RC1"
                 ],
                 squareup     : [
@@ -54,10 +54,10 @@ buildscript {
                                 main         : '5.2.0'
                         ],
                         kluent  : '1.38',
-                        truth   : '0.40'
+                        truth   : '0.41'
                 ],
                 threeten     : '1.3.6',
-                versionPlugin: '0.17.0'
+                versionPlugin: '0.20.0'
 
         ]
     }

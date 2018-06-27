@@ -14,7 +14,7 @@ object CardTransformer {
             it.map {
                 Observable.zip(
                         Observable.just(it),
-                        checker.check(it),
+                        checker.check(it).toObservable(),
                         BiFunction<Card, CardCheckResult, Pair<Card, CardCheckResult>> { card, cardCheckResult ->
                             card to cardCheckResult
                         }

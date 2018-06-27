@@ -12,6 +12,7 @@ import com.antyzero.cardcheck.settings.Settings
 import com.antyzero.cardcheck.storage.FileStorage
 import com.antyzero.cardcheck.storage.PersistentStorage
 import io.reactivex.Observable
+import io.reactivex.Single
 import okhttp3.OkHttpClient
 import org.threeten.bp.LocalDate
 
@@ -23,7 +24,7 @@ class CardCheck(
 
     private val requester: Requester = OkHttpRequester(okHttpClient)
 
-    override fun check(card: Card, localDate: LocalDate): Observable<CardCheckResult> {
+    override fun check(card: Card, localDate: LocalDate): Single<CardCheckResult> {
 
         return when (card) {
             is MpkCard -> MpkChecker(RequesterMpkSites(requester)).check(card, localDate)
