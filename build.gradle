@@ -13,6 +13,9 @@ buildscript {
 
         libVersion = [
                 android      : [
+                        arch : [
+                                work: "1.0.0-alpha04"
+                        ],
                         support: [
                                 appCompat : "${androidVars.targetSdkVersion}.1.1",
                                 constraint: '1.1.2'

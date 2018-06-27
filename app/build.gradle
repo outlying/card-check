@@ -172,6 +172,10 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:${libVersion.rx.android}"
     implementation "io.reactivex.rxjava2:rxjava:${libVersion.rx.java}"
 
+    //WorkManager
+    implementation "android.arch.work:work-runtime-ktx:${libVersion.android.arch.work}"
+    implementation "android.arch.work:work-firebase:${libVersion.android.arch.work}"
+
     //Dagger 2 dependencies
     implementation "com.google.dagger:dagger:${libVersion.google.dagger}"
     kapt "com.google.dagger:dagger-compiler:${libVersion.google.dagger}"

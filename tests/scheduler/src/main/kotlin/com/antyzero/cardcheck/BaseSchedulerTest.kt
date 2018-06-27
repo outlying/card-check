@@ -2,7 +2,6 @@ package com.antyzero.cardcheck
 
 import com.antyzero.cardcheck.scheduler.Scheduler
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 
@@ -13,7 +12,7 @@ abstract class BaseSchedulerTest {
     @Test
     fun addJobSchedule() {
         val schedule = provideScheduler()
-        assertThat(schedule.addSchedule()).isTrue()
+        assertThat(schedule.scheduleCardsCheck()).isTrue()
     }
 
     @Test
