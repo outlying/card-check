@@ -11,7 +11,6 @@ abstract class BaseSchedulerTest {
     abstract fun provideScheduler(): Scheduler
 
     @Test
-    @Disabled // TODO not yet ready
     fun addJobSchedule() {
         val schedule = provideScheduler()
         assertThat(schedule.addSchedule()).isTrue()
