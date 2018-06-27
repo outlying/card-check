@@ -9,10 +9,11 @@ interface Settings {
 
         const val DEFAULT_DAYS_BEFORE_CARD_EXPIRES: Int = 5
 
+        @Suppress("UNUSED_PARAMETER")
         override var daysBeforeCardExpiration: Int
             get() = DEFAULT_DAYS_BEFORE_CARD_EXPIRES
             set(value) {
-                0 + 0
+                // do nothing
             }
     }
 }

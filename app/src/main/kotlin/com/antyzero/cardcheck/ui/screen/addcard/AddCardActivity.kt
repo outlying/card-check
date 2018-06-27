@@ -9,7 +9,6 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.antyzero.cardcheck.R
 import com.antyzero.cardcheck.card.mpk.MpkCard
-import com.antyzero.cardcheck.card.mpk.Type
 import com.antyzero.cardcheck.dsl.extension.browse
 import com.antyzero.cardcheck.dsl.extension.label
 import com.antyzero.cardcheck.dsl.extension.layoutInflater
@@ -50,8 +49,8 @@ class AddCardActivity : BaseActivity(), AddCardView, AdapterView.OnItemSelectedL
         button.setOnClickListener {
 
             // TODO data valid
-            val cardType = spinnerCardProvider.selectedItem as Type
-            if (cardType.typeId == Type.KKM.typeId) {
+            val cardType = spinnerCardProvider.selectedItem as MpkCard.Type
+            if (cardType.typeId == MpkCard.Type.KKM.typeId) {
 
                 val validator = ValidatorCollection().with(
                         TextViewValidator(editTextCardId).with(
@@ -79,7 +78,7 @@ class AddCardActivity : BaseActivity(), AddCardView, AdapterView.OnItemSelectedL
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        if (id == Type.KKM.typeId) {
+        if (id == MpkCard.Type.KKM.typeId) {
             editTextClientId.setHint(R.string.hint_client_number)
             editTextCardId.setHint(R.string.hint_kkm_card_number)
             editTextCardId.setVisible(true)
@@ -103,8 +102,8 @@ class CardProviderAdapter : BaseAdapter() {
         }
     }
 
-    override fun getItem(position: Int): Type {
-        return Type.values()[position]
+    override fun getItem(position: Int): MpkCard.Type {
+        return MpkCard.Type.values()[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -112,7 +111,7 @@ class CardProviderAdapter : BaseAdapter() {
     }
 
     override fun getCount(): Int {
-        return Type.values().size
+        return MpkCard.Type.values().size
     }
 
 }

@@ -12,16 +12,16 @@ import com.antyzero.cardcheck.card.Card
  * but each college have it's own sets of numbers, ergo, we can have 1234 album number in college
  * A, B, C to Z.
  */
-sealed class MpkCard(val clientId: Long, val cityCardId: Long?, val cardType: Type = Type.KKM) : Card() {
+sealed class MpkCard(val clientId: Long, val cardType: Type = Type.KKM) : Card() {
 
-    class Kkm(clientId: Long, cardId: Long) : MpkCard(clientId, cityCardId = cardId, cardType = Type.KKM) {
+    class Kkm(clientId: Long, val cityCardId: Long) : MpkCard(clientId, cardType = Type.KKM) {
 
         override fun toString(): String {
             return "KKM #$cityCardId"
         }
     }
 
-    class Student(clientId: Long, cardType: Type) : MpkCard(clientId = clientId, cityCardId = null, cardType = cardType) {
+    class Student(clientId: Long, cardType: Type) : MpkCard(clientId = clientId, cardType = cardType) {
 
         init {
             if (cardType == Type.KKM) {
@@ -44,7 +44,6 @@ sealed class MpkCard(val clientId: Long, val cityCardId: Long?, val cardType: Ty
         val kkm: Kkm = other as? Kkm ?: return false
 
         if (clientId != kkm.clientId) return false
-        if (cityCardId != kkm.cityCardId) return false
         if (cardType != kkm.cardType) return false
         return true
     }
@@ -52,9 +51,37 @@ sealed class MpkCard(val clientId: Long, val cityCardId: Long?, val cardType: Ty
     override fun hashCode(): Int {
         var result = cardType.hashCode()
         result = 31 * result + clientId.hashCode()
-        if (cityCardId != null) {
-            result = 31 * result + cityCardId.hashCode()
-        }
         return result
+    }
+
+    /**
+     * ...
+     */
+    enum class Type(val typeId: Long) {
+
+        /* Default type */
+        KKM(0),
+
+        /* Types for student college cards */
+        WZSIB(20),
+        AGH(21), UJ(22), PK(23), UE(24), UR(25), PWST(26), AM(27), WSE(28), AIK(29), UP(30), WSH(31), KA(32), WSEI(33), IFJ_PAN(34), IF_PAN(35), IKIFP_PAN(36)
+        ;
+
+        override fun toString(): String {
+            return name.replace("_", " ")
+        }
+
+        companion object {
+
+            fun findByTypeId(typeId: Number): Type {
+                val searchById = typeId.toLong()
+                values().forEach {
+                    if (it.typeId == searchById) {
+                        return it
+                    }
+                }
+                throw IllegalArgumentException("No enum value for type ID: $typeId")
+            }
+        }
     }
 }
