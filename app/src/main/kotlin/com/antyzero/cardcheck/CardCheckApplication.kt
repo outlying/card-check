@@ -18,9 +18,12 @@ class CardCheckApplication : Application() {
 
     lateinit var applicationComponent: ApplicationComponent
 
-    @Inject lateinit var cardCheck: CardCheck
-    @Inject lateinit var jobs: Jobs
-    @Inject lateinit var trackManager: TrackManager
+    @Inject
+    lateinit var cardCheck: CardCheck
+    @Inject
+    lateinit var jobs: Jobs
+    @Inject
+    lateinit var trackManager: TrackManager
 
     override fun onCreate() {
         super.onCreate()

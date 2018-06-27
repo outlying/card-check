@@ -19,7 +19,8 @@ class SettingsActivity : AppCompatActivity() {
 
 class SettingsFragment : PreferenceFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
 
-    @Inject lateinit var settings: ContextSettings
+    @Inject
+    lateinit var settings: ContextSettings
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

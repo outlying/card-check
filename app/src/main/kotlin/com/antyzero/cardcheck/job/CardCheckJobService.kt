@@ -19,11 +19,16 @@ import javax.inject.Inject
 
 class CardCheckJobService : JobService() {
 
-    @Inject lateinit var cardCheck: CardCheck
-    @Inject lateinit var cardNotification: CardNotification
-    @Inject lateinit var jobs: Jobs
-    @Inject lateinit var tracker: Tracker
-    @Inject lateinit var settings: Settings
+    @Inject
+    lateinit var cardCheck: CardCheck
+    @Inject
+    lateinit var cardNotification: CardNotification
+    @Inject
+    lateinit var jobs: Jobs
+    @Inject
+    lateinit var tracker: Tracker
+    @Inject
+    lateinit var settings: Settings
 
     override fun onCreate() {
         super.onCreate()

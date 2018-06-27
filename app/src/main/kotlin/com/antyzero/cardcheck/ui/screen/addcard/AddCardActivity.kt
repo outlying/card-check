@@ -1,7 +1,6 @@
 package com.antyzero.cardcheck.ui.screen.addcard
 
 import android.os.Bundle
-import android.text.InputFilter
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -98,8 +97,8 @@ class CardProviderAdapter : BaseAdapter() {
         val label = getItem(position).label(parent.context)
         return parent.context.layoutInflater()
                 .inflate(android.R.layout.simple_list_item_1, parent, false).apply {
-            findViewById<TextView>(android.R.id.text1).text = label
-        }
+                    findViewById<TextView>(android.R.id.text1).text = label
+                }
     }
 
     override fun getItem(position: Int): MpkCard.Type {

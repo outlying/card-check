@@ -9,7 +9,8 @@ import javax.inject.Inject
 
 class AddCardPresenter(context: Context) : Presenter<AddCardView> {
 
-    @Inject lateinit var cardCheck: CardCheck
+    @Inject
+    lateinit var cardCheck: CardCheck
     private lateinit var view: AddCardView
 
     init {

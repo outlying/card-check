@@ -2,7 +2,6 @@ package com.antyzero.cardcheck
 
 import android.content.Context
 import com.antyzero.cardcheck.card.mpk.MpkCard
-import com.antyzero.cardcheck.settings.ContextSettings
 import com.antyzero.cardcheck.settings.Settings
 import com.antyzero.cardcheck.storage.FileStorage
 import com.antyzero.cardcheck.storage.PersistentStorage

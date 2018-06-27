@@ -30,6 +30,7 @@ fun AlertDialog.Builder.setNegativeButton(pair: Pair<String, DialogInterface.OnC
     return this
 }
 
-fun Fragment.layoutInflater(): LayoutInflater = activity?.layoutInflater ?: throw IllegalStateException("Missing activity")
+fun Fragment.layoutInflater(): LayoutInflater = activity?.layoutInflater
+        ?: throw IllegalStateException("Missing activity")
 
 fun DialogFragment.show(appCompatActivity: AppCompatActivity, tag: String) = this.show(appCompatActivity.supportFragmentManager, tag)

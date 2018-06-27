@@ -20,7 +20,8 @@ import javax.inject.Inject
 
 class CardAdapter(context: Context, val cards: List<Pair<Card, CardCheckResult>>) : RecyclerView.Adapter<CardViewHolder>() {
 
-    @Inject lateinit var localization: Localization
+    @Inject
+    lateinit var localization: Localization
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private var internalSelectableMode: Boolean = false
@@ -110,7 +111,7 @@ class CardViewHolder(itemView: View, private val cardAdapter: CardAdapter, priva
         val (card, status) = cardData
 
         when (card) {
-            is MpkCard -> when(card) {
+            is MpkCard -> when (card) {
                 is MpkCard.Kkm -> textViewCardNameId.text = "%s \n#%s (%s)".format(card.cardType.label(context), card.cityCardId, card.clientId)
                 is MpkCard.Student -> textViewCardNameId.text = "%s \n(%s)".format(card.cardType.label(context), card.clientId)
             }

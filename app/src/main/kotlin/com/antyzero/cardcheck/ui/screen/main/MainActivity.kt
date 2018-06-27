@@ -6,7 +6,10 @@ import android.content.Intent.EXTRA_EMAIL
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.*
+import android.view.ActionMode
+import android.view.Menu
+import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.antyzero.cardcheck.R
